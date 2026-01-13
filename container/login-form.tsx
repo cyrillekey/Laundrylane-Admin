@@ -9,6 +9,7 @@ import {
   FieldSeparator,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import Image from "next/image";
 
 export function LoginForm({
   className,
@@ -87,12 +88,14 @@ export function LoginForm({
               </FieldDescription>
             </FieldGroup>
           </form>
-          <div className="bg-muted relative hidden md:block">
-            <img
-              src="/placeholder.svg"
-              alt="Image"
-              className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-            />
+          <div className="bg-muted relative hidden md:flex content-center items-center justify-center ">
+            <div className="w-64 h-32 ">
+              <Image
+                src={{ src: "/logos/logo.png", width: 1920, height: 1080 }}
+                alt="Image"
+                className="inset-0 object-cover dark:brightness-[0.2] dark:grayscale"
+              />
+            </div>
           </div>
         </CardContent>
       </Card>
