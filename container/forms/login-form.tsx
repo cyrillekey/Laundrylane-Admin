@@ -42,6 +42,7 @@ export function LoginForm({
       type: "initial",
     },
     validators: {
+      //@ts-expect-error error with zod type union
       onSubmit: schema,
     },
 
