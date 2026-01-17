@@ -1,8 +1,10 @@
+"use client";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Field,
   FieldDescription,
+  FieldError,
   FieldGroup,
   FieldLabel,
   FieldSeparator,
@@ -10,13 +12,81 @@ import {
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import logo from "@/public/logos/logo.png";
+import { Fragment } from "react";
+import { useForm } from "@tanstack/react-form";
+import z from "zod";
+import {
+  useCheckEmailMutation,
+  useLoginMutation,
+  useSignupMutation,
+} from "@/hooks/mutations";
+import { Spinner } from "@/components/ui/spinner";
+import Link from "next/link";
+
+import { toast } from "sonner";
+import AuthenticationService from "@/services/tokenService";
+import { useRouter } from "next/navigation";
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const { mutateAsync: checkEmail } = useCheckEmailMutation();
+  const { mutateAsync: signUp } = useSignupMutation();
+  const { mutateAsync: login } = useLoginMutation();
+  const router = useRouter();
+  const form = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+      name: "",
+      type: "initial",
+    },
+    validators: {
+      onSubmit: schema,
+    },
+
+    onSubmit: async ({ value, formApi }) => {
+      console.log(value);
+      if (value.type === "initial") {
+        const res = await checkEmail(value.email);
+        console.log(res);
+        if (res.registered) {
+          formApi.setFieldValue("type", () => "login");
+        } else {
+          formApi.setFieldValue("type", "register");
+        }
+      } else {
+        if (value.type === "register") {
+          const res = await signUp({
+            email: value.email,
+            password: value.password,
+            name: value.name,
+          });
+          console.log(res);
+        } else {
+          const res = await login({
+            email: value.email,
+            password: value.password,
+          });
+          if (res.success && res.token) {
+            AuthenticationService.setToken(res.token!);
+            router.push("/app");
+          } else {
+            toast.error("Error!", { description: res.message });
+          }
+        }
+      }
+    },
+  });
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <form>
+      <form
+        noValidate
+        onSubmit={(e) => {
+          e.preventDefault();
+          form.handleSubmit();
+        }}
+      >
         <FieldGroup>
           <div className="flex flex-col items-center gap-2 text-center">
             <a
@@ -30,20 +100,96 @@ export function LoginForm({
             </a>
             <h1 className="text-xl font-bold">Welcome to Laundry Lane.</h1>
             <FieldDescription>
-              Already have an account? <a href="#">Sign in</a>
+              We&apos;re excited to have you join our community!
             </FieldDescription>
           </div>
+          <form.Field name="email">
+            {(field) => {
+              const isInvalid =
+                field.state.meta.isTouched && !field.state.meta.isValid;
+              return (
+                <Field data-invalid={isInvalid}>
+                  <FieldLabel htmlFor="email">Email</FieldLabel>
+                  <Input
+                    id={field.name}
+                    disabled={form.getFieldValue("type") !== "initial"}
+                    name={field.name}
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    type="email"
+                    aria-invalid={isInvalid}
+                    placeholder="m@example.com"
+                    required
+                  />
+                  <FieldError errors={field.state.meta.errors} />
+                </Field>
+              );
+            }}
+          </form.Field>
+
+          <Fragment>
+            <form.Field name="name">
+              {(field) => {
+                const isInvalid =
+                  field.state.meta.isTouched && !field.state.meta.isValid;
+                return (
+                  <Field
+                    data-invalid={isInvalid}
+                    hidden={form.getFieldValue("type") !== "register"}
+                  >
+                    <FieldLabel htmlFor="name">Name</FieldLabel>
+                    <Input
+                      id={field.name}
+                      name={field.name}
+                      value={field.state.value}
+                      onBlur={field.handleBlur}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      type="text"
+                      aria-invalid={isInvalid}
+                      required
+                    />
+                    <FieldError errors={field.state.meta.errors} />
+                  </Field>
+                );
+              }}
+            </form.Field>
+            <form.Field name="password">
+              {(field) => {
+                const isInvalid =
+                  field.state.meta.isTouched && !field.state.meta.isValid;
+                return (
+                  <Field
+                    data-invalid={isInvalid}
+                    hidden={form.getFieldValue("type") == "initial"}
+                  >
+                    <FieldLabel htmlFor="password">Password</FieldLabel>
+                    <Input
+                      id={field.name}
+                      name={field.name}
+                      value={field.state.value}
+                      onBlur={field.handleBlur}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      type="password"
+                      aria-invalid={isInvalid}
+                      required
+                    />
+                    <FieldError errors={field.state.meta.errors} />
+                  </Field>
+                );
+              }}
+            </form.Field>
+          </Fragment>
+
           <Field>
-            <FieldLabel htmlFor="email">Email</FieldLabel>
-            <Input
-              id="email"
-              type="email"
-              placeholder="m@example.com"
-              required
-            />
-          </Field>
-          <Field>
-            <Button type="submit">Continue</Button>
+            <form.Subscribe>
+              {({ isSubmitting }) => (
+                <Button type="submit" disabled={isSubmitting}>
+                  {isSubmitting && <Spinner />}
+                  Continue
+                </Button>
+              )}
+            </form.Subscribe>
           </Field>
           <FieldSeparator>Or</FieldSeparator>
           <Field className="grid gap-4 sm:grid-cols-2">
@@ -69,9 +215,31 @@ export function LoginForm({
         </FieldGroup>
       </form>
       <FieldDescription className="px-6 text-center">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        By clicking continue, you agree to our{" "}
+        <Link href="/terms-of-service">Terms of Service</Link> and{" "}
+        <Link href="/privacy-policy">Privacy Policy</Link>.
       </FieldDescription>
     </div>
   );
 }
+
+const schema = z.discriminatedUnion("type", [
+  z.object({
+    type: z.literal("initial"),
+    email: z.string().email(),
+    password: z.string().optional(),
+    name: z.string().optional(),
+  }),
+  z.object({
+    type: z.literal("login"),
+    email: z.string().email(),
+    password: z.string().min(6, "Password is required for login"),
+    name: z.string().optional(),
+  }),
+  z.object({
+    type: z.literal("register"),
+    email: z.string().email(),
+    password: z.string().min(6, "Password min 6 chars"),
+    name: z.string().min(1, "Name is required for registration"),
+  }),
+]);
