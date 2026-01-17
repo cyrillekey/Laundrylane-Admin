@@ -53,3 +53,20 @@ export const useLoginMutation = () =>
       return reponse;
     },
   });
+
+export const useRequestPasswordReset = () =>
+  useMutation({
+    mutationKey: ["requestPasswordReset"],
+    mutationFn: async (payload: { email: string }): Promise<DefaultReponse> => {
+      const res = await fetch(
+        `${sharedValues.baseUrl}/authentication/resetPassword`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        },
+      );
+      const reposense = await res.json();
+      return reposense;
+    },
+  });

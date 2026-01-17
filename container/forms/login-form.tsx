@@ -50,7 +50,7 @@ export function LoginForm({
       console.log(value);
       if (value.type === "initial") {
         const res = await checkEmail(value.email);
-        console.log(res);
+
         if (res.registered) {
           formApi.setFieldValue("type", () => "login");
         } else {
@@ -63,7 +63,12 @@ export function LoginForm({
             password: value.password,
             name: value.name,
           });
-          console.log(res);
+          if (res.success && res.token) {
+            AuthenticationService.setToken(res.token!);
+            router.push("/app");
+          } else {
+            toast.error("Error!", { description: res.message });
+          }
         } else {
           const res = await login({
             email: value.email,
@@ -164,7 +169,15 @@ export function LoginForm({
                     data-invalid={isInvalid}
                     hidden={form.getFieldValue("type") == "initial"}
                   >
-                    <FieldLabel htmlFor="password">Password</FieldLabel>
+                    <div className="flex items-center">
+                      <FieldLabel htmlFor="password">Password</FieldLabel>
+                      <Link
+                        href="forgot-password"
+                        className="ml-auto text-sm underline-offset-4 hover:underline"
+                      >
+                        Forgot your password?
+                      </Link>
+                    </div>
                     <Input
                       id={field.name}
                       name={field.name}
