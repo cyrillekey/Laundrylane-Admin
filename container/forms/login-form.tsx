@@ -197,7 +197,14 @@ export function LoginForm({
               }}
             </form.Field>
           </Fragment>
-
+          {form.getFieldValue("type") == "initial" && (
+            <Link
+              href="forgot-password"
+              className="ml-auto text-sm underline-offset-4 hover:underline -mt-2"
+            >
+              Forgot your password?
+            </Link>
+          )}
           <Field>
             <form.Subscribe>
               {({ isSubmitting }) => (
@@ -208,6 +215,7 @@ export function LoginForm({
               )}
             </form.Subscribe>
           </Field>
+
           <FieldSeparator>Or</FieldSeparator>
           <Field className="grid gap-4 sm:grid-cols-2">
             <Button variant="outline" type="button">

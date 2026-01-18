@@ -91,3 +91,46 @@ export const useSocialLoginMutation = () => {
     },
   });
 };
+export const useVerifyPasswordOtpMutation = () => {
+  return useMutation({
+    mutationKey: ["verifyPasswordOtp"],
+    mutationFn: async (payload: {
+      email: string;
+      otp: string;
+    }): Promise<DefaultResponse> => {
+      const res = await fetch(
+        `${sharedValues.baseUrl}/authentication/resetpassword/validate-otp`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        },
+      );
+      const reposense = await res.json();
+      return reposense;
+    },
+  });
+};
+
+export const useUpdateUserPasswordMutation = () =>
+  useMutation({
+    mutationKey: ["updateUserPassword"],
+    mutationFn: async (payload: {
+      body: { password: string; confirmPassword: string };
+      token: string;
+    }): Promise<AuthResponse> => {
+      const res = await fetch(
+        `${sharedValues.baseUrl}/authentication/resetpassword/update-password`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${payload.token}`,
+          },
+          body: JSON.stringify(payload.body),
+        },
+      );
+      const reposense = await res.json();
+      return reposense;
+    },
+  });

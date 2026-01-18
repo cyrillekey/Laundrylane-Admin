@@ -19,12 +19,40 @@ import {
 import { useForm } from "@tanstack/react-form";
 import z from "zod";
 import { Spinner } from "@/components/ui/spinner";
+import {
+  useRequestPasswordReset,
+  useVerifyPasswordOtpMutation,
+} from "@/hooks/mutations";
+import { toast } from "sonner";
+import { useRouter, useSearchParams } from "next/navigation";
 
-export function OTPForm({ className, ...props }: React.ComponentProps<"div">) {
+export function OTPForm({
+  className,
+
+  ...props
+}: React.ComponentProps<"div">) {
+  const router = useRouter()
   const form = useForm({
     defaultValues: { otp: "" },
+    onSubmit: async ({ value }) => {
+      const res = await verifyPassword({
+        otp: value.otp,
+        email: searchParams.get("email")!,
+      });
+      if (res.success) {
+        router.push("/reset-password?token=" + res.message);
+        toast.success("Success!");
+      } else {
+        toast.error("Error!", { description: res.message });
+      }
+    },
     validators: { onSubmit: z.object({ otp: z.string().min(6) }) },
   });
+  const { mutateAsync: requestOtp, isPending: isLoading } =
+    useRequestPasswordReset();
+  const searchParams = useSearchParams();
+
+  const { mutateAsync: verifyPassword } = useVerifyPasswordOtpMutation();
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <form
@@ -81,8 +109,25 @@ export function OTPForm({ className, ...props }: React.ComponentProps<"div">) {
                     </InputOTPGroup>
                   </InputOTP>
                   <FieldError errors={field.state.meta.errors} />
-                  <FieldDescription className="text-center">
-                    Didn&apos;t receive the code? <a href="#">Resend</a>
+                  <FieldDescription className="text-center flex flex-row justify-center gap-1 items-center">
+                    Didn&apos;t receive the code?{" "}
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        requestOtp({
+                          email: searchParams.get("email")?.toString() || "",
+                        }).then((res) => {
+                          if (res.success) {
+                            toast.success(res.message);
+                          } else {
+                            toast.error(res.message);
+                          }
+                        });
+                      }}
+                    >
+                      {isLoading ? <Spinner /> : "Resend"}
+                    </a>
                   </FieldDescription>
                 </Field>
               );
@@ -91,7 +136,7 @@ export function OTPForm({ className, ...props }: React.ComponentProps<"div">) {
           <form.Subscribe>
             {({ isSubmitting }) => (
               <Field>
-                <Button type="submit">
+                <Button type="submit" disabled={isSubmitting}>
                   {isSubmitting && <Spinner />}
                   Verify
                 </Button>
