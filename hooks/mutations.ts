@@ -1,5 +1,6 @@
 import sharedValues from "@/utils/sharedValues";
 import { useMutation } from "@tanstack/react-query";
+import { AuthResponse, DefaultResponse } from ".";
 
 export const useCheckEmailMutation = () =>
   useMutation({
@@ -23,7 +24,7 @@ export const useSignupMutation = () =>
       email: string;
       password: string;
       name: string;
-    }): Promise<AuthReponse> => {
+    }): Promise<AuthResponse> => {
       const res = await fetch(`${sharedValues.baseUrl}/authentication/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -40,7 +41,7 @@ export const useLoginMutation = () =>
     mutationFn: async (payload: {
       email: string;
       password: string;
-    }): Promise<AuthReponse> => {
+    }): Promise<AuthResponse> => {
       const res = await fetch(`${sharedValues.baseUrl}/authentication/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -57,7 +58,9 @@ export const useLoginMutation = () =>
 export const useRequestPasswordReset = () =>
   useMutation({
     mutationKey: ["requestPasswordReset"],
-    mutationFn: async (payload: { email: string }): Promise<DefaultReponse> => {
+    mutationFn: async (payload: {
+      email: string;
+    }): Promise<DefaultResponse> => {
       const res = await fetch(
         `${sharedValues.baseUrl}/authentication/resetPassword`,
         {
@@ -70,3 +73,21 @@ export const useRequestPasswordReset = () =>
       return reposense;
     },
   });
+
+export const useSocialLoginMutation = () => {
+  return useMutation({
+    mutationKey: ["socialLogin"],
+    mutationFn: async (payload: { token: string }): Promise<AuthResponse> => {
+      const res = await fetch(
+        `${sharedValues.baseUrl}/authentication/social-auth `,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        },
+      );
+      const reponse = await res.json();
+      return reponse;
+    },
+  });
+};

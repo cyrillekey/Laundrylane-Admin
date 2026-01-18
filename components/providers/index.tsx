@@ -8,7 +8,7 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <TanStackDevtools plugins={[formDevtoolsPlugin()]} />
-      <Toaster position="top-center" />
+      <Toaster position="top-center"   />
       <>{children}</>
     </QueryClientProvider>
   );
