@@ -9,11 +9,12 @@ import { toast } from "sonner";
 import { useSocialLoginMutation } from "@/hooks/mutations";
 import { useRouter } from "next/navigation";
 import AuthenticationService from "@/services/tokenService";
+import { captureException } from "@sentry/nextjs";
 
 const GoogleAuthButton = () => {
   const [isLoading, setIsloading] = useState<boolean>(false);
   const { mutateAsync: socialLogin } = useSocialLoginMutation();
-  const router = useRouter()
+  const router = useRouter();
   return (
     <Button
       variant="outline"
@@ -30,9 +31,9 @@ const GoogleAuthButton = () => {
               token: await response.user.getIdToken(),
             });
             if (authResponse.success) {
-                AuthenticationService.setToken(authResponse.token!);
-                AuthenticationService.setUser(authResponse.user!);
-                router.push("/app")
+              AuthenticationService.setToken(authResponse.token!);
+              AuthenticationService.setUser(authResponse.user!);
+              router.push("/app");
             } else {
               toast.error(authResponse.message);
             }
@@ -40,6 +41,7 @@ const GoogleAuthButton = () => {
             toast.error("Something went wrong, please try again later");
           }
         } catch (error) {
+          captureException(error);
           setIsloading(false);
           if (error instanceof FirebaseError) {
             switch (error.code) {
