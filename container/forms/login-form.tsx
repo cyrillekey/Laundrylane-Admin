@@ -82,7 +82,9 @@ export function LoginForm({
               AuthenticationService.setUser(res.user!);
               router.push("/app");
             } else {
-              toast.error("Error!", { description: "Only admin can login to the admin portal" });
+              toast.error("Error!", {
+                description: "Only admin can login to the admin portal",
+              });
             }
           } else {
             toast.error("Error!", { description: res.message });
@@ -179,6 +181,10 @@ export function LoginForm({
                     <div className="flex items-center">
                       <FieldLabel htmlFor="password">Password</FieldLabel>
                       <Link
+                        hidden={
+                          form.getFieldValue("type") == "initial" ||
+                          form.getFieldValue("type") == "register"
+                        }
                         href="forgot-password"
                         className="ml-auto text-sm underline-offset-4 hover:underline"
                       >
