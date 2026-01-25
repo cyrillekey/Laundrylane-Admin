@@ -17,7 +17,7 @@ export interface IUser {
   email: string;
   name: string;
   phone: string;
-  role: string;
+  role: "ADMIN" | "CUSTOMER";
   lastLoginDate: Date;
   dateOfBirth: Date;
   userName: string;

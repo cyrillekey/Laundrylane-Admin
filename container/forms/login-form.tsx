@@ -76,10 +76,14 @@ export function LoginForm({
             email: value.email,
             password: value.password,
           });
-          if (res.success && res.token) {
-            AuthenticationService.setToken(res.token!);
-            AuthenticationService.setUser(res.user!);
-            router.push("/app");
+          if (res.success && res.token && res.user) {
+            if (res.user.role == "ADMIN") {
+              AuthenticationService.setToken(res.token!);
+              AuthenticationService.setUser(res.user!);
+              router.push("/app");
+            } else {
+              toast.error("Error!", { description: "Only admin can login to the admin portal" });
+            }
           } else {
             toast.error("Error!", { description: res.message });
           }

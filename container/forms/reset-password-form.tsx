@@ -57,10 +57,17 @@ export function ResetPasswordForm({
       });
 
       if (response.success) {
-        router.push("/app");
+        if (response.user?.role != "ADMIN") {
+          toast.error("Error!", {
+            description: "Only admin can login to the admin portal",
+          });
+          return;
+        }
+
         AuthenticationService.setToken(response.token!);
         AuthenticationService.setUser(response.user!);
         toast.success("Success!", { description: response.message });
+        router.push("/app");
       } else {
         router.push("/");
         toast.error("Error!", { description: response.message });

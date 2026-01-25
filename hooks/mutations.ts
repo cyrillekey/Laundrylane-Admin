@@ -28,7 +28,7 @@ export const useSignupMutation = () =>
       const res = await fetch(`${sharedValues.baseUrl}/authentication/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({...payload,role: "ADMIN"}),
       });
       const reponse = await res.json();
       return reponse;

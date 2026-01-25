@@ -31,9 +31,14 @@ const GoogleAuthButton = () => {
               token: await response.user.getIdToken(),
             });
             if (authResponse.success) {
-              AuthenticationService.setToken(authResponse.token!);
-              AuthenticationService.setUser(authResponse.user!);
-              router.push("/app");
+              if (authResponse?.user?.role == "ADMIN") {
+                AuthenticationService.setToken(authResponse.token!);
+                AuthenticationService.setUser(authResponse.user!);
+                router.push("/app");
+              } else
+                toast.error("Error!", {
+                  description: "Only admin can login to the admin portal",
+                });
             } else {
               toast.error(authResponse.message);
             }
