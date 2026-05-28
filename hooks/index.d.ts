@@ -1,3 +1,4 @@
+import { PostAuthenticationLoginResponses } from "@/queries/types.gen";
 interface DefaultResponse {
   id?: number;
   success: boolean;
@@ -12,17 +13,4 @@ interface AuthResponse {
   user?: IUser;
 }
 
-export interface IUser {
-  id: number;
-  email: string;
-  name: string;
-  phone: string;
-  role: "ADMIN" | "CUSTOMER";
-  lastLoginDate: Date;
-  dateOfBirth: Date;
-  userName: string;
-  gender: string;
-  avatar: string;
-  createdat: string;
-  updatedat: string;
-}
+type IUser = PostAuthenticationLoginResponses["200"]["user"];
