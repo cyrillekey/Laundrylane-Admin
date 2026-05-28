@@ -25,8 +25,10 @@ import { Avatar } from "@radix-ui/react-avatar";
 import { AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Spinner } from "../ui/spinner";
 import { getInitials } from "@/lib/utils";
+import { CreateStoreDialog } from "@/container/forms/create-store-dialog";
 
 export function StoreSwitcher() {
+  const [open, setOpen] = React.useState(false);
   const { isMobile } = useSidebar();
   const { data: teamsResponse, isPending: fetchingStores } = useQuery({
     ...getStoreOptions(),
@@ -34,10 +36,6 @@ export function StoreSwitcher() {
   const { selectedStoreId, setSelectedStoreId } = useSelectedStore();
   const teams = teamsResponse || [];
   const activeTeam = teams.find((team) => team.id === selectedStoreId);
-
-  if (!activeTeam) {
-    return null;
-  }
 
   return (
     <SidebarMenu>
@@ -52,13 +50,13 @@ export function StoreSwitcher() {
                 <Avatar>
                   <AvatarImage src={activeTeam?.logo || undefined} />
                   <AvatarFallback>
-                    {getInitials(activeTeam.name || "")}
+                    {getInitials(activeTeam?.name || "")}
                   </AvatarFallback>
                 </Avatar>
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{activeTeam.name}</span>
-                <span className="truncate text-xs">{activeTeam.location}</span>
+                <span className="truncate font-medium">{activeTeam?.name}</span>
+                <span className="truncate text-xs">{activeTeam?.location}</span>
               </div>
               <ChevronsUpDown className="ml-auto" />
             </SidebarMenuButton>
@@ -97,7 +95,13 @@ export function StoreSwitcher() {
               ))
             )}
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="gap-2 p-2">
+            <DropdownMenuItem
+              className="gap-2 p-2"
+              onSelect={(e) => {
+                e.preventDefault();
+                setOpen(true);
+              }}
+            >
               <div className="flex size-6 items-center justify-center rounded-md border bg-transparent">
                 <Plus className="size-4" />
               </div>
@@ -107,6 +111,7 @@ export function StoreSwitcher() {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+        <CreateStoreDialog open={open} onOpenChange={setOpen} />
       </SidebarMenuItem>
     </SidebarMenu>
   );

@@ -1,11 +1,11 @@
 "use client";
 
 import {
-  BadgeCheck,
   Bell,
   ChevronsUpDown,
   CreditCard,
   LogOut,
+  Settings,
   Sparkles,
 } from "lucide-react";
 
@@ -25,14 +25,24 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { Badge } from "@/components/ui/badge";
 import AuthenticationService from "@/services/tokenService";
 import { useRouter } from "next/navigation";
 import { getInitials } from "@/lib/utils";
+import { useQuery } from "@tanstack/react-query";
+import { getNotificationsUnreadCountOptions } from "@/queries/@tanstack/react-query.gen";
+import Link from "next/link";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
   const router = useRouter();
   const user = AuthenticationService.getUser();
+
+  const { data: unreadData } = useQuery({
+    ...getNotificationsUnreadCountOptions(),
+  });
+
+  const unreadCount = unreadData?.count ?? 0;
 
   return (
     <SidebarMenu>
@@ -41,8 +51,11 @@ export function NavUser() {
           <DropdownMenuTrigger className={"w-full"}>
             <SidebarMenuButton
               size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground relative"
             >
+              {unreadCount > 0 && (
+                <span className="absolute top-1.5 right-1.5 size-2 rounded-full bg-primary ring-2 ring-sidebar" />
+              )}
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={user?.avatar} alt={user?.name} />
                 <AvatarFallback className="rounded-lg">
@@ -85,24 +98,31 @@ export function NavUser() {
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <BadgeCheck />
-                Account
-              </DropdownMenuItem>
+              <Link href={"/app/settings"}>
+                <DropdownMenuItem>
+                  <Settings />
+                  Settings
+                </DropdownMenuItem>
+              </Link>
               <DropdownMenuItem>
                 <CreditCard />
                 Billing
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Bell />
-                Notifications
+                <span className="flex-1">Notifications</span>
+                {unreadCount > 0 && (
+                  <Badge className="size-5 rounded-full p-0 text-xs leading-5 text-center">
+                    {unreadCount > 99 ? "99+" : unreadCount}
+                  </Badge>
+                )}
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={() => {
                 AuthenticationService.logOut();
-                router.push("/");
+                router.replace("/");
               }}
             >
               <LogOut />

@@ -1,3 +1,3 @@
 export default function AppDashboard() {
-  return <div></div>;
+  return <div style={{border:"solid green"}}>assa</div>;
 }

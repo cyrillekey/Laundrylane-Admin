@@ -1,3 +1,3 @@
 export default function OrdersPage() {
-  return <div></div>;
+  return <div className="p-8"></div>;
 }
