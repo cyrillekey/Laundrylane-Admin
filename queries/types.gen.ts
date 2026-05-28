@@ -486,7 +486,7 @@ export type PostAuthenticationSignupResponses = {
             email?: string;
             name?: string;
             phone?: string;
-            role?: 'USER' | 'ADMIN';
+            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
             lastLoginDate?: string;
             dateOfBirth?: string;
             userName?: string;
@@ -566,7 +566,7 @@ export type PostAuthenticationLoginResponses = {
             email?: string;
             name?: string;
             phone?: string;
-            role?: 'USER' | 'ADMIN';
+            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
             lastLoginDate?: string;
             dateOfBirth?: string;
             userName?: string;
@@ -618,7 +618,7 @@ export type PostAuthenticationSocialAuthResponses = {
             email?: string;
             name?: string;
             phone?: string;
-            role?: 'USER' | 'ADMIN';
+            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
             lastLoginDate?: string;
             dateOfBirth?: string;
             userName?: string;
@@ -796,7 +796,7 @@ export type PutAuthenticationResetpasswordUpdatePasswordResponses = {
             email?: string;
             name?: string;
             phone?: string;
-            role?: 'USER' | 'ADMIN';
+            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
             lastLoginDate?: string;
             dateOfBirth?: string;
             userName?: string;
@@ -4456,7 +4456,7 @@ export type GetUserResponses = {
         email?: string;
         name?: string;
         phone?: string;
-        role?: 'USER' | 'ADMIN';
+        role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
         lastLoginDate?: string;
         dateOfBirth?: string;
         userName?: string;
@@ -4512,7 +4512,7 @@ export type PutUserResponses = {
             email?: string;
             name?: string;
             phone?: string;
-            role?: 'USER' | 'ADMIN';
+            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
             lastLoginDate?: string;
             dateOfBirth?: string;
             userName?: string;

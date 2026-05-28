@@ -11,9 +11,7 @@ import { useRouter } from "next/navigation";
 import AuthenticationService from "@/services/tokenService";
 import { captureException } from "@sentry/nextjs";
 import { useMutation } from "@tanstack/react-query";
-import {
-  postAuthenticationSocialAuthMutation,
-} from "@/queries/@tanstack/react-query.gen";
+import { postAuthenticationSocialAuthMutation } from "@/queries/@tanstack/react-query.gen";
 
 const GoogleAuthButton = () => {
   const [isLoading, setIsloading] = useState<boolean>(false);
@@ -39,7 +37,10 @@ const GoogleAuthButton = () => {
               },
             });
             if (authResponse.success) {
-              if (authResponse?.user?.role == "ADMIN") {
+              if (
+                authResponse?.user?.role == "ORGANISATION_ADMIN" ||
+                authResponse?.user?.role == "ORGANISATION_USER"
+              ) {
                 AuthenticationService.setToken(authResponse.token!);
                 AuthenticationService.setUser(authResponse.user!);
                 router.push("/app");

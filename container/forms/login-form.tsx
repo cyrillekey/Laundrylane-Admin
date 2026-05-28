@@ -90,7 +90,10 @@ export function LoginForm({
             },
           });
           if (res.success && res.token && res.user) {
-            if (res.user.role == "ADMIN") {
+            if (
+              res.user.role == "ORGANISATION_ADMIN" ||
+              res.user.role == "ORGANISATION_USER"
+            ) {
               AuthenticationService.setToken(res.token!);
               AuthenticationService.setUser(res.user!);
               router.push("/app");

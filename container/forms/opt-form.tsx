@@ -19,25 +19,29 @@ import {
 import { useForm } from "@tanstack/react-form";
 import z from "zod";
 import { Spinner } from "@/components/ui/spinner";
-import {
-  useRequestPasswordReset,
-  useVerifyPasswordOtpMutation,
-} from "@/hooks/mutations";
+
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import {
+  postAuthenticationResetPasswordMutation,
+  postAuthenticationResetpasswordValidateOtpMutation,
+} from "@/queries/@tanstack/react-query.gen";
 
 export function OTPForm({
   className,
 
   ...props
 }: React.ComponentProps<"div">) {
-  const router = useRouter()
+  const router = useRouter();
   const form = useForm({
     defaultValues: { otp: "" },
     onSubmit: async ({ value }) => {
       const res = await verifyPassword({
-        otp: value.otp,
-        email: searchParams.get("email")!,
+        body: {
+          otp: value.otp,
+          email: searchParams.get("email")!,
+        },
       });
       if (res.success) {
         router.push("/reset-password?token=" + res.message);
@@ -48,11 +52,14 @@ export function OTPForm({
     },
     validators: { onSubmit: z.object({ otp: z.string().min(6) }) },
   });
-  const { mutateAsync: requestOtp, isPending: isLoading } =
-    useRequestPasswordReset();
+  const { mutateAsync: requestOtp, isPending: isLoading } = useMutation({
+    ...postAuthenticationResetPasswordMutation(),
+  });
   const searchParams = useSearchParams();
 
-  const { mutateAsync: verifyPassword } = useVerifyPasswordOtpMutation();
+  const { mutateAsync: verifyPassword } = useMutation({
+    ...postAuthenticationResetpasswordValidateOtpMutation(),
+  });
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <form
@@ -116,7 +123,9 @@ export function OTPForm({
                       onClick={(e) => {
                         e.preventDefault();
                         requestOtp({
-                          email: searchParams.get("email")?.toString() || "",
+                          body: {
+                            email: searchParams.get("email")?.toString() || "",
+                          },
                         }).then((res) => {
                           if (res.success) {
                             toast.success(res.message);

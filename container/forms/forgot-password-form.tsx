@@ -13,17 +13,20 @@ import Image from "next/image";
 import logo from "@/public/logos/logo.png";
 import { useForm } from "@tanstack/react-form";
 import z from "zod";
-import { useRequestPasswordReset } from "@/hooks/mutations";
 import { Spinner } from "@/components/ui/spinner";
 
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useMutation } from "@tanstack/react-query";
+import { postAuthenticationResetPasswordMutation } from "@/queries/@tanstack/react-query.gen";
 export function ForgotPasswordForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
   const router = useRouter();
-  const { mutateAsync: resetPassword } = useRequestPasswordReset();
+  const { mutateAsync: resetPassword } = useMutation({
+    ...postAuthenticationResetPasswordMutation(),
+  });
   const form = useForm({
     defaultValues: {
       email: "",
@@ -35,7 +38,7 @@ export function ForgotPasswordForm({
     },
 
     onSubmit: async ({ value }) => {
-      const res = await resetPassword({ email: value.email });
+      const res = await resetPassword({ body: { email: value.email } });
       if (res.success) {
         router.push("/email-verify?email=" + value.email);
       } else {

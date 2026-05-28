@@ -3,11 +3,9 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Field,
-  FieldDescription,
   FieldError,
   FieldGroup,
   FieldLabel,
-  FieldSeparator,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
@@ -15,18 +13,12 @@ import logo from "@/public/logos/logo.png";
 import { Fragment } from "react";
 import { useForm } from "@tanstack/react-form";
 import z from "zod";
-import {
-  useCheckEmailMutation,
-  useLoginMutation,
-  useSignupMutation,
-  useUpdateUserPasswordMutation,
-} from "@/hooks/mutations";
 import { Spinner } from "@/components/ui/spinner";
-import Link from "next/link";
 
 import { toast } from "sonner";
-import AuthenticationService from "@/services/tokenService";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import { postAuthenticationResetpasswordConfirmMutation } from "@/queries/@tanstack/react-query.gen";
 
 export function ResetPasswordForm({
   className,
@@ -34,7 +26,9 @@ export function ResetPasswordForm({
 }: React.ComponentProps<"div">) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { mutateAsync: resetPassword } = useUpdateUserPasswordMutation();
+  const { mutateAsync: resetPassword } = useMutation({
+    ...postAuthenticationResetpasswordConfirmMutation(),
+  });
   const form = useForm({
     defaultValues: {
       password: "",
@@ -51,23 +45,13 @@ export function ResetPasswordForm({
       const response = await resetPassword({
         body: {
           password: value.password,
-          confirmPassword: value.confirmPassword,
+          token: searchParams.get("token")!,
         },
-        token: searchParams.get("token")!,
       });
 
       if (response.success) {
-        if (response.user?.role != "ADMIN") {
-          toast.error("Error!", {
-            description: "Only admin can login to the admin portal",
-          });
-          return;
-        }
-
-        AuthenticationService.setToken(response.token!);
-        AuthenticationService.setUser(response.user!);
         toast.success("Success!", { description: response.message });
-        router.push("/app");
+        router.push("/login");
       } else {
         router.push("/");
         toast.error("Error!", { description: response.message });
