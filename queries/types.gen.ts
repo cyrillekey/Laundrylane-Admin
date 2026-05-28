@@ -451,12 +451,7 @@ export type PostAuthenticationSignupData = {
         email: string;
         phone?: string;
         fcmToken?: string;
-        role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN';
-        organisationName?: string;
-        organisationAddress?: string;
-        organisationTel?: string;
-        organisationEmail?: string;
-        organisationWebsite?: string;
+        role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
     };
     path?: never;
     query?: never;
@@ -889,17 +884,14 @@ export type GetCatalogResponses = {
 };
 
 export type PostCatalogByStoreIdData = {
-    /**
-     * Catalog Item Input
-     */
-    body: {
+    body?: Array<{
         name: string;
         description: string;
         price: number;
         imageUrl: string;
         services: Array<string>;
         bulk: boolean;
-    };
+    }>;
     path: {
         storeId: number;
     };
@@ -1101,12 +1093,12 @@ export type GetCatalogServiceTypesResponses = {
 export type GetCatalogServiceTypesResponse = GetCatalogServiceTypesResponses[keyof GetCatalogServiceTypesResponses];
 
 export type PostCatalogServiceTypesByStoreIdData = {
-    body: {
+    body?: Array<{
         name: string;
         description?: string;
         price: number;
         serviceTimelines: string;
-    };
+    }>;
     path: {
         storeId: number;
     };
@@ -1323,6 +1315,61 @@ export type GetCatalogClothesResponses = {
 };
 
 export type GetCatalogClothesResponse = GetCatalogClothesResponses[keyof GetCatalogClothesResponses];
+
+export type PostCatalogClothesByStoreIdData = {
+    body?: Array<{
+        name: string;
+        type: string;
+        price: number;
+    }>;
+    path: {
+        storeId: number;
+    };
+    query?: never;
+    url: '/catalog/clothes/{storeId}';
+};
+
+export type PostCatalogClothesByStoreIdErrors = {
+    /**
+     * Default Response
+     */
+    401: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+    /**
+     * Default Response
+     */
+    403: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PostCatalogClothesByStoreIdError = PostCatalogClothesByStoreIdErrors[keyof PostCatalogClothesByStoreIdErrors];
+
+export type PostCatalogClothesByStoreIdResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PostCatalogClothesByStoreIdResponse = PostCatalogClothesByStoreIdResponses[keyof PostCatalogClothesByStoreIdResponses];
 
 export type PostChatSessionData = {
     body: {
@@ -3452,7 +3499,7 @@ export type PostPaymentsMethodByStoreIdData = {
     body: {
         name: string;
         description: string;
-        type: 'MPESA' | 'ASTRA' | 'BUNI' | 'PAYSTACK' | 'MANUAL';
+        type: 'MPESA_NUMBER' | 'MPESA_PAYBILL' | 'MPESA_BUY_GOODS' | 'AIRTEL_NUMBER' | 'BANKACCOUNT';
         enabled: boolean;
         configuration?: {
             [key: string]: unknown;
@@ -3530,7 +3577,7 @@ export type PutPaymentsMethodByPaymentMethodIdData = {
     body?: {
         name?: string;
         description?: string;
-        type?: 'MPESA' | 'ASTRA' | 'BUNI' | 'PAYSTACK' | 'MANUAL';
+        type?: 'MPESA_NUMBER' | 'MPESA_PAYBILL' | 'MPESA_BUY_GOODS' | 'AIRTEL_NUMBER' | 'BANKACCOUNT';
         enabled?: boolean;
         configuration?: {
             [key: string]: unknown;

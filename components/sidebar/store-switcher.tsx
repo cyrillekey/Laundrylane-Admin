@@ -19,18 +19,21 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useQuery } from "@tanstack/react-query";
-import {
-  getStoreOptions,
-} from "@/queries/@tanstack/react-query.gen";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { getStoreOptions } from "@/queries/@tanstack/react-query.gen";
+import { useSelectedStore } from "@/stores/selected-store";
+import { Avatar } from "@radix-ui/react-avatar";
+import { AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Spinner } from "../ui/spinner";
+import { getInitials } from "@/lib/utils";
 
 export function StoreSwitcher() {
   const { isMobile } = useSidebar();
   const { data: teamsResponse, isPending: fetchingStores } = useQuery({
     ...getStoreOptions(),
   });
+  const { selectedStoreId, setSelectedStoreId } = useSelectedStore();
   const teams = teamsResponse || [];
-  const [activeTeam, setActiveTeam] = React.useState(teams[0]);
+  const activeTeam = teams.find((team) => team.id === selectedStoreId);
 
   if (!activeTeam) {
     return null;
@@ -48,7 +51,9 @@ export function StoreSwitcher() {
               <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
                 <Avatar>
                   <AvatarImage src={activeTeam?.logo || undefined} />
-                  <AvatarFallback>CN</AvatarFallback>
+                  <AvatarFallback>
+                    {getInitials(activeTeam.name || "")}
+                  </AvatarFallback>
                 </Avatar>
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
@@ -58,45 +63,49 @@ export function StoreSwitcher() {
               <ChevronsUpDown className="ml-auto" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
-          {fetchingStores ? (
-            <React.Fragment></React.Fragment>
-          ) : (
-            <DropdownMenuContent
-              className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-              align="start"
-              side={isMobile ? "bottom" : "right"}
-              sideOffset={4}
-            >
-              <DropdownMenuLabel className="text-muted-foreground text-xs">
-                Stores
-              </DropdownMenuLabel>
-              {teams.map((team, index) => (
+          <DropdownMenuContent
+            className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
+            align="start"
+            side={isMobile ? "bottom" : "right"}
+            sideOffset={4}
+          >
+            <DropdownMenuLabel className="text-muted-foreground text-xs">
+              Stores
+            </DropdownMenuLabel>
+            {fetchingStores ? (
+              <React.Fragment>
+                <Spinner />
+              </React.Fragment>
+            ) : (
+              teams.map((team, index) => (
                 <DropdownMenuItem
                   key={team.name}
-                  onClick={() => setActiveTeam(team)}
+                  onClick={() => setSelectedStoreId(team.id!)}
                   className="gap-2 p-2"
                 >
                   <div className="flex size-6 items-center justify-center rounded-md border">
                     <Avatar>
                       <AvatarImage src={team?.logo || undefined} />
-                      <AvatarFallback>CN</AvatarFallback>
+                      <AvatarFallback>
+                        {getInitials(team?.name || "")}
+                      </AvatarFallback>
                     </Avatar>
                   </div>
                   {team.name}
                   <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
                 </DropdownMenuItem>
-              ))}
-              <DropdownMenuSeparator />
-              <DropdownMenuItem className="gap-2 p-2">
-                <div className="flex size-6 items-center justify-center rounded-md border bg-transparent">
-                  <Plus className="size-4" />
-                </div>
-                <div className="text-muted-foreground font-medium">
-                  Create new store
-                </div>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          )}
+              ))
+            )}
+            <DropdownMenuSeparator />
+            <DropdownMenuItem className="gap-2 p-2">
+              <div className="flex size-6 items-center justify-center rounded-md border bg-transparent">
+                <Plus className="size-4" />
+              </div>
+              <div className="text-muted-foreground font-medium">
+                Create new store
+              </div>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
     </SidebarMenu>

@@ -34,7 +34,7 @@ export type StoreFormValues = z.infer<typeof storeSchema> & {
 };
 
 const DAYS = [
-  { value: 0, label: "Sun" },
+  { value: 7, label: "Sun" },
   { value: 1, label: "Mon" },
   { value: 2, label: "Tue" },
   { value: 3, label: "Wed" },

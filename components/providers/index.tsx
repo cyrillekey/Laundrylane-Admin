@@ -1,6 +1,6 @@
 "use client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { TanStackDevtools } from "@tanstack/react-devtools";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "../ui/sonner";
 
 import sharedValues from "@/utils/sharedValues";
@@ -22,7 +22,7 @@ const queryClient = new QueryClient();
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <TanStackDevtools />
+      <ReactQueryDevtools initialIsOpen={true} />
       <Toaster position="top-center" />
       <>{children}</>
     </QueryClientProvider>
