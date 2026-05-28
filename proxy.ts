@@ -13,7 +13,7 @@ export default function middleware(request: NextRequest) {
     }
     return NextResponse.next();
   }
-  if (request.nextUrl.pathname.startsWith("/app")) {
+  if (request.nextUrl.pathname.startsWith("/app") || request.nextUrl.pathname.startsWith("/onboarding")) {
     const cookie = request.cookies.get(sharedValues.token_key);
     if (!cookie) {
       return NextResponse.redirect(new URL("/login", request.url));

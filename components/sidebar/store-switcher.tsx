@@ -19,17 +19,17 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useQuery } from "@tanstack/react-query";
-import { getStore } from "@/queries";
-import { getStoreQueryKey } from "@/queries/@tanstack/react-query.gen";
+import {
+  getStoreOptions,
+} from "@/queries/@tanstack/react-query.gen";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 export function StoreSwitcher() {
   const { isMobile } = useSidebar();
   const { data: teamsResponse, isPending: fetchingStores } = useQuery({
-    queryFn: () => getStore({}),
-    queryKey: getStoreQueryKey(),
+    ...getStoreOptions(),
   });
-  const teams = teamsResponse?.data || [];
+  const teams = teamsResponse || [];
   const [activeTeam, setActiveTeam] = React.useState(teams[0]);
 
   if (!activeTeam) {

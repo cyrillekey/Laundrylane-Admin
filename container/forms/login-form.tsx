@@ -15,11 +15,7 @@ import logo from "@/public/logos/logo.png";
 import { Fragment } from "react";
 import { useForm } from "@tanstack/react-form";
 import z from "zod";
-import {
-  useCheckEmailMutation,
-  useLoginMutation,
-  useSignupMutation,
-} from "@/hooks/mutations";
+
 import { Spinner } from "@/components/ui/spinner";
 import Link from "next/link";
 
@@ -27,13 +23,25 @@ import { toast } from "sonner";
 import AuthenticationService from "@/services/tokenService";
 import { useRouter } from "next/navigation";
 import GoogleAuthButton from "@/components/shared/GoogleAuth";
+import { useMutation } from "@tanstack/react-query";
+import {
+  postAuthenticationEmailMutation,
+  postAuthenticationLoginMutation,
+  postAuthenticationSignupMutation,
+} from "@/queries/@tanstack/react-query.gen";
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const { mutateAsync: checkEmail } = useCheckEmailMutation();
-  const { mutateAsync: signUp } = useSignupMutation();
-  const { mutateAsync: login } = useLoginMutation();
+  const { mutateAsync: checkEmail } = useMutation({
+    ...postAuthenticationEmailMutation(),
+  });
+  const { mutateAsync: signUp } = useMutation({
+    ...postAuthenticationSignupMutation(),
+  });
+  const { mutateAsync: login } = useMutation({
+    ...postAuthenticationLoginMutation(),
+  });
   const router = useRouter();
   const form = useForm({
     defaultValues: {
@@ -50,7 +58,7 @@ export function LoginForm({
     onSubmit: async ({ value, formApi }) => {
       console.log(value);
       if (value.type === "initial") {
-        const res = await checkEmail(value.email);
+        const res = await checkEmail({ body: { email: value.email } });
 
         if (res.registered) {
           formApi.setFieldValue("type", () => "login");
@@ -60,21 +68,26 @@ export function LoginForm({
       } else {
         if (value.type === "register") {
           const res = await signUp({
-            email: value.email,
-            password: value.password,
-            name: value.name,
+            body: {
+              email: value.email,
+              password: value.password,
+              name: value.name,
+              role: "ORGANISATION_ADMIN",
+            },
           });
           if (res.success && res.token) {
             AuthenticationService.setToken(res.token!);
             AuthenticationService.setUser(res.user!);
-            router.push("/app");
+            router.push("/onboarding");
           } else {
             toast.error("Error!", { description: res.message });
           }
         } else {
           const res = await login({
-            email: value.email,
-            password: value.password,
+            body: {
+              value: value.email,
+              password: value.password,
+            },
           });
           if (res.success && res.token && res.user) {
             if (res.user.role == "ADMIN") {

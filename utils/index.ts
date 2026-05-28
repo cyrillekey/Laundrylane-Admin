@@ -16,7 +16,7 @@ function encryptPlainText(plainText: string, key: string): string {
 }
 
 function decryptCipherText(cipherText: string, key: string): string {
-  const ivCiphertext = Buffer.from(cipherText, "base64url");
+  const ivCiphertext = Buffer.from(cipherText, "base64");
   const iv = ivCiphertext.subarray(0, 16);
   const ciphertext = ivCiphertext.subarray(16);
   const cipher = crypto.createDecipheriv(

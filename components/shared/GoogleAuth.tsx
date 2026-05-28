@@ -6,14 +6,20 @@ import { Fragment, useState } from "react";
 import { Spinner } from "../ui/spinner";
 import { FirebaseError } from "firebase/app";
 import { toast } from "sonner";
-import { useSocialLoginMutation } from "@/hooks/mutations";
+
 import { useRouter } from "next/navigation";
 import AuthenticationService from "@/services/tokenService";
 import { captureException } from "@sentry/nextjs";
+import { useMutation } from "@tanstack/react-query";
+import {
+  postAuthenticationSocialAuthMutation,
+} from "@/queries/@tanstack/react-query.gen";
 
 const GoogleAuthButton = () => {
   const [isLoading, setIsloading] = useState<boolean>(false);
-  const { mutateAsync: socialLogin } = useSocialLoginMutation();
+  const { mutateAsync: socialLogin } = useMutation({
+    ...postAuthenticationSocialAuthMutation(),
+  });
   const router = useRouter();
   return (
     <Button
@@ -28,7 +34,9 @@ const GoogleAuthButton = () => {
           const response = await signInWithPopup(auth, provider);
           if (response.user.uid) {
             const authResponse = await socialLogin({
-              token: await response.user.getIdToken(),
+              body: {
+                token: await response.user.getIdToken(),
+              },
             });
             if (authResponse.success) {
               if (authResponse?.user?.role == "ADMIN") {
