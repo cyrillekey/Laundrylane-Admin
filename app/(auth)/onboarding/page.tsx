@@ -312,9 +312,16 @@ export default function OnboardingStepper() {
         <div className="pointer-events-none absolute -bottom-20 -left-20 size-60 rounded-full bg-primary-foreground/5 blur-3xl" />
 
         <div className="relative z-10">
-          <a href="#" className="inline-flex items-center gap-2.5 font-medium mb-14">
+          <a
+            href="#"
+            className="inline-flex items-center gap-2.5 font-medium mb-14"
+          >
             <div className="flex size-9 items-center justify-center rounded-xl bg-white/15 ring-1 ring-white/20 backdrop-blur-sm">
-              <Image src={logo} alt="Laundry Lane" className="size-5 brightness-0 invert" />
+              <Image
+                src={logo}
+                alt="Laundry Lane"
+                className="size-5 brightness-0 invert"
+              />
             </div>
             <span className="text-base tracking-tight">Laundry Lane</span>
           </a>
@@ -327,7 +334,7 @@ export default function OnboardingStepper() {
           </div>
 
           <div className="space-y-2.5">
-            {perks.map((perk, i) => (
+            {perks.map((perk) => (
               <div
                 key={perk.title}
                 className="group flex items-start gap-3.5 rounded-xl px-3 py-2.5 transition-all duration-200 hover:bg-white/5"
@@ -336,8 +343,12 @@ export default function OnboardingStepper() {
                   <perk.icon className="size-4" />
                 </div>
                 <div className="min-w-0 pt-0.5">
-                  <p className="text-sm font-semibold tracking-tight">{perk.title}</p>
-                  <p className="text-primary-foreground/65 text-xs leading-relaxed">{perk.description}</p>
+                  <p className="text-sm font-semibold tracking-tight">
+                    {perk.title}
+                  </p>
+                  <p className="text-primary-foreground/65 text-xs leading-relaxed">
+                    {perk.description}
+                  </p>
                 </div>
               </div>
             ))}
@@ -352,7 +363,10 @@ export default function OnboardingStepper() {
       </aside>
 
       <main className="flex flex-1 flex-col items-center justify-center p-6 md:p-10">
-        <a href="#" className="flex items-center gap-2 font-medium mb-8 lg:hidden">
+        <a
+          href="#"
+          className="flex items-center gap-2 font-medium mb-8 lg:hidden"
+        >
           <Image src={logo} alt="Laundry Lane" className="h-10 w-auto" />
           Laundry Lane
         </a>

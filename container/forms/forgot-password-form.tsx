@@ -40,7 +40,7 @@ export function ForgotPasswordForm({
     onSubmit: async ({ value }) => {
       const res = await resetPassword({ body: { email: value.email } });
       if (res.success) {
-        router.push("/email-verify?email=" + value.email);
+        router.push("/otp-verify?email=" + value.email);
       } else {
         toast.error("Error!", { description: res.message });
       }

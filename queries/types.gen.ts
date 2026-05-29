@@ -486,6 +486,7 @@ export type PostAuthenticationSignupResponses = {
             email?: string;
             name?: string;
             phone?: string;
+            isVerified?: boolean;
             role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
             lastLoginDate?: string;
             dateOfBirth?: string;
@@ -500,6 +501,113 @@ export type PostAuthenticationSignupResponses = {
 };
 
 export type PostAuthenticationSignupResponse = PostAuthenticationSignupResponses[keyof PostAuthenticationSignupResponses];
+
+export type PostAuthenticationSignupResendOtpData = {
+    body: {
+        email: string;
+    };
+    path?: never;
+    query?: never;
+    url: '/authentication/signup/resend-otp';
+};
+
+export type PostAuthenticationSignupResendOtpErrors = {
+    /**
+     * Default Response
+     */
+    400: {
+        success?: boolean;
+        message?: string;
+    };
+    /**
+     * Default Response
+     */
+    429: {
+        success?: boolean;
+        message?: string;
+        retryAfter?: number;
+    };
+    /**
+     * Default Response
+     */
+    500: {
+        success?: boolean;
+        message?: string;
+    };
+};
+
+export type PostAuthenticationSignupResendOtpError = PostAuthenticationSignupResendOtpErrors[keyof PostAuthenticationSignupResendOtpErrors];
+
+export type PostAuthenticationSignupResendOtpResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        success?: boolean;
+        message?: string;
+    };
+};
+
+export type PostAuthenticationSignupResendOtpResponse = PostAuthenticationSignupResendOtpResponses[keyof PostAuthenticationSignupResendOtpResponses];
+
+export type PostAuthenticationSignupVerifyOtpData = {
+    body: {
+        email: string;
+        otp: string;
+    };
+    path?: never;
+    query?: never;
+    url: '/authentication/signup/verify-otp';
+};
+
+export type PostAuthenticationSignupVerifyOtpErrors = {
+    /**
+     * Default Response
+     */
+    400: {
+        success?: boolean;
+        message?: string;
+    };
+    /**
+     * Default Response
+     */
+    500: {
+        success?: boolean;
+        message?: string;
+    };
+};
+
+export type PostAuthenticationSignupVerifyOtpError = PostAuthenticationSignupVerifyOtpErrors[keyof PostAuthenticationSignupVerifyOtpErrors];
+
+export type PostAuthenticationSignupVerifyOtpResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        id?: number;
+        success?: boolean;
+        message?: string;
+        token?: string;
+        user?: {
+            id?: number;
+            email?: string;
+            name?: string;
+            phone?: string;
+            isVerified?: boolean;
+            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
+            lastLoginDate?: string;
+            dateOfBirth?: string;
+            userName?: string;
+            gender?: string;
+            avatar?: string;
+            createdat?: string;
+            organisationId?: number;
+            updatedat?: string;
+        };
+    };
+};
+
+export type PostAuthenticationSignupVerifyOtpResponse = PostAuthenticationSignupVerifyOtpResponses[keyof PostAuthenticationSignupVerifyOtpResponses];
 
 export type PostAuthenticationLoginData = {
     body: {
@@ -566,6 +674,7 @@ export type PostAuthenticationLoginResponses = {
             email?: string;
             name?: string;
             phone?: string;
+            isVerified?: boolean;
             role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
             lastLoginDate?: string;
             dateOfBirth?: string;
@@ -618,6 +727,7 @@ export type PostAuthenticationSocialAuthResponses = {
             email?: string;
             name?: string;
             phone?: string;
+            isVerified?: boolean;
             role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
             lastLoginDate?: string;
             dateOfBirth?: string;
@@ -796,6 +906,7 @@ export type PutAuthenticationResetpasswordUpdatePasswordResponses = {
             email?: string;
             name?: string;
             phone?: string;
+            isVerified?: boolean;
             role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
             lastLoginDate?: string;
             dateOfBirth?: string;
@@ -2740,43 +2851,11 @@ export type GetOrderErrors = {
     /**
      * Default Response
      */
-    default: Array<{
+    default: {
+        message?: string;
+        success?: boolean;
         id?: number;
-        date?: string;
-        pickupDate?: string | null;
-        pickupTime?: string | null;
-        orderStatus?: 'PENDING' | 'IN_PROGRESS' | 'READY_FOR_PICKUP' | 'READY_FOR_DELIVERY' | 'OUT_FOR_DELIVERY' | 'COMPLETED' | 'CANCELLED';
-        orderType?: 'PICKUP' | 'DELIVERY' | 'PICKUP_AND_DELIVERY';
-        deliveryWindow?: string | null;
-        instructions?: string | null;
-        weight?: number | null;
-        washType?: string;
-        deliveryFee?: number;
-        total?: number;
-        userId?: number;
-        serviceTypeId?: number;
-        serviceType?: {
-            id?: number;
-            name?: string;
-            description?: string | null;
-            price?: number;
-            serviceTimelines?: string;
-        };
-        productCatalog?: {
-            id?: number;
-            name?: string;
-            description?: string;
-            price?: number;
-            imageUrl?: string | null;
-            services?: Array<string>;
-            bulk?: boolean;
-            createdat?: string;
-            updatedat?: string;
-        };
-        createdat?: string;
-        updatedat?: string;
-        itemsCount?: number;
-    }>;
+    };
 };
 
 export type GetOrderError = GetOrderErrors[keyof GetOrderErrors];
@@ -4456,6 +4535,7 @@ export type GetUserResponses = {
         email?: string;
         name?: string;
         phone?: string;
+        isVerified?: boolean;
         role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
         lastLoginDate?: string;
         dateOfBirth?: string;
@@ -4512,6 +4592,7 @@ export type PutUserResponses = {
             email?: string;
             name?: string;
             phone?: string;
+            isVerified?: boolean;
             role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
             lastLoginDate?: string;
             dateOfBirth?: string;

@@ -78,7 +78,7 @@ export function LoginForm({
           if (res.success && res.token) {
             AuthenticationService.setToken(res.token!);
             AuthenticationService.setUser(res.user!);
-            router.push("/onboarding");
+            router.push("/email-verify");
           } else {
             toast.error("Error!", { description: res.message });
           }
