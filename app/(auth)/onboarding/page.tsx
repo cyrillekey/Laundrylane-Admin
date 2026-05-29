@@ -264,113 +264,101 @@ export default function OnboardingStepper() {
   }
 
   return (
-    <div className="flex min-h-svh flex-col lg:flex-row">
-      <main className="flex flex-1 flex-col items-center justify-center p-6 md:p-10">
-        <a
-          href="#"
-          className="flex items-center gap-2 font-medium mb-8 lg:hidden"
-        >
-          <Image src={logo} alt="Laundry Lane" className="h-10 w-auto" />
-          Laundry Lane
-        </a>
+    <main className="flex flex-1 flex-col items-center justify-center p-6 md:p-10">
+      <a
+        href="#"
+        className="flex items-center gap-2 font-medium mb-8 lg:hidden"
+      >
+        <Image src={logo} alt="Laundry Lane" className="h-10 w-auto" />
+        Laundry Lane
+      </a>
 
-        <div className="flex items-center justify-center gap-2 mb-6">
-          {steps.map((s, i) => (
-            <div key={s.id} className="flex items-center gap-2">
-              <div
-                className={`flex size-8 items-center justify-center rounded-full text-sm font-medium transition-colors ${
-                  i === step
-                    ? "bg-primary text-primary-foreground"
-                    : i < step
-                      ? "bg-primary/20 text-primary"
-                      : "bg-muted text-muted-foreground"
-                }`}
-              >
-                {i < step ? "✓" : i + 1}
-              </div>
-              <span
-                className={`text-sm hidden sm:inline ${
-                  i === step
-                    ? "text-foreground font-medium"
-                    : "text-muted-foreground"
-                }`}
-              >
-                {s.title}
-              </span>
-              {i < steps.length - 1 && (
-                <div
-                  className={`hidden sm:block w-8 h-px ${
-                    i < step ? "bg-primary" : "bg-border"
-                  }`}
-                />
-              )}
-            </div>
-          ))}
-        </div>
-
-        <div className="w-full max-w-md">
-          {step === 0 && (
-            <OrganisationForm
-              initialValues={
-                org
-                  ? {
-                      organisationName: org.name,
-                      organisationAddress: org.address,
-                      organisationEmail: org.email ?? undefined,
-                      organisationTel: org.tel ?? undefined,
-                      organisationWebsite: org.website ?? undefined,
-                    }
-                  : undefined
-              }
-              onSubmit={handleOrganisationSubmit}
-              isSubmitting={savingOrg}
+      <div className="flex items-center justify-center gap-1.5 mb-6 w-full max-w-md">
+        {steps.map((s, i) => (
+          <div key={s.id} className="flex-1">
+            <div
+              className={`h-2 w-full rounded-full transition-all duration-300 ${
+                i < step
+                  ? "bg-primary"
+                  : i === step
+                    ? "bg-primary/60 shadow-sm"
+                    : "bg-muted"
+              }`}
             />
-          )}
+          </div>
+        ))}
+      </div>
 
-          {step === 1 && (
-            <StoreForm
-              onBack={() => setStep(0)}
-              onSubmit={handleCreateStore}
-              isCreating={creatingStore}
-            />
-          )}
-
-          {step === 2 && (
-            <PaymentMethodForm
-              onSubmit={handleCreatePaymentMethod}
-              isSubmitting={creatingPayment}
-              onSkip={handleSkipPayment}
-            />
-          )}
-
-          {step === 3 && (
-            <CatalogForm
-              onSubmit={handleCreateCatalog}
-              isSubmitting={creatingCatalog}
-              onSkip={handleSkipCatalog}
-              onBack={handleBackToPayment}
-            />
-          )}
-
-          {step === 4 && (
-            <ServiceTypeForm
-              onSubmit={handleCreateServiceTypes}
-              isSubmitting={creatingServiceTypes}
-              onSkip={handleSkipServiceTypes}
-              onBack={handleBackToCatalog}
-            />
-          )}
-
-          {step === 5 && (
-            <ClothTypeForm
-              onSubmit={handleCreateClothTypes}
-              isSubmitting={creatingClothTypes}
-              onSkip={handleSkipClothTypes}
-              onBack={handleBackToServiceTypes}
-            />
+      <div className="w-full max-w-md">
+        <div className="mb-6 text-center">
+          <h1 className="text-xl font-semibold">{steps[step].title}</h1>
+          {steps[step].description && (
+            <p className="text-sm text-muted-foreground mt-1">
+              {steps[step].description}
+            </p>
           )}
         </div>
-      </main>
-    </div>
+        {step === 0 && (
+          <OrganisationForm
+            initialValues={
+              org
+                ? {
+                    organisationName: org.name,
+                    organisationAddress: org.address,
+                    organisationEmail: org.email ?? undefined,
+                    organisationTel: org.tel ?? undefined,
+                    organisationWebsite: org.website ?? undefined,
+                  }
+                : undefined
+            }
+            onSubmit={handleOrganisationSubmit}
+            isSubmitting={savingOrg}
+          />
+        )}
+
+        {step === 1 && (
+          <StoreForm
+            onBack={() => setStep(0)}
+            onSubmit={handleCreateStore}
+            isCreating={creatingStore}
+          />
+        )}
+
+        {step === 2 && (
+          <PaymentMethodForm
+            onSubmit={handleCreatePaymentMethod}
+            isSubmitting={creatingPayment}
+            onSkip={handleSkipPayment}
+          />
+        )}
+
+        {step === 3 && (
+          <CatalogForm
+            onSubmit={handleCreateCatalog}
+            isSubmitting={creatingCatalog}
+            onSkip={handleSkipCatalog}
+            onBack={handleBackToPayment}
+          />
+        )}
+
+        {step === 4 && (
+          <ServiceTypeForm
+            onSubmit={handleCreateServiceTypes}
+            isSubmitting={creatingServiceTypes}
+            onSkip={handleSkipServiceTypes}
+            onBack={handleBackToCatalog}
+          />
+        )}
+
+        {step === 5 && (
+          <ClothTypeForm
+            onSubmit={handleCreateClothTypes}
+            isSubmitting={creatingClothTypes}
+            onSkip={handleSkipClothTypes}
+            onBack={handleBackToServiceTypes}
+          />
+        )}
+      </div>
+    </main>
   );
 }
