@@ -5,6 +5,7 @@ import {
   LaundryIllustrationTall,
 } from "@/components/shared/laundry-illustration";
 import Image from "next/image";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Laundry Lane Authentication",
@@ -23,9 +24,11 @@ export default function RootLayout({
         <LaundryIllustrationTall className="absolute inset-0 w-full h-full" />
         <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background/10 z-10" />
         <div className="relative z-20 flex flex-col justify-between h-full p-12 lg:p-16">
-          <div>
-            <Image src={logo} alt="Laundry Lane" className="h-10 w-auto" />
-          </div>
+          <Link href={"/"}>
+            <div>
+              <Image src={logo} alt="Laundry Lane" className="h-10 w-auto" />
+            </div>
+          </Link>
           <div className="max-w-md">
             <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-[#4A3F35] leading-tight">
               Everything you need to run your laundry business
@@ -54,7 +57,7 @@ export default function RootLayout({
 
       {/* Right panel — form */}
       <div className="flex-1 md:w-1/2 flex items-center justify-center p-6 md:p-10 bg-background">
-        <div className="w-full">{children}</div>
+        <div className="w-full max-w-sm">{children}</div>
       </div>
 
       {/* Mobile bottom illustration */}

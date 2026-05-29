@@ -13,6 +13,7 @@ import {
   MessageCircle,
   LifeBuoy,
   BookOpen,
+  ShoppingBasket
 } from "lucide-react";
 
 import { NavCategories } from "@/components/sidebar/nav-categories";
@@ -43,6 +44,11 @@ const categories = [
           { title: "History", url: "/app/orders?status=history" },
         ],
       },
+      {
+        title: "Point of Sale",
+        url: "/app/pos",
+        icon: ShoppingBasket
+      }
     ],
   },
   {
