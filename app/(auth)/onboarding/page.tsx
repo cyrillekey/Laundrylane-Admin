@@ -4,14 +4,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import {
-  Store,
-  Package,
-  CreditCard,
-  Shirt,
-  Clock,
-  Sparkles,
-} from "lucide-react";
 import logo from "@/public/logos/logo.png";
 import {
   OrganisationForm,
@@ -78,39 +70,6 @@ const steps = [
     id: "cloth-types",
     title: "Cloth Types",
     description: "Define cloth types you support",
-  },
-];
-
-const perks = [
-  {
-    icon: Store,
-    title: "Multi-store Management",
-    description: "Manage all your laundry locations from one dashboard",
-  },
-  {
-    icon: Package,
-    title: "Smart Catalog",
-    description: "Create and organise your laundry services and pricing",
-  },
-  {
-    icon: CreditCard,
-    title: "Payment Integration",
-    description: "Accept M-Pesa, Airtel Money, bank transfers and more",
-  },
-  {
-    icon: Shirt,
-    title: "Cloth Type Catalog",
-    description: "Define pricing for different garment types effortlessly",
-  },
-  {
-    icon: Clock,
-    title: "Service Timelines",
-    description: "Set turnaround times for standard and express services",
-  },
-  {
-    icon: Sparkles,
-    title: "Real-time Tracking",
-    description: "Track orders, notifications, and business insights live",
   },
 ];
 
@@ -306,62 +265,6 @@ export default function OnboardingStepper() {
 
   return (
     <div className="flex min-h-svh flex-col lg:flex-row">
-      <aside className="relative hidden lg:flex lg:w-1/3 flex-col justify-between overflow-hidden bg-gradient-to-br from-primary via-primary to-primary/90 p-10 text-primary-foreground sticky top-0 h-svh">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.08),transparent_60%)]" />
-        <div className="pointer-events-none absolute -top-20 -right-20 size-80 rounded-full bg-primary-foreground/5 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-20 -left-20 size-60 rounded-full bg-primary-foreground/5 blur-3xl" />
-
-        <div className="relative z-10">
-          <a
-            href="#"
-            className="inline-flex items-center gap-2.5 font-medium mb-14"
-          >
-            <div className="flex size-9 items-center justify-center rounded-xl bg-white/15 ring-1 ring-white/20 backdrop-blur-sm">
-              <Image
-                src={logo}
-                alt="Laundry Lane"
-                className="size-5 brightness-0 invert"
-              />
-            </div>
-            <span className="text-base tracking-tight">Laundry Lane</span>
-          </a>
-
-          <div className="mb-12 space-y-0.5">
-            <h2 className="text-[1.65rem] font-bold leading-tight tracking-tight">
-              Everything you need to run your laundry business
-            </h2>
-            <div className="mt-3 h-1 w-12 rounded-full bg-primary-foreground/20" />
-          </div>
-
-          <div className="space-y-2.5">
-            {perks.map((perk) => (
-              <div
-                key={perk.title}
-                className="group flex items-start gap-3.5 rounded-xl px-3 py-2.5 transition-all duration-200 hover:bg-white/5"
-              >
-                <div className="mt-0.5 shrink-0 flex size-8 items-center justify-center rounded-lg bg-white/10 text-primary-foreground ring-1 ring-white/10 transition-all duration-200 group-hover:bg-white/15 group-hover:ring-white/20">
-                  <perk.icon className="size-4" />
-                </div>
-                <div className="min-w-0 pt-0.5">
-                  <p className="text-sm font-semibold tracking-tight">
-                    {perk.title}
-                  </p>
-                  <p className="text-primary-foreground/65 text-xs leading-relaxed">
-                    {perk.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="relative z-10 border-t border-white/10 pt-6">
-          <p className="text-primary-foreground/40 text-xs">
-            &copy; {new Date().getFullYear()} Laundry Lane
-          </p>
-        </div>
-      </aside>
-
       <main className="flex flex-1 flex-col items-center justify-center p-6 md:p-10">
         <a
           href="#"
