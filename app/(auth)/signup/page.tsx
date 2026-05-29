@@ -1,3 +1,3 @@
-import LoginPage from "@/app/page"
+import LoginPage from "@/app/(auth)/login/page";
 
-export default LoginPage
+export default LoginPage;

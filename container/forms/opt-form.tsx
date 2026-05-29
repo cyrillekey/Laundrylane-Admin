@@ -27,6 +27,7 @@ import {
   postAuthenticationResetPasswordMutation,
   postAuthenticationResetpasswordValidateOtpMutation,
 } from "@/queries/@tanstack/react-query.gen";
+import { useEffect } from "react";
 
 export function OTPForm({
   className,
@@ -60,6 +61,11 @@ export function OTPForm({
   const { mutateAsync: verifyPassword } = useMutation({
     ...postAuthenticationResetpasswordValidateOtpMutation(),
   });
+  useEffect(() => {
+    if (!searchParams.get("email")) {
+      router.push("/forgot-password");
+    }
+  }, [searchParams, router]);
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <form
