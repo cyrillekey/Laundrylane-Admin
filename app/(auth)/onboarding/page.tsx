@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import logo from "@/public/logos/logo.png";
 import {
@@ -20,10 +20,8 @@ import {
   postCatalogByStoreIdMutation,
   postCatalogServiceTypesByStoreIdMutation,
   postCatalogClothesByStoreIdMutation,
-  getOrganisationUserOptions,
   getOrganisationUserQueryKey,
 } from "@/queries/@tanstack/react-query.gen";
-import { Spinner } from "@/components/ui/spinner";
 import AuthenticationService from "@/services/tokenService";
 import {
   PaymentMethodForm,
@@ -80,10 +78,6 @@ export default function OnboardingStepper() {
   const { selectedStoreId, setSelectedStoreId } = useSelectedStore();
   const queryClient = useQueryClient();
 
-  const { data: orgs, isFetching: loadingOrg } = useQuery({
-    ...getOrganisationUserOptions(),
-  });
-
   const { mutateAsync: upsertOrg, isPending: savingOrg } = useMutation({
     ...putOrganisationByIdMutation(),
   });
@@ -111,8 +105,6 @@ export default function OnboardingStepper() {
     useMutation({
       ...postCatalogClothesByStoreIdMutation(),
     });
-
-  const org = orgs;
 
   const handleOrganisationSubmit = async (values: OrganisationFormValues) => {
     const response = await upsertOrg({
@@ -256,14 +248,6 @@ export default function OnboardingStepper() {
     setStep(4);
   };
 
-  if (loadingOrg) {
-    return (
-      <div className="flex min-h-svh items-center justify-center">
-        <Spinner className="size-6" />
-      </div>
-    );
-  }
-
   return (
     <main className="flex flex-1 flex-col items-center justify-center p-6 md:p-10">
       <a
@@ -301,17 +285,6 @@ export default function OnboardingStepper() {
         </div>
         {step === 0 && (
           <OrganisationForm
-            initialValues={
-              org
-                ? {
-                    organisationName: org.name,
-                    organisationAddress: org.address,
-                    organisationEmail: org.email ?? undefined,
-                    organisationTel: org.tel ?? undefined,
-                    organisationWebsite: org.website ?? undefined,
-                  }
-                : undefined
-            }
             onSubmit={handleOrganisationSubmit}
             isSubmitting={savingOrg}
           />

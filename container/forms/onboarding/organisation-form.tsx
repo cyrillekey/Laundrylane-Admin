@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "@tanstack/react-form";
+import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import {
   Field,
@@ -10,6 +11,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
+import { getOrganisationUserOptions } from "@/queries/@tanstack/react-query.gen";
 import z from "zod";
 
 const organisationSchema = z.object({
@@ -23,23 +25,25 @@ const organisationSchema = z.object({
 export type OrganisationFormValues = z.infer<typeof organisationSchema>;
 
 interface OrganisationFormProps {
-  initialValues?: Partial<OrganisationFormValues>;
   onSubmit: (values: OrganisationFormValues) => Promise<void>;
   isSubmitting?: boolean;
 }
 
 export function OrganisationForm({
-  initialValues,
   onSubmit,
   isSubmitting = false,
 }: OrganisationFormProps) {
+  const { data: org } = useQuery({
+    ...getOrganisationUserOptions(),
+  });
+
   const form = useForm({
     defaultValues: {
-      organisationName: initialValues?.organisationName ?? "",
-      organisationAddress: initialValues?.organisationAddress ?? "",
-      organisationTel: initialValues?.organisationTel ?? "",
-      organisationEmail: initialValues?.organisationEmail ?? "",
-      organisationWebsite: initialValues?.organisationWebsite ?? "",
+      organisationName: org?.name ?? "",
+      organisationAddress: org?.address ?? "",
+      organisationTel: org?.tel ?? "",
+      organisationEmail: org?.email ?? "",
+      organisationWebsite: org?.website ?? "",
     },
     validators: {
       //@ts-expect-error error with zod type

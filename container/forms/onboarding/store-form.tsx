@@ -94,24 +94,27 @@ export function StoreForm({ onBack, onSubmit, isCreating }: StoreFormProps) {
       }}
     >
       <FieldGroup>
-        <div className="relative rounded-xl overflow-hidden border">
-          <form.Field name="coverImage">
-            {(field) => <CoverImageUpload value={field.state.value} onChange={(url) => field.handleChange(url)} />}
-          </form.Field>
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 z-10">
-            <form.Field name="logo">
-              {(field) => (
-                <CloudinaryUpload
-                  value={field.state.value}
-                  onChange={(url) => field.handleChange(url)}
-                  className="!size-20 rounded-full shadow-lg border-2 border-background"
-                />
-              )}
+        <Field>
+          <FieldLabel>Store Branding</FieldLabel>
+          <div className="relative rounded-xl overflow-hidden border">
+            <form.Field name="coverImage">
+              {(field) => <CoverImageUpload value={field.state.value} onChange={(url) => field.handleChange(url)} />}
             </form.Field>
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 z-10">
+              <form.Field name="logo">
+                {(field) => (
+                  <CloudinaryUpload
+                    value={field.state.value}
+                    onChange={(url) => field.handleChange(url)}
+                    className="!size-16 rounded-full shadow-lg border-2 border-background"
+                  />
+                )}
+              </form.Field>
+            </div>
           </div>
-        </div>
+        </Field>
 
-        <div className="mt-10" />
+        <div className="mt-4" />
 
         <form.Field name="name">
           {(field) => {
@@ -315,7 +318,7 @@ function CoverImageUpload({
   return (
     <div className="relative">
       {value ? (
-        <div className="relative w-full h-36">
+        <div className="relative w-full h-28">
           <Image
             src={value}
             alt="Cover image"
@@ -336,7 +339,7 @@ function CoverImageUpload({
           type="button"
           onClick={() => inputRef.current?.click()}
           disabled={uploading}
-          className="flex w-full h-36 items-center justify-center rounded-t-xl border-b border-dashed bg-muted/30 hover:bg-accent transition-colors disabled:opacity-50"
+          className="flex w-full h-28 items-center justify-center rounded-t-xl border-b border-dashed bg-muted/30 hover:bg-accent transition-colors disabled:opacity-50"
         >
           {uploading ? (
             <Spinner className="size-5" />
