@@ -130,7 +130,10 @@ export default function OnboardingStepper() {
   const handleCreateStore = async (store: StoreFormValues) => {
     try {
       const storeResponse = await createStore({
+        
         body: {
+          category: store.category,
+          serviceNames: store.serviceNames,
           name: store.name,
           location: store.location,
           latitude: Number(store.latitude),
@@ -192,10 +195,6 @@ export default function OnboardingStepper() {
     } catch {
       toast.error("Failed to create catalog. Please try again.");
     }
-  };
-
-  const handleSkipCatalog = () => {
-    setStep(4);
   };
 
   const handleBackToPayment = () => {
@@ -310,7 +309,6 @@ export default function OnboardingStepper() {
           <CatalogForm
             onSubmit={handleCreateCatalog}
             isSubmitting={creatingCatalog}
-            onSkip={handleSkipCatalog}
             onBack={handleBackToPayment}
           />
         )}

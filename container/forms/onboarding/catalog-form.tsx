@@ -30,7 +30,6 @@ export type CatalogFormValues = Array<{
 interface CatalogFormProps {
   onSubmit: (items: CatalogFormValues) => Promise<void>;
   isSubmitting: boolean;
-  onSkip: () => void;
   onBack: () => void;
 }
 
@@ -48,7 +47,6 @@ function emptyItem(): CatalogItemInput {
 export function CatalogForm({
   onSubmit,
   isSubmitting,
-  onSkip,
 }: CatalogFormProps) {
   const [items, setItems] = useState<CatalogItemInput[]>([emptyItem()]);
   const [expanded, setExpanded] = useState<Set<number>>(new Set([0]));
@@ -122,7 +120,7 @@ export function CatalogForm({
     );
   }
 
-  return (
+  return (    
     <form
       noValidate
       onSubmit={(e) => {
@@ -132,7 +130,8 @@ export function CatalogForm({
       }}
     >
       <FieldGroup>
-        <div className="space-y-4">
+        
+        <div className="space-y-4 " >
           {items.map((item, index) => {
             const isOpen = expanded.has(index);
             return (
@@ -257,24 +256,14 @@ export function CatalogForm({
           Add Item
         </Button>
 
-        <div className="flex gap-4">
-          <Button
-            type="button"
-            variant="outline"
-            onClick={onSkip}
-            disabled={isSubmitting}
-          >
-            Skip
-          </Button>
-          <Button
-            type="submit"
-            disabled={!isValid() || isSubmitting}
-            className="flex-1"
-          >
-            {isSubmitting && <Spinner />}
-            Save Catalog
-          </Button>
-        </div>
+        <Button
+          type="submit"
+          disabled={!isValid() || isSubmitting}
+          className="w-full"
+        >
+          {isSubmitting && <Spinner />}
+          Save Catalog
+        </Button>
       </FieldGroup>
     </form>
   );

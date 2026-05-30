@@ -37,6 +37,11 @@ export function CreateStoreDialog({ open, onOpenChange }: CreateStoreDialogProps
       const storeResponse = await createStore({
         body: {
           name: store.name,
+          category: store.category,
+          serviceNames:
+            store.serviceNames && store.serviceNames.length > 0
+              ? store.serviceNames
+              : undefined,
           location: store.location,
           latitude: Number(store.latitude),
           longitude: Number(store.longitude),

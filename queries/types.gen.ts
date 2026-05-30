@@ -3985,6 +3985,8 @@ export type GetStoreErrors = {
     default: Array<{
         id?: number;
         name?: string;
+        category?: string;
+        serviceNames?: Array<string>;
         rating?: number;
         logo?: string | null;
         coverImage?: string | null;
@@ -4010,6 +4012,8 @@ export type GetStoreResponses = {
     200: Array<{
         id?: number;
         name?: string;
+        category?: string;
+        serviceNames?: Array<string>;
         rating?: number;
         logo?: string | null;
         coverImage?: string | null;
@@ -4031,6 +4035,8 @@ export type GetStoreResponse = GetStoreResponses[keyof GetStoreResponses];
 export type PostStoreData = {
     body: {
         name: string;
+        category: string;
+        serviceNames?: Array<string>;
         location: string;
         latitude: number;
         longitude: number;
@@ -4074,6 +4080,8 @@ export type PostStoreResponses = {
     201: {
         id?: number;
         name?: string;
+        category?: string;
+        serviceNames?: Array<string>;
         rating?: number;
         logo?: string | null;
         coverImage?: string | null;
@@ -4180,6 +4188,8 @@ export type GetStoreByIdResponses = {
     200: {
         id?: number;
         name?: string;
+        category?: string;
+        serviceNames?: Array<string>;
         rating?: number;
         logo?: string | null;
         coverImage?: string | null;
@@ -4201,6 +4211,8 @@ export type GetStoreByIdResponse = GetStoreByIdResponses[keyof GetStoreByIdRespo
 export type PutStoreByIdData = {
     body?: {
         name?: string;
+        category?: string;
+        serviceNames?: Array<string>;
         location?: string;
         latitude?: number;
         longitude?: number;
@@ -4255,6 +4267,8 @@ export type PutStoreByIdResponses = {
     200: {
         id?: number;
         name?: string;
+        category?: string;
+        serviceNames?: Array<string>;
         rating?: number;
         logo?: string | null;
         coverImage?: string | null;
