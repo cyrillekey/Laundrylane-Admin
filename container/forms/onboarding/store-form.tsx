@@ -26,8 +26,8 @@ const storeSchema = z.object({
   longitude: z.string(),
   opening: z.string().min(1, "Opening time is required"),
   closing: z.string().min(1, "Closing time is required"),
-  logo: z.string().optional(),
-  coverImage: z.string().optional(),
+  logo: z.string().min(1, "Store logo is required"),
+  coverImage: z.string().min(1, "Cover image is required"),
   radius: z.string().optional(),
 });
 
@@ -98,7 +98,12 @@ export function StoreForm({ onBack, onSubmit, isCreating }: StoreFormProps) {
           <FieldLabel>Store Branding</FieldLabel>
           <div className="relative rounded-xl overflow-hidden border">
             <form.Field name="coverImage">
-              {(field) => <CoverImageUpload value={field.state.value} onChange={(url) => field.handleChange(url)} />}
+              {(field) => (
+                <CoverImageUpload
+                  value={field.state.value}
+                  onChange={(url) => field.handleChange(url)}
+                />
+              )}
             </form.Field>
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 z-10">
               <form.Field name="logo">
@@ -112,9 +117,21 @@ export function StoreForm({ onBack, onSubmit, isCreating }: StoreFormProps) {
               </form.Field>
             </div>
           </div>
+          <form.Field name="coverImage">
+            {(field) =>
+              field.state.meta.errors.length > 0 && (
+                <FieldError errors={field.state.meta.errors} />
+              )
+            }
+          </form.Field>
+          <form.Field name="logo">
+            {(field) =>
+              field.state.meta.errors.length > 0 && (
+                <FieldError errors={field.state.meta.errors} />
+              )
+            }
+          </form.Field>
         </Field>
-
-        <div className="mt-2" />
 
         <form.Field name="name">
           {(field) => {
@@ -202,9 +219,7 @@ export function StoreForm({ onBack, onSubmit, isCreating }: StoreFormProps) {
         <form.Field name="radius">
           {(field) => (
             <Field>
-              <FieldLabel htmlFor={field.name}>
-                Serving Radius (km)
-              </FieldLabel>
+              <FieldLabel htmlFor={field.name}>Serving Radius (km)</FieldLabel>
               <Input
                 id={field.name}
                 name={field.name}
@@ -253,12 +268,21 @@ export function StoreForm({ onBack, onSubmit, isCreating }: StoreFormProps) {
         </Field>
 
         <div className="flex gap-4">
-          <Button type="button" variant="outline" onClick={onBack} disabled={isCreating}>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={onBack}
+            disabled={isCreating}
+          >
             Back
           </Button>
           <form.Subscribe>
             {({ isSubmitting }) => (
-              <Button type="submit" disabled={isSubmitting || isCreating} className="flex-1">
+              <Button
+                type="submit"
+                disabled={isSubmitting || isCreating}
+                className="flex-1"
+              >
                 {(isSubmitting || isCreating) && <Spinner />}
                 Create Store
               </Button>
@@ -302,7 +326,7 @@ function CoverImageUpload({
 
       const res = await fetch(
         `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
-        { method: "POST", body: formData }
+        { method: "POST", body: formData },
       );
       const data = await res.json();
       onChange(data.secure_url);
@@ -319,12 +343,7 @@ function CoverImageUpload({
     <div className="relative">
       {value ? (
         <div className="relative w-full h-28">
-          <Image
-            src={value}
-            alt="Cover image"
-            fill
-            className="object-cover"
-          />
+          <Image src={value} alt="Cover image" fill className="object-cover" />
           <div className="absolute inset-0 bg-black/20" />
           <button
             type="button"
