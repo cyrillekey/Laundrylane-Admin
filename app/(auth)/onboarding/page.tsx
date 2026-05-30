@@ -146,6 +146,7 @@ export default function OnboardingStepper() {
           opening: store.opening,
           closing: store.closing,
           logo: store.logo || undefined,
+          coverImage: store.coverImage || undefined,
           radius: store.radius ? Number(store.radius) : undefined,
           daysOff:
             store.daysOff && store.daysOff.length > 0

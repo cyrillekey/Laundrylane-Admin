@@ -3304,6 +3304,22 @@ export type PutOrderByIdWeightResponses = {
 
 export type PutOrderByIdWeightResponse = PutOrderByIdWeightResponses[keyof PutOrderByIdWeightResponses];
 
+export type GetOrderByIdPackagingSlipData = {
+    body?: never;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/order/{id}/packaging-slip';
+};
+
+export type GetOrderByIdPackagingSlipResponses = {
+    /**
+     * Default Response
+     */
+    200: unknown;
+};
+
 export type GetOrganisationData = {
     body?: never;
     path?: never;
@@ -3948,6 +3964,8 @@ export type GetStoreData = {
         organisationId?: number;
         limit?: number;
         offset?: number;
+        lat?: number;
+        lng?: number;
     };
     url: '/store';
 };
@@ -3969,6 +3987,7 @@ export type GetStoreErrors = {
         name?: string;
         rating?: number;
         logo?: string | null;
+        coverImage?: string | null;
         location?: string;
         latitude?: number;
         longitude?: number;
@@ -3993,6 +4012,7 @@ export type GetStoreResponses = {
         name?: string;
         rating?: number;
         logo?: string | null;
+        coverImage?: string | null;
         location?: string;
         latitude?: number;
         longitude?: number;
@@ -4016,6 +4036,7 @@ export type PostStoreData = {
         longitude: number;
         radius?: number;
         logo?: string;
+        coverImage?: string;
         opening: string;
         closing: string;
         daysOff?: Array<number>;
@@ -4055,6 +4076,7 @@ export type PostStoreResponses = {
         name?: string;
         rating?: number;
         logo?: string | null;
+        coverImage?: string | null;
         location?: string;
         latitude?: number;
         longitude?: number;
@@ -4069,62 +4091,6 @@ export type PostStoreResponses = {
 };
 
 export type PostStoreResponse = PostStoreResponses[keyof PostStoreResponses];
-
-export type GetStoreNearestData = {
-    body?: never;
-    path?: never;
-    query: {
-        lat: number;
-        lng: number;
-    };
-    url: '/store/nearest';
-};
-
-export type GetStoreNearestErrors = {
-    /**
-     * Default Response
-     */
-    404: {
-        message?: string;
-        success?: boolean;
-        id?: number;
-    };
-    /**
-     * Default Response
-     */
-    default: {
-        message?: string;
-        success?: boolean;
-        id?: number;
-    };
-};
-
-export type GetStoreNearestError = GetStoreNearestErrors[keyof GetStoreNearestErrors];
-
-export type GetStoreNearestResponses = {
-    /**
-     * Default Response
-     */
-    200: {
-        id?: number;
-        name?: string;
-        rating?: number;
-        logo?: string | null;
-        location?: string;
-        latitude?: number;
-        longitude?: number;
-        radius?: number;
-        opening?: string;
-        closing?: string;
-        daysOff?: Array<number>;
-        organisationId?: number;
-        createdat?: string;
-        updatedat?: string;
-        distance?: number;
-    };
-};
-
-export type GetStoreNearestResponse = GetStoreNearestResponses[keyof GetStoreNearestResponses];
 
 export type DeleteStoreByIdData = {
     body?: never;
@@ -4216,6 +4182,7 @@ export type GetStoreByIdResponses = {
         name?: string;
         rating?: number;
         logo?: string | null;
+        coverImage?: string | null;
         location?: string;
         latitude?: number;
         longitude?: number;
@@ -4243,6 +4210,7 @@ export type PutStoreByIdData = {
         daysOff?: Array<number>;
         rating?: number;
         logo?: string;
+        coverImage?: string;
     };
     path: {
         id: number;
@@ -4289,6 +4257,7 @@ export type PutStoreByIdResponses = {
         name?: string;
         rating?: number;
         logo?: string | null;
+        coverImage?: string | null;
         location?: string;
         latitude?: number;
         longitude?: number;

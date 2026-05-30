@@ -11,9 +11,10 @@ const UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
 interface CloudinaryUploadProps {
   value: string;
   onChange: (url: string) => void;
+  className?: string;
 }
 
-export function CloudinaryUpload({ value, onChange }: CloudinaryUploadProps) {
+export function CloudinaryUpload({ value, onChange, className }: CloudinaryUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
 
@@ -52,10 +53,10 @@ export function CloudinaryUpload({ value, onChange }: CloudinaryUploadProps) {
   return (
     <div className="space-y-2">
       {value ? (
-        <div className="relative size-24 rounded-lg overflow-hidden border">
+        <div className={`relative size-24 rounded-lg overflow-hidden border ${className ?? ""}`}>
           <Image
             src={value}
-            alt="Store logo"
+            alt="Uploaded image"
             fill
             className="object-cover"
           />
@@ -72,7 +73,7 @@ export function CloudinaryUpload({ value, onChange }: CloudinaryUploadProps) {
           type="button"
           onClick={() => inputRef.current?.click()}
           disabled={uploading}
-          className="flex size-24 items-center justify-center rounded-lg border border-dashed hover:bg-accent transition-colors disabled:opacity-50"
+          className={`flex size-24 items-center justify-center rounded-lg border border-dashed hover:bg-accent transition-colors disabled:opacity-50 ${className ?? ""}`}
         >
           {uploading ? (
             <Spinner className="size-5" />

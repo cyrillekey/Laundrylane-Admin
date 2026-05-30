@@ -13,7 +13,8 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
-import { MapPinIcon, Loader2Icon } from "lucide-react";
+import { MapPinIcon, Loader2Icon, XIcon, ImageIcon } from "lucide-react";
+import Image from "next/image";
 import { getAddressAutocompleteOptions } from "@/queries/@tanstack/react-query.gen";
 import { CloudinaryUpload } from "@/components/shared/cloudinary-upload";
 import z from "zod";
@@ -26,6 +27,7 @@ const storeSchema = z.object({
   opening: z.string().min(1, "Opening time is required"),
   closing: z.string().min(1, "Closing time is required"),
   logo: z.string().optional(),
+  coverImage: z.string().optional(),
   radius: z.string().optional(),
 });
 
@@ -60,6 +62,7 @@ export function StoreForm({ onBack, onSubmit, isCreating }: StoreFormProps) {
       opening: "",
       closing: "",
       logo: "",
+      coverImage: "",
       radius: "",
     },
     validators: {
@@ -91,19 +94,24 @@ export function StoreForm({ onBack, onSubmit, isCreating }: StoreFormProps) {
       }}
     >
       <FieldGroup>
-        <form.Field name="logo">
-          {(field) => (
-            <Field>
-              <FieldLabel>Store Logo</FieldLabel>
-              <div className="flex justify-center">
+        <div className="relative rounded-xl overflow-hidden border">
+          <form.Field name="coverImage">
+            {(field) => <CoverImageUpload value={field.state.value} onChange={(url) => field.handleChange(url)} />}
+          </form.Field>
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 z-10">
+            <form.Field name="logo">
+              {(field) => (
                 <CloudinaryUpload
                   value={field.state.value}
                   onChange={(url) => field.handleChange(url)}
+                  className="!size-20 rounded-full shadow-lg border-2 border-background"
                 />
-              </div>
-            </Field>
-          )}
-        </form.Field>
+              )}
+            </form.Field>
+          </div>
+        </div>
+
+        <div className="mt-10" />
 
         <form.Field name="name">
           {(field) => {
@@ -256,6 +264,102 @@ export function StoreForm({ onBack, onSubmit, isCreating }: StoreFormProps) {
         </div>
       </FieldGroup>
     </form>
+  );
+}
+
+const CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+const UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
+
+function CoverImageUpload({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (url: string) => void;
+}) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
+
+  const handleFile = async (file: File) => {
+    if (!file.type.startsWith("image/")) return;
+
+    if (!CLOUD_NAME || !UPLOAD_PRESET) {
+      const reader = new FileReader();
+      reader.onload = (e) => onChange(e.target?.result as string);
+      reader.readAsDataURL(file);
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", UPLOAD_PRESET);
+      formData.append("cloud_name", CLOUD_NAME);
+
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+        { method: "POST", body: formData }
+      );
+      const data = await res.json();
+      onChange(data.secure_url);
+    } catch {
+      const reader = new FileReader();
+      reader.onload = (e) => onChange(e.target?.result as string);
+      reader.readAsDataURL(file);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  return (
+    <div className="relative">
+      {value ? (
+        <div className="relative w-full h-36">
+          <Image
+            src={value}
+            alt="Cover image"
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-black/20" />
+          <button
+            type="button"
+            onClick={() => onChange("")}
+            className="absolute top-2 right-2 size-6 rounded-full bg-background/80 flex items-center justify-center hover:bg-background transition-colors z-10"
+          >
+            <XIcon className="size-3" />
+          </button>
+        </div>
+      ) : (
+        <button
+          type="button"
+          onClick={() => inputRef.current?.click()}
+          disabled={uploading}
+          className="flex w-full h-36 items-center justify-center rounded-t-xl border-b border-dashed bg-muted/30 hover:bg-accent transition-colors disabled:opacity-50"
+        >
+          {uploading ? (
+            <Spinner className="size-5" />
+          ) : (
+            <div className="flex flex-col items-center gap-1 text-muted-foreground">
+              <ImageIcon className="size-6" />
+              <span className="text-xs">Cover Image</span>
+            </div>
+          )}
+        </button>
+      )}
+      <input
+        ref={inputRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={(e) => {
+          const file = e.target.files?.[0];
+          if (file) handleFile(file);
+          e.target.value = "";
+        }}
+      />
+    </div>
   );
 }
 
