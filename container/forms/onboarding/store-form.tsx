@@ -114,7 +114,7 @@ export function StoreForm({ onBack, onSubmit, isCreating }: StoreFormProps) {
           </div>
         </Field>
 
-        <div className="mt-4" />
+        <div className="mt-2" />
 
         <form.Field name="name">
           {(field) => {
