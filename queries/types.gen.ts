@@ -484,17 +484,17 @@ export type PostAuthenticationSignupResponses = {
         user?: {
             id?: number;
             email?: string;
-            name?: string;
-            phone?: string;
+            name?: string | null;
+            phone?: string | null;
             isVerified?: boolean;
             role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
             lastLoginDate?: string;
-            dateOfBirth?: string;
-            userName?: string;
-            gender?: string;
-            avatar?: string;
+            dateOfBirth?: string | null;
+            userName?: string | null;
+            gender?: string | null;
+            avatar?: string | null;
             createdat?: string;
-            organisationId?: number;
+            organisationId?: number | null;
             updatedat?: string;
         };
     };
@@ -591,17 +591,17 @@ export type PostAuthenticationSignupVerifyOtpResponses = {
         user?: {
             id?: number;
             email?: string;
-            name?: string;
-            phone?: string;
+            name?: string | null;
+            phone?: string | null;
             isVerified?: boolean;
             role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
             lastLoginDate?: string;
-            dateOfBirth?: string;
-            userName?: string;
-            gender?: string;
-            avatar?: string;
+            dateOfBirth?: string | null;
+            userName?: string | null;
+            gender?: string | null;
+            avatar?: string | null;
             createdat?: string;
-            organisationId?: number;
+            organisationId?: number | null;
             updatedat?: string;
         };
     };
@@ -672,17 +672,17 @@ export type PostAuthenticationLoginResponses = {
         user?: {
             id?: number;
             email?: string;
-            name?: string;
-            phone?: string;
+            name?: string | null;
+            phone?: string | null;
             isVerified?: boolean;
             role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
             lastLoginDate?: string;
-            dateOfBirth?: string;
-            userName?: string;
-            gender?: string;
-            avatar?: string;
+            dateOfBirth?: string | null;
+            userName?: string | null;
+            gender?: string | null;
+            avatar?: string | null;
             createdat?: string;
-            organisationId?: number;
+            organisationId?: number | null;
             updatedat?: string;
         };
     };
@@ -725,17 +725,17 @@ export type PostAuthenticationSocialAuthResponses = {
         user?: {
             id?: number;
             email?: string;
-            name?: string;
-            phone?: string;
+            name?: string | null;
+            phone?: string | null;
             isVerified?: boolean;
             role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
             lastLoginDate?: string;
-            dateOfBirth?: string;
-            userName?: string;
-            gender?: string;
-            avatar?: string;
+            dateOfBirth?: string | null;
+            userName?: string | null;
+            gender?: string | null;
+            avatar?: string | null;
             createdat?: string;
-            organisationId?: number;
+            organisationId?: number | null;
             updatedat?: string;
         };
     };
@@ -904,17 +904,17 @@ export type PutAuthenticationResetpasswordUpdatePasswordResponses = {
         user?: {
             id?: number;
             email?: string;
-            name?: string;
-            phone?: string;
+            name?: string | null;
+            phone?: string | null;
             isVerified?: boolean;
             role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
             lastLoginDate?: string;
-            dateOfBirth?: string;
-            userName?: string;
-            gender?: string;
-            avatar?: string;
+            dateOfBirth?: string | null;
+            userName?: string | null;
+            gender?: string | null;
+            avatar?: string | null;
             createdat?: string;
-            organisationId?: number;
+            organisationId?: number | null;
             updatedat?: string;
         };
     };
@@ -991,8 +991,20 @@ export type GetCatalogResponses = {
     /**
      * Default Response
      */
-    200: unknown;
+    200: Array<{
+        id?: number;
+        name?: string;
+        description?: string;
+        price?: number;
+        imageUrl?: string | null;
+        services?: Array<string>;
+        bulk?: boolean;
+        createdat?: string;
+        updatedat?: string;
+    }>;
 };
+
+export type GetCatalogResponse = GetCatalogResponses[keyof GetCatalogResponses];
 
 export type PostCatalogByStoreIdData = {
     body?: Array<{
@@ -2864,8 +2876,62 @@ export type GetOrderResponses = {
     /**
      * Default Response
      */
-    200: unknown;
+    200: Array<{
+        id?: number;
+        date?: string;
+        pickupDate?: string | null;
+        pickupTime?: string | null;
+        orderStatus?: 'PENDING' | 'IN_PROGRESS' | 'READY_FOR_PICKUP' | 'READY_FOR_DELIVERY' | 'OUT_FOR_DELIVERY' | 'COMPLETED' | 'CANCELLED';
+        orderType?: 'PICKUP' | 'DELIVERY' | 'PICKUP_AND_DELIVERY';
+        deliveryWindow?: string | null;
+        instructions?: string | null;
+        weight?: number | null;
+        washType?: string;
+        deliveryFee?: number;
+        total?: number;
+        userId?: number;
+        serviceTypeId?: number;
+        serviceType?: {
+            id?: number;
+            name?: string;
+            description?: string | null;
+            price?: number;
+            serviceTimelines?: string;
+        };
+        productCatalog?: {
+            id?: number;
+            name?: string;
+            description?: string;
+            price?: number;
+            imageUrl?: string | null;
+            services?: Array<string>;
+            bulk?: boolean;
+            createdat?: string;
+            updatedat?: string;
+        };
+        createdat?: string;
+        updatedat?: string;
+        itemsCount?: number;
+        user?: {
+            id?: number;
+            email?: string;
+            name?: string | null;
+            phone?: string | null;
+            isVerified?: boolean;
+            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
+            lastLoginDate?: string;
+            dateOfBirth?: string | null;
+            userName?: string | null;
+            gender?: string | null;
+            avatar?: string | null;
+            createdat?: string;
+            organisationId?: number | null;
+            updatedat?: string;
+        };
+    }>;
 };
+
+export type GetOrderResponse = GetOrderResponses[keyof GetOrderResponses];
 
 export type DeleteOrderByIdData = {
     body?: never;
@@ -2959,6 +3025,22 @@ export type GetOrderByIdErrors = {
         createdat?: string;
         updatedat?: string;
         itemsCount?: number;
+        user?: {
+            id?: number;
+            email?: string;
+            name?: string | null;
+            phone?: string | null;
+            isVerified?: boolean;
+            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
+            lastLoginDate?: string;
+            dateOfBirth?: string | null;
+            userName?: string | null;
+            gender?: string | null;
+            avatar?: string | null;
+            createdat?: string;
+            organisationId?: number | null;
+            updatedat?: string;
+        };
         items?: Array<{
             id?: number;
             orderId?: number;
@@ -3041,6 +3123,22 @@ export type GetOrderByIdResponses = {
         createdat?: string;
         updatedat?: string;
         itemsCount?: number;
+        user?: {
+            id?: number;
+            email?: string;
+            name?: string | null;
+            phone?: string | null;
+            isVerified?: boolean;
+            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
+            lastLoginDate?: string;
+            dateOfBirth?: string | null;
+            userName?: string | null;
+            gender?: string | null;
+            avatar?: string | null;
+            createdat?: string;
+            organisationId?: number | null;
+            updatedat?: string;
+        };
         items?: Array<{
             id?: number;
             orderId?: number;
@@ -3129,8 +3227,26 @@ export type GetOrderByIdItemsResponses = {
     /**
      * Default Response
      */
-    200: unknown;
+    200: Array<{
+        id?: number;
+        orderId?: number;
+        productId?: number;
+        quantity?: number;
+        product?: {
+            id?: number;
+            name?: string;
+            type?: string;
+            price?: number;
+            createdat?: string;
+            updatedat?: string;
+        };
+        price?: number;
+        createdat?: string;
+        updatedat?: string;
+    }>;
 };
+
+export type GetOrderByIdItemsResponse = GetOrderByIdItemsResponses[keyof GetOrderByIdItemsResponses];
 
 export type PutOrderByIdCancelData = {
     body?: never;
@@ -3739,8 +3855,14 @@ export type PostPaymentsOrderByOrderIdResponses = {
     /**
      * Default Response
      */
-    200: unknown;
+    200: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
 };
+
+export type PostPaymentsOrderByOrderIdResponse = PostPaymentsOrderByOrderIdResponses[keyof PostPaymentsOrderByOrderIdResponses];
 
 export type GetPaymentsCardData = {
     body?: never;
@@ -4516,17 +4638,17 @@ export type GetUserResponses = {
     200: {
         id?: number;
         email?: string;
-        name?: string;
-        phone?: string;
+        name?: string | null;
+        phone?: string | null;
         isVerified?: boolean;
         role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
         lastLoginDate?: string;
-        dateOfBirth?: string;
-        userName?: string;
-        gender?: string;
-        avatar?: string;
+        dateOfBirth?: string | null;
+        userName?: string | null;
+        gender?: string | null;
+        avatar?: string | null;
         createdat?: string;
-        organisationId?: number;
+        organisationId?: number | null;
         updatedat?: string;
     };
 };
@@ -4573,17 +4695,17 @@ export type PutUserResponses = {
         user?: {
             id?: number;
             email?: string;
-            name?: string;
-            phone?: string;
+            name?: string | null;
+            phone?: string | null;
             isVerified?: boolean;
             role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
             lastLoginDate?: string;
-            dateOfBirth?: string;
-            userName?: string;
-            gender?: string;
-            avatar?: string;
+            dateOfBirth?: string | null;
+            userName?: string | null;
+            gender?: string | null;
+            avatar?: string | null;
             createdat?: string;
-            organisationId?: number;
+            organisationId?: number | null;
             updatedat?: string;
         };
     };

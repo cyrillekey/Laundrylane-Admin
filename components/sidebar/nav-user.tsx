@@ -5,8 +5,10 @@ import {
   ChevronsUpDown,
   CreditCard,
   LogOut,
+  Moon,
   Settings,
   Sparkles,
+  Sun,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -26,6 +28,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { Badge } from "@/components/ui/badge";
+import { useTheme } from "next-themes";
 import AuthenticationService from "@/services/tokenService";
 import { useRouter } from "next/navigation";
 import { getInitials } from "@/lib/utils";
@@ -35,6 +38,7 @@ import Link from "next/link";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
+  const { resolvedTheme, setTheme } = useTheme();
   const router = useRouter();
   const user = AuthenticationService.getUser();
 
@@ -57,7 +61,10 @@ export function NavUser() {
                 <span className="absolute top-1.5 right-1.5 size-2 rounded-full bg-primary ring-2 ring-sidebar" />
               )}
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={user?.avatar} alt={user?.name} />
+                <AvatarImage
+                  src={user?.avatar || ""}
+                  alt={user?.name ?? "N/A"}
+                />
                 <AvatarFallback className="rounded-lg">
                   {getInitials(user?.name || "")}
                 </AvatarFallback>
@@ -78,7 +85,7 @@ export function NavUser() {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user?.avatar} alt={user?.name} />
+                  <AvatarImage src={user?.avatar || ""} alt={user?.name ?? "N/A"} />
                   <AvatarFallback className="rounded-lg">
                     {getInitials(user?.name || "")}
                   </AvatarFallback>
@@ -107,6 +114,14 @@ export function NavUser() {
               <DropdownMenuItem>
                 <CreditCard />
                 Billing
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() =>
+                  setTheme(resolvedTheme === "dark" ? "light" : "dark")
+                }
+              >
+                {resolvedTheme === "dark" ? <Sun /> : <Moon />}
+                {resolvedTheme === "dark" ? "Light Mode" : "Dark Mode"}
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Bell />

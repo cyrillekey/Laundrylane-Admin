@@ -21,7 +21,7 @@ const CatalogPage = () => {
   });
 
   const catalogs = useMemo(() => {
-    const items = Array.isArray(data) ? data : [];
+    const items = data ?? [];
     if (!search.trim()) return items;
     const q = search.toLowerCase();
     return items.filter(

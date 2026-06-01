@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <AppProvider>
-      <html lang="en" className={outfit.variable}>
+      <html lang="en" className={outfit.variable} suppressHydrationWarning>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >

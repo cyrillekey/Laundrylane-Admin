@@ -14,7 +14,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Spinner } from "@/components/ui/spinner";
@@ -65,6 +65,17 @@ export function CatalogCreateDialog() {
     });
     setItems([]);
     setError(null);
+  }
+
+  function isDraftDirty(): boolean {
+    return (
+      draft.name !== "" ||
+      draft.description !== "" ||
+      draft.price !== "" ||
+      draft.imageUrl !== "" ||
+      draft.services !== "" ||
+      draft.bulk !== false
+    );
   }
 
   function isDraftValid(): boolean {
@@ -224,7 +235,7 @@ export function CatalogCreateDialog() {
             className="w-full"
           >
             <PlusIcon className="size-4 mr-2" />
-            Add Item to List
+            Add Catalog
           </Button>
         </div>
 
@@ -299,7 +310,7 @@ export function CatalogCreateDialog() {
 
         <Button
           onClick={handleSubmit}
-          disabled={items.length === 0 || isSubmitting}
+          disabled={items.length === 0 || isSubmitting || isDraftDirty()}
           className="w-full"
         >
           {isSubmitting && <Spinner />}

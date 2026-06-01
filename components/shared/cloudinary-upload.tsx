@@ -34,6 +34,7 @@ export function CloudinaryUpload({ value, onChange, className }: CloudinaryUploa
       formData.append("file", file);
       formData.append("upload_preset", UPLOAD_PRESET);
       formData.append("cloud_name", CLOUD_NAME);
+      formData.append("template", "png_transform");
 
       const res = await fetch(
         `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,

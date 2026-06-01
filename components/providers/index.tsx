@@ -1,6 +1,7 @@
 "use client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ThemeProvider } from "next-themes";
 import { Toaster } from "../ui/sonner";
 
 import sharedValues from "@/utils/sharedValues";
@@ -23,8 +24,10 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={true} />
-      <Toaster position="top-center" />
-      <>{children}</>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <Toaster position="top-center" />
+        {children}
+      </ThemeProvider>
     </QueryClientProvider>
   );
 };
