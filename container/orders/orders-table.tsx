@@ -22,6 +22,7 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { OrderTableActions } from "@/container/orders/table-actions";
 import { Pagination } from "@/components/ui/pagination";
 import clsx from "clsx";
 
@@ -37,6 +38,15 @@ interface OrderItem {
     id?: number;
     name?: string | null;
     email?: string;
+  };
+  productCatalog?: {
+    id?: number;
+    name?: string;
+    description?: string;
+    price?: number;
+    imageUrl?: string | null;
+    services?: Array<string>;
+    bulk?: boolean;
   };
 }
 
@@ -77,8 +87,10 @@ const columnClass: Record<string, string> = {
   status: "",
   type: "",
   items: "",
+  catalog: "",
   total: "",
   date: "text-muted-foreground",
+  actions: "w-12 pr-4",
 };
 
 export function OrdersTable({ orders }: OrdersTableProps) {
@@ -193,6 +205,37 @@ export function OrdersTable({ orders }: OrdersTableProps) {
       enableSorting: false,
     },
     {
+      id: "catalog",
+      header: "Catalog",
+      cell: ({ row }) => {
+        const catalog = row.original.productCatalog;
+        return catalog?.name ? (
+          <div className="flex items-center gap-2">
+            {catalog.imageUrl && (
+              <div className="size-7 shrink-0 rounded overflow-hidden bg-muted">
+                <img
+                  src={catalog.imageUrl}
+                  alt={catalog.name}
+                  className="size-full object-cover"
+                />
+              </div>
+            )}
+            <div className="flex flex-col">
+              <span className="text-sm">{catalog.name}</span>
+              {catalog.bulk != null && (
+                <span className="text-xs text-muted-foreground">
+                  {catalog.bulk ? "Per Kg" : "Per Item"}
+                </span>
+              )}
+            </div>
+          </div>
+        ) : (
+          "—"
+        );
+      },
+      enableSorting: false,
+    },
+    {
       accessorKey: "total",
       header: "Total",
       cell: ({ row }) =>
@@ -208,6 +251,12 @@ export function OrdersTable({ orders }: OrdersTableProps) {
         row.original.createdat
           ? new Date(row.original.createdat).toLocaleDateString()
           : "—",
+      enableSorting: false,
+    },
+    {
+      id: "actions",
+      header: "",
+      cell: ({ row }) => <OrderTableActions id={row.original.id!} isBulk={row.original.productCatalog?.bulk} />,
       enableSorting: false,
     },
   ];
