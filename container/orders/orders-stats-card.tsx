@@ -2,41 +2,47 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ShipIcon } from "lucide-react";
+import {
+  BoxIcon,
+  Coins,
+  ShipIcon,
+  ShoppingBag,
+  TrendingUpDown,
+} from "lucide-react";
 
 const OrdersStatisticsCard = () => {
   const EcommerceActions = [
     {
       title: "Orders",
       subtitle: "5868",
-      cardIcon: <ShipIcon />,
+      cardIcon: <ShipIcon className="size-5" />,
       badgeColor: "bg-teal-400/10",
       statusValue: "+18%",
-      statusIcon: "solar:course-up-line-duotone",
+      statusIcon: <TrendingUpDown className="size-3" />,
     },
     {
       title: "Sales",
       subtitle: "$96,850",
-      cardIcon: "solar:box-line-duotone",
+      cardIcon: <BoxIcon className="size-5" />,
       badgeColor: "bg-orange-400/10",
       statusValue: "-5%",
-      statusIcon: "solar:course-down-line-duotone",
+      statusIcon: <TrendingUpDown className="size-3" />,
     },
     {
       title: "Profit",
       subtitle: "$82,906",
-      cardIcon: "solar:chart-square-line-duotone",
+      cardIcon: <Coins className="size-5" />,
       badgeColor: "bg-teal-400/10",
       statusValue: "+18%",
-      statusIcon: "solar:course-up-line-duotone",
+      statusIcon: <TrendingUpDown className="size-3" />,
     },
     {
       title: "Expense",
       subtitle: "$14,653",
-      cardIcon: "solar:star-line-duotone",
+      cardIcon: <ShoppingBag className="size-5" />,
       badgeColor: "bg-teal-400/10",
       statusValue: "+18%",
-      statusIcon: "solar:course-up-line-duotone",
+      statusIcon: <TrendingUpDown className="size-3" />,
     },
   ];
 

@@ -72,7 +72,7 @@ export function StatCard({
                 )}
               >
                 {!trend || trend == 0 ? (
-                  <TrendingUpDown />
+                  <TrendingUpDown className="size-3 me-1" />
                 ) : isPositive ? (
                   <TrendingUp className="size-3.5" />
                 ) : (

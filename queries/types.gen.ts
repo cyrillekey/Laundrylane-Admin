@@ -4210,6 +4210,43 @@ export type GetStatsOrdersResponses = {
 
 export type GetStatsOrdersResponse = GetStatsOrdersResponses[keyof GetStatsOrdersResponses];
 
+export type GetStatsCustomersData = {
+    body?: never;
+    path?: never;
+    query?: {
+        storeId?: number;
+        fromDate?: string;
+        toDate?: string;
+    };
+    url: '/stats/customers';
+};
+
+export type GetStatsCustomersErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type GetStatsCustomersError = GetStatsCustomersErrors[keyof GetStatsCustomersErrors];
+
+export type GetStatsCustomersResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        totalCustomers?: number;
+        lastPeriodCustomers?: number;
+        delta?: number;
+    };
+};
+
+export type GetStatsCustomersResponse = GetStatsCustomersResponses[keyof GetStatsCustomersResponses];
+
 export type GetStoreData = {
     body?: never;
     path?: never;

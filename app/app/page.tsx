@@ -4,7 +4,10 @@ import { useSelectedStore } from "@/stores/selected-store";
 import { StatCard } from "@/container/dashboard/stat-card";
 import { SalesStatsCard } from "@/container/dashboard/sales-stats-card";
 import { useQuery } from "@tanstack/react-query";
-import { getStatsOrdersOptions } from "@/queries/@tanstack/react-query.gen";
+import {
+  getStatsCustomersOptions,
+  getStatsOrdersOptions,
+} from "@/queries/@tanstack/react-query.gen";
 
 export default function AppDashboard() {
   const { selectedStoreId } = useSelectedStore();
@@ -31,7 +34,12 @@ export default function AppDashboard() {
       enabled: !!selectedStoreId,
     },
   );
-
+  const { isLoading: isLoadingCustomers, data: customersResponse } = useQuery({
+    ...getStatsCustomersOptions({
+      query: { storeId: selectedStoreId ?? undefined },
+    }),
+    enabled: !!selectedStoreId,
+  });
   return (
     <div className="flex flex-col gap-6 p-6">
       <div className="flex flex-wrap gap-4">
@@ -50,7 +58,13 @@ export default function AppDashboard() {
           trend={inProgressResponse?.delta ?? 0}
           loading={isLoadingInProgress}
         />
-        <StatCard title="Customers" value={0} href="/app/customers" />
+        <StatCard
+          title="Customers"
+          value={customersResponse?.totalCustomers ?? 0}
+          href="/app/customers"
+          loading={isLoadingCustomers}
+          trend={customersResponse?.delta ?? 0}
+        />
       </div>
     </div>
   );
