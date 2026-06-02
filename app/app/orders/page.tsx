@@ -8,6 +8,7 @@ import { useSelectedStore } from "@/stores/selected-store";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { OrdersTable } from "@/container/orders/orders-table";
+import OrdersStatisticsCard from "@/container/orders/orders-stats-card";
 
 const statusTabs = [
   { value: "all", label: "All" },
@@ -63,7 +64,8 @@ export default function OrdersPage() {
 
   return (
     <div className="p-8 space-y-4">
-      <div className="flex items-start gap-4">
+      <OrdersStatisticsCard />
+      <div className="flex items-start gap-4 mt-8">
         <Tabs value={statusTab} onValueChange={setStatusTab} className="flex-1">
           <TabsList className="h-auto flex-wrap gap-1 p-2">
             {statusTabs.map((tab) => (

@@ -1,7 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState } from "react";
 import {
   useReactTable,
   getCoreRowModel,
@@ -23,20 +22,8 @@ import {
 } from "@/components/ui/table";
 import { AlertTriangle, Trash2 } from "lucide-react";
 import { HugeiconsIcon } from "@hugeicons/react";
-import {
-  UnfoldMoreIcon,
-  ArrowUp01Icon,
-  ArrowDown01Icon,
-  FilterIcon,
-} from "@hugeicons/core-free-icons";
-import { Badge } from "@/components/ui/badge";
+import { UnfoldMoreIcon, ArrowUp01Icon, ArrowDown01Icon } from "@hugeicons/core-free-icons";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -49,27 +36,23 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { getCatalogQueryKey } from "@/queries/@tanstack/react-query.gen";
-import { deleteCatalogById } from "@/queries/sdk.gen";
-import { TableActions } from "@/container/catalog/table-actions";
-import { cn } from "@/lib/utils";
+import { deleteCatalogServiceTypesByIdMutation, getCatalogServiceTypesQueryKey } from "@/queries/@tanstack/react-query.gen";
+import { TableActions } from "@/container/service-types/table-actions";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Pagination } from "@/components/ui/pagination";
 
-interface CatalogItem {
+interface ServiceTypeItem {
   id?: number;
   name?: string;
-  description?: string;
+  description?: string | null;
   price?: number;
-  imageUrl?: string | null;
-  services?: Array<string>;
-  bulk?: boolean;
+  serviceTimelines?: string;
   createdat?: string;
   updatedat?: string;
 }
 
-interface CatalogTableProps {
-  catalogs: CatalogItem[];
+interface ServiceTypesTableProps {
+  serviceTypes: ServiceTypeItem[];
   isPending?: boolean;
 }
 
@@ -78,16 +61,13 @@ const columnClass: Record<string, { head?: string; cell?: string }> = {
   name: { head: "px-4", cell: "px-4" },
   description: {
     head: "px-4",
-    cell: "max-w-[180px] truncate text-muted-foreground px-4",
+    cell: "max-w-[200px] truncate text-muted-foreground px-4",
   },
   price: { head: "px-4", cell: "px-4" },
-  bulk: { head: "px-4", cell: "px-4" },
-  services: { head: "px-4", cell: "px-4" },
+  serviceTimelines: { head: "px-4", cell: "px-4 text-muted-foreground" },
   createdat: { head: "px-4", cell: "px-4 text-muted-foreground" },
   actions: { head: "w-12 pr-4", cell: "pr-4" },
 };
-
-type PricingFilter = "all" | "per-kg" | "per-item";
 
 function SortHeader({
   label,
@@ -106,29 +86,17 @@ function SortHeader({
     >
       {label}
       {sorted === "asc" ? (
-        <HugeiconsIcon
-          icon={ArrowUp01Icon}
-          strokeWidth={2}
-          className="size-3.5 text-foreground"
-        />
+        <HugeiconsIcon icon={ArrowUp01Icon} strokeWidth={2} className="size-3.5 text-foreground" />
       ) : sorted === "desc" ? (
-        <HugeiconsIcon
-          icon={ArrowDown01Icon}
-          strokeWidth={2}
-          className="size-3.5 text-foreground"
-        />
+        <HugeiconsIcon icon={ArrowDown01Icon} strokeWidth={2} className="size-3.5 text-foreground" />
       ) : (
-        <HugeiconsIcon
-          icon={UnfoldMoreIcon}
-          strokeWidth={2}
-          className="size-3.5 text-muted-foreground/40"
-        />
+        <HugeiconsIcon icon={UnfoldMoreIcon} strokeWidth={2} className="size-3.5 text-muted-foreground/40" />
       )}
     </button>
   );
 }
 
-export function CatalogTable({ catalogs, isPending }: CatalogTableProps) {
+export function ServiceTypesTable({ serviceTypes, isPending }: ServiceTypesTableProps) {
   const [rowSelection, setRowSelection] = useState({});
   const [sorting, setSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState<PaginationState>({
@@ -136,32 +104,20 @@ export function CatalogTable({ catalogs, isPending }: CatalogTableProps) {
     pageSize: 10,
   });
   const [bulkDeleteOpen, setBulkDeleteOpen] = useState(false);
-  const [pricingFilter, setPricingFilter] = useState<PricingFilter>("all");
-
-  const filteredCatalogs = useMemo(() => {
-    if (pricingFilter === "all") return catalogs;
-    return catalogs.filter((item) =>
-      pricingFilter === "per-kg" ? item.bulk === true : item.bulk === false,
-    );
-  }, [catalogs, pricingFilter]);
-
-  useEffect(() => {
-    setRowSelection({});
-  }, [pricingFilter]);
 
   const queryClient = useQueryClient();
   const { mutateAsync: bulkDelete, isPending: bulkDeleting } = useMutation({
     mutationFn: async (ids: number[]) => {
-      await Promise.all(ids.map((id) => deleteCatalogById({ path: { id } })));
+      await Promise.all(ids.map((id) => deleteCatalogServiceTypesByIdMutation({ path: { id } })));
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: getCatalogQueryKey() });
+      queryClient.invalidateQueries({ queryKey: getCatalogServiceTypesQueryKey() });
       setRowSelection({});
       setBulkDeleteOpen(false);
     },
   });
 
-  const columns: ColumnDef<CatalogItem>[] = [
+  const columns: ColumnDef<ServiceTypeItem>[] = [
     {
       id: "select",
       header: ({ table }) => (
@@ -185,27 +141,9 @@ export function CatalogTable({ catalogs, isPending }: CatalogTableProps) {
     {
       accessorKey: "name",
       header: "Name",
-      cell: ({ row }) => {
-        const item = row.original;
-        return (
-          <div className="flex items-center gap-3">
-            <div className="size-9 shrink-0 rounded overflow-hidden bg-muted">
-              {item.imageUrl ? (
-                <img
-                  src={item.imageUrl}
-                  alt={item.name ?? ""}
-                  className="size-full object-cover"
-                />
-              ) : (
-                <div className="size-full flex items-center justify-center text-muted-foreground text-xs">
-                  —
-                </div>
-              )}
-            </div>
-            <span className="font-medium truncate">{item.name ?? "—"}</span>
-          </div>
-        );
-      },
+      cell: ({ row }) => (
+        <span className="font-medium">{row.original.name ?? "—"}</span>
+      ),
       enableSorting: false,
     },
     {
@@ -229,75 +167,9 @@ export function CatalogTable({ catalogs, isPending }: CatalogTableProps) {
           : "—",
     },
     {
-      accessorKey: "bulk",
-      header: () => (
-        <div className="flex items-center gap-1">
-          Pricing Type
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button
-                type="button"
-                className="cursor-pointer hover:text-foreground transition-colors"
-              >
-                <HugeiconsIcon
-                  icon={FilterIcon}
-                  strokeWidth={2}
-                  className={cn(
-                    "size-3.5",
-                    pricingFilter !== "all"
-                      ? "text-foreground"
-                      : "text-muted-foreground/40",
-                  )}
-                />
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem
-                onClick={() => setPricingFilter("all")}
-                className={pricingFilter === "all" ? "bg-accent" : undefined}
-              >
-                All
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => setPricingFilter("per-kg")}
-                className={pricingFilter === "per-kg" ? "bg-accent" : undefined}
-              >
-                Per Kg
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => setPricingFilter("per-item")}
-                className={
-                  pricingFilter === "per-item" ? "bg-accent" : undefined
-                }
-              >
-                Per Item
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      ),
-      cell: ({ row }) => (
-        <Badge
-          variant="outline"
-          className={cn(
-            "text-xs font-medium",
-            row.original.bulk
-              ? "bg-indigo-100 text-indigo-700 border-indigo-200"
-              : "bg-amber-100 text-amber-700 border-amber-200",
-          )}
-        >
-          {row.original.bulk ? "Per Kg" : "Per Item"}
-        </Badge>
-      ),
-      enableSorting: false,
-    },
-    {
-      accessorKey: "services",
-      header: "Services",
-      cell: ({ row }) =>
-        row.original.services && row.original.services.length > 0
-          ? row.original.services.join(", ")
-          : "—",
+      accessorKey: "serviceTimelines",
+      header: "Timeline",
+      cell: ({ row }) => row.original.serviceTimelines || "—",
       enableSorting: false,
     },
     {
@@ -322,9 +194,9 @@ export function CatalogTable({ catalogs, isPending }: CatalogTableProps) {
       enableSorting: false,
     },
   ];
-
+  
   const table = useReactTable({
-    data: filteredCatalogs,
+    data: serviceTypes,
     columns,
     getRowId: (row) => String(row.id),
     getCoreRowModel: getCoreRowModel(),
@@ -359,7 +231,7 @@ export function CatalogTable({ catalogs, isPending }: CatalogTableProps) {
         </div>
       )}
       <CardContent className="p-0">
-        <Table className="text-base">
+        <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -396,7 +268,7 @@ export function CatalogTable({ catalogs, isPending }: CatalogTableProps) {
                   colSpan={columns.length}
                   className="py-8 text-center text-sm text-muted-foreground"
                 >
-                  No catalog items found
+                  No service types found
                 </TableCell>
               </TableRow>
             ) : (
@@ -441,10 +313,11 @@ export function CatalogTable({ catalogs, isPending }: CatalogTableProps) {
             <AlertDialogMedia>
               <AlertTriangle className="size-8 text-destructive" />
             </AlertDialogMedia>
-            <AlertDialogTitle>Delete Catalog Items</AlertDialogTitle>
+            <AlertDialogTitle>Delete Service Types</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete {selectedCount} catalog item
-              {selectedCount !== 1 ? "s" : ""}? This action cannot be undone.
+              Are you sure you want to delete {selectedCount} service
+              type{selectedCount !== 1 ? "s" : ""}? This action cannot be
+              undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -453,7 +326,9 @@ export function CatalogTable({ catalogs, isPending }: CatalogTableProps) {
               disabled={bulkDeleting}
               onClick={() =>
                 bulkDelete(
-                  table.getSelectedRowModel().rows.map((r) => r.original.id!),
+                  table
+                    .getSelectedRowModel()
+                    .rows.map((r) => r.original.id!),
                 )
               }
             >

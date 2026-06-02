@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "@tanstack/react-form";
 import { PlusIcon, XIcon } from "lucide-react";
-import { postCatalogByStoreIdMutation, getCatalogQueryKey } from "@/queries/@tanstack/react-query.gen";
+import { postCatalogServiceTypesByStoreIdMutation, getCatalogServiceTypesQueryKey } from "@/queries/@tanstack/react-query.gen";
 import { useSelectedStore } from "@/stores/selected-store";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,55 +19,42 @@ import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Spinner } from "@/components/ui/spinner";
-import { CloudinaryUpload } from "@/components/shared/cloudinary-upload";
-import { Badge } from "@/components/ui/badge";
 import z from "zod";
 
 interface StagedItem {
   name: string;
   description: string;
   price: string;
-  imageUrl: string;
-  services: string;
-  bulk: boolean;
+  serviceTimelines: string;
 }
 
 const draftSchema = z.object({
   name: z.string().min(1, "Name is required"),
-  description: z.string().min(1, "Description is required"),
+  description: z.string(),
   price: z.string().min(1, "Price is required").refine(
     (v) => !isNaN(Number(v)) && Number(v) > 0,
     "Price must be a positive number",
   ),
-  imageUrl: z.string().min(1, "Image is required"),
-  services: z.string(),
-  bulk: z.boolean(),
+  serviceTimelines: z.string().min(1, "Timeline is required"),
 });
 
-export function CatalogCreateDialog() {
+export function ServiceTypesCreateDialog() {
   const { selectedStoreId } = useSelectedStore();
   const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState<StagedItem[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  const { mutateAsync: createCatalog, isPending: isSubmitting } = useMutation({
-    ...postCatalogByStoreIdMutation(),
+  const { mutateAsync: createServiceType, isPending: isSubmitting } = useMutation({
+    ...postCatalogServiceTypesByStoreIdMutation(),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: getCatalogQueryKey() });
+      queryClient.invalidateQueries({ queryKey: getCatalogServiceTypesQueryKey() });
       resetForm();
     },
   });
 
   const form = useForm({
-    defaultValues: {
-      name: "",
-      description: "",
-      price: "",
-      imageUrl: "",
-      services: "",
-      bulk: false,
-    },
+    defaultValues: { name: "", description: "", price: "", serviceTimelines: "" },
     validators: { onChange: draftSchema },
     onSubmit: async ({ value }) => {
       setItems((prev) => [...prev, { ...value }]);
@@ -89,23 +76,18 @@ export function CatalogCreateDialog() {
 
   async function handleSubmit() {
     if (items.length === 0) {
-      setError("Add at least one item to the catalog");
+      setError("Add at least one service type");
       return;
     }
     if (!selectedStoreId) return;
 
-    await createCatalog({
+    await createServiceType({
       path: { storeId: selectedStoreId },
       body: items.map((item) => ({
         name: item.name.trim(),
         description: item.description.trim(),
         price: Number(item.price),
-        imageUrl: item.imageUrl || "",
-        services: item.services
-          .split(",")
-          .map((s) => s.trim())
-          .filter(Boolean),
-        bulk: item.bulk,
+        serviceTimelines: item.serviceTimelines.trim(),
       })),
     });
   }
@@ -115,14 +97,14 @@ export function CatalogCreateDialog() {
       <DialogTrigger asChild>
         <Button>
           <PlusIcon className="mr-2 h-4 w-4" />
-          Create Catalog
+          Create Service Types
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Create Catalog Items</DialogTitle>
+          <DialogTitle>Create Service Types</DialogTitle>
           <DialogDescription>
-            Add products or services to your catalog
+            Add service types available in your store
           </DialogDescription>
         </DialogHeader>
 
@@ -135,24 +117,6 @@ export function CatalogCreateDialog() {
           }}
         >
           <div className="rounded-lg border p-4 space-y-4">
-            <form.Field name="imageUrl">
-              {(field) => {
-                const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid;
-                return (
-                  <Field data-invalid={isInvalid}>
-                    <div className="flex justify-center">
-                      <CloudinaryUpload
-                        value={field.state.value}
-                        onChange={(url) => field.handleChange(url)}
-                      />
-                    </div>
-                    <FieldError errors={field.state.meta.errors} />
-                  </Field>
-                );
-              }}
-            </form.Field>
-
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <form.Field name="name">
                 {(field) => {
@@ -160,12 +124,12 @@ export function CatalogCreateDialog() {
                     field.state.meta.isTouched && !field.state.meta.isValid;
                   return (
                     <Field data-invalid={isInvalid}>
-                      <FieldLabel>Item Name</FieldLabel>
+                      <FieldLabel>Service Name</FieldLabel>
                       <Input
                         value={field.state.value}
                         onBlur={field.handleBlur}
                         onChange={(e) => field.handleChange(e.target.value)}
-                        placeholder="e.g. Wash & Fold"
+                        placeholder="e.g. Washing"
                       />
                       <FieldError errors={field.state.meta.errors} />
                     </Field>
@@ -197,62 +161,37 @@ export function CatalogCreateDialog() {
             </div>
 
             <form.Field name="description">
+              {(field) => (
+                <Field>
+                  <FieldLabel>Description</FieldLabel>
+                  <Textarea
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    placeholder="Brief description of this service"
+                  />
+                </Field>
+              )}
+            </form.Field>
+
+            <form.Field name="serviceTimelines">
               {(field) => {
                 const isInvalid =
                   field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field data-invalid={isInvalid}>
-                    <FieldLabel>Description</FieldLabel>
-                    <Textarea
+                    <FieldLabel>Service Timeline</FieldLabel>
+                    <Input
                       value={field.state.value}
                       onBlur={field.handleBlur}
                       onChange={(e) => field.handleChange(e.target.value)}
-                      placeholder="Brief description of this item"
+                      placeholder="e.g. 2-3 hours"
                     />
                     <FieldError errors={field.state.meta.errors} />
                   </Field>
                 );
               }}
             </form.Field>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <form.Field name="services">
-                {(field) => (
-                  <Field className="col-span-2">
-                    <FieldLabel>Services</FieldLabel>
-                    <Input
-                      value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      placeholder="e.g. washing, ironing, folding"
-                    />
-                    <p className="text-xs text-muted-foreground mt-1">
-                      Separate services with commas
-                    </p>
-                  </Field>
-                )}
-              </form.Field>
-
-              <form.Field name="bulk">
-                {(field) => (
-                  <Field>
-                    <FieldLabel>Billing Type</FieldLabel>
-                    <div className="flex h-9 items-center">
-                      <button
-                        type="button"
-                        onClick={() => field.handleChange(!field.state.value)}
-                        className={`px-3 py-1.5 text-sm rounded-full border transition-colors ${
-                          field.state.value
-                            ? "bg-primary text-primary-foreground border-primary"
-                            : "bg-background text-muted-foreground border-input hover:border-primary"
-                        }`}
-                      >
-                        {field.state.value ? "Per Kg" : "Per Item"}
-                      </button>
-                    </div>
-                  </Field>
-                )}
-              </form.Field>
-            </div>
 
             <form.Subscribe>
               {({ isSubmitting: formSubmitting }) => (
@@ -263,7 +202,7 @@ export function CatalogCreateDialog() {
                   className="w-full"
                 >
                   <PlusIcon className="size-4 mr-2" />
-                  Add Catalog
+                  Add Service Type
                 </Button>
               )}
             </form.Subscribe>
@@ -281,19 +220,6 @@ export function CatalogCreateDialog() {
                   key={index}
                   className="flex items-start gap-3 rounded-lg border p-3"
                 >
-                  <div className="size-14 shrink-0 rounded-md overflow-hidden bg-muted">
-                    {item.imageUrl ? (
-                      <img
-                        src={item.imageUrl}
-                        alt={item.name}
-                        className="size-full object-cover"
-                      />
-                    ) : (
-                      <div className="size-full flex items-center justify-center text-muted-foreground">
-                        <span className="text-xs">—</span>
-                      </div>
-                    )}
-                  </div>
                   <div className="flex-1 min-w-0 space-y-1">
                     <div className="flex items-start justify-between gap-2">
                       <p className="text-sm font-medium truncate">{item.name}</p>
@@ -312,21 +238,9 @@ export function CatalogCreateDialog() {
                       <span className="text-sm font-semibold">
                         KES {Number(item.price).toLocaleString()}
                       </span>
-                      <Badge
-                        variant="outline"
-                        className={
-                          item.bulk
-                            ? "bg-indigo-100 text-indigo-700 border-indigo-200 text-xs font-medium"
-                            : "bg-amber-100 text-amber-700 border-amber-200 text-xs font-medium"
-                        }
-                      >
-                        {item.bulk ? "Per Kg" : "Per Item"}
-                      </Badge>
-                      {item.services && (
-                        <span className="text-xs text-muted-foreground truncate">
-                          {item.services}
-                        </span>
-                      )}
+                      <span className="text-xs text-muted-foreground">
+                        {item.serviceTimelines}
+                      </span>
                     </div>
                   </div>
                 </div>

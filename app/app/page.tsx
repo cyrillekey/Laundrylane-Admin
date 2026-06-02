@@ -1,66 +1,56 @@
 "use client";
 
-import { useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { ShoppingBag, Activity, Users } from "lucide-react";
-import {
-  getOrderOptions,
-  getUserOptions,
-} from "@/queries/@tanstack/react-query.gen";
 import { useSelectedStore } from "@/stores/selected-store";
 import { StatCard } from "@/container/dashboard/stat-card";
 import { SalesStatsCard } from "@/container/dashboard/sales-stats-card";
+import { useQuery } from "@tanstack/react-query";
+import { getStatsOrdersOptions } from "@/queries/@tanstack/react-query.gen";
 
 export default function AppDashboard() {
   const { selectedStoreId } = useSelectedStore();
-
-  const { data: user } = useQuery({
-    ...getUserOptions(),
-  });
-
-  const { data: ordersData } = useQuery({
-    ...getOrderOptions({
+  const { data: statsResponse, isLoading: isLoadingStats } = useQuery({
+    ...getStatsOrdersOptions({
       query: { storeId: selectedStoreId ?? undefined },
     }),
+    enabled: !!selectedStoreId,
   });
-
-  const allOrders = ordersData ?? [];
-
-  const stats = useMemo(() => {
-    const totalOrders = allOrders.length;
-    const activeOrders = allOrders.filter(
-      (o) => o.orderStatus !== "COMPLETED" && o.orderStatus !== "CANCELLED",
-    ).length;
-    const uniqueCustomers = new Set(
-      allOrders.map((o) => o.user?.id).filter(Boolean),
-    ).size;
-
-    return { totalOrders, activeOrders, uniqueCustomers };
-  }, [allOrders]);
+  const { data: inProgressResponse, isLoading: isLoadingInProgress } = useQuery(
+    {
+      ...getStatsOrdersOptions({
+        query: {
+          storeId: selectedStoreId ?? undefined,
+          status: [
+            "IN_PROGRESS",
+            "PENDING",
+            "READY_FOR_DELIVERY",
+            "OUT_FOR_DELIVERY",
+            "READY_FOR_PICKUP",
+          ],
+        },
+      }),
+      enabled: !!selectedStoreId,
+    },
+  );
 
   return (
     <div className="flex flex-col gap-6 p-6">
       <div className="flex flex-wrap gap-4">
-        <SalesStatsCard orders={allOrders} />
+        <SalesStatsCard />
         <StatCard
           title="Total Orders"
-          value={stats.totalOrders}
-          icon={ShoppingBag}
-          iconClassName="bg-amber-100 text-amber-700"
+          value={statsResponse?.totalOrders ?? 0}
+          href="/app/orders"
+          trend={statsResponse?.delta}
+          loading={isLoadingStats}
         />
         <StatCard
           title="Active Orders"
-          value={stats.activeOrders}
-          description="Not completed or cancelled"
-          icon={Activity}
-          iconClassName="bg-indigo-100 text-indigo-700"
+          value={inProgressResponse?.totalOrders ?? 0}
+          href="/app/orders"
+          trend={inProgressResponse?.delta ?? 0}
+          loading={isLoadingInProgress}
         />
-        <StatCard
-          title="Customers"
-          value={stats.uniqueCustomers}
-          icon={Users}
-          iconClassName="bg-sky-100 text-sky-700"
-        />
+        <StatCard title="Customers" value={0} href="/app/customers" />
       </div>
     </div>
   );

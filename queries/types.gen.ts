@@ -2038,6 +2038,63 @@ export type PutContentByKeyResponses = {
 
 export type PutContentByKeyResponse = PutContentByKeyResponses[keyof PutContentByKeyResponses];
 
+export type GetCustomersData = {
+    body?: never;
+    path?: never;
+    query?: {
+        storeId?: number;
+        fromDate?: string;
+        toDate?: string;
+        search?: string;
+        limit?: number;
+        offset?: number;
+    };
+    url: '/customers';
+};
+
+export type GetCustomersErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type GetCustomersError = GetCustomersErrors[keyof GetCustomersErrors];
+
+export type GetCustomersResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        customers?: Array<{
+            id?: number;
+            email?: string;
+            name?: string | null;
+            phone?: string | null;
+            isVerified?: boolean;
+            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
+            lastLoginDate?: string;
+            dateOfBirth?: string | null;
+            userName?: string | null;
+            gender?: string | null;
+            avatar?: string | null;
+            createdat?: string;
+            organisationId?: number | null;
+            updatedat?: string;
+            totalOrders?: number;
+            activeOrders?: number;
+            lastOrderDate?: string | null;
+        }>;
+        total?: number;
+    };
+};
+
+export type GetCustomersResponse = GetCustomersResponses[keyof GetCustomersResponses];
+
 export type GetDeliveryZonesData = {
     body?: never;
     path?: never;
@@ -4078,6 +4135,80 @@ export type GetPaymentsResponses = {
 };
 
 export type GetPaymentsResponse = GetPaymentsResponses[keyof GetPaymentsResponses];
+
+export type GetStatsSalesData = {
+    body?: never;
+    path?: never;
+    query?: {
+        month?: string;
+        storeId?: number;
+    };
+    url: '/stats/sales';
+};
+
+export type GetStatsSalesErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type GetStatsSalesError = GetStatsSalesErrors[keyof GetStatsSalesErrors];
+
+export type GetStatsSalesResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        totalSales?: number;
+        lastMonthSales?: number;
+        delta?: number;
+    };
+};
+
+export type GetStatsSalesResponse = GetStatsSalesResponses[keyof GetStatsSalesResponses];
+
+export type GetStatsOrdersData = {
+    body?: never;
+    path?: never;
+    query?: {
+        storeId?: number;
+        fromDate?: string;
+        toDate?: string;
+        status?: Array<'PENDING' | 'IN_PROGRESS' | 'READY_FOR_PICKUP' | 'READY_FOR_DELIVERY' | 'OUT_FOR_DELIVERY' | 'COMPLETED' | 'CANCELLED'>;
+    };
+    url: '/stats/orders';
+};
+
+export type GetStatsOrdersErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type GetStatsOrdersError = GetStatsOrdersErrors[keyof GetStatsOrdersErrors];
+
+export type GetStatsOrdersResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        totalOrders?: number;
+        lastPeriodOrders?: number;
+        delta?: number;
+    };
+};
+
+export type GetStatsOrdersResponse = GetStatsOrdersResponses[keyof GetStatsOrdersResponses];
 
 export type GetStoreData = {
     body?: never;
