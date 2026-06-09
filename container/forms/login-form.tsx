@@ -12,8 +12,9 @@ import {
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import logo from "@/public/logos/logo.png";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { useForm } from "@tanstack/react-form";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 import z from "zod";
 
 import { Spinner } from "@/components/ui/spinner";
@@ -43,6 +44,7 @@ export function LoginForm({
     ...postAuthenticationLoginMutation(),
   });
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
   const form = useForm({
     defaultValues: {
       email: "",
@@ -96,14 +98,14 @@ export function LoginForm({
             ) {
               AuthenticationService.setToken(res.token!);
               AuthenticationService.setUser(res.user!);
-              router.push("/app");
+              window.location.replace("/app");
             } else {
               toast.error("Error!", {
                 description: "Only admin can login to the admin portal",
               });
             }
           } else {
-            toast.error("Error!", { description: res.message });
+            toast.error("Error!", { description: res.message ?? "Invalid credentials" });
           }
         }
       }
@@ -207,16 +209,31 @@ export function LoginForm({
                         Forgot your password?
                       </Link>
                     </div>
-                    <Input
-                      id={field.name}
-                      name={field.name}
-                      value={field.state.value}
-                      onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      type="password"
-                      aria-invalid={isInvalid}
-                      required
-                    />
+                    <div className="relative">
+                      <Input
+                        id={field.name}
+                        name={field.name}
+                        value={field.state.value}
+                        onBlur={field.handleBlur}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                        type={showPassword ? "text" : "password"}
+                        aria-invalid={isInvalid}
+                        required
+                        className="pr-9"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword((p) => !p)}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                        tabIndex={-1}
+                      >
+                        {showPassword ? (
+                          <EyeOffIcon className="size-4" />
+                        ) : (
+                          <EyeIcon className="size-4" />
+                        )}
+                      </button>
+                    </div>
                     <FieldError errors={field.state.meta.errors} />
                   </Field>
                 );

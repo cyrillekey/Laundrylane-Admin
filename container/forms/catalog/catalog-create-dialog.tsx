@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useForm } from "@tanstack/react-form";
 import { PlusIcon, XIcon } from "lucide-react";
-import { postCatalogByStoreIdMutation, getCatalogQueryKey } from "@/queries/@tanstack/react-query.gen";
+import {
+  postCatalogByStoreIdMutation,
+  getCatalogQueryKey,
+} from "@/queries/@tanstack/react-query.gen";
 import { useSelectedStore } from "@/stores/selected-store";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,40 +17,19 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Field, FieldError, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Spinner } from "@/components/ui/spinner";
-import { CloudinaryUpload } from "@/components/shared/cloudinary-upload";
 import { Badge } from "@/components/ui/badge";
-import z from "zod";
-
-interface StagedItem {
-  name: string;
-  description: string;
-  price: string;
-  imageUrl: string;
-  services: string;
-  bulk: boolean;
-}
-
-const draftSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  description: z.string().min(1, "Description is required"),
-  price: z.string().min(1, "Price is required").refine(
-    (v) => !isNaN(Number(v)) && Number(v) > 0,
-    "Price must be a positive number",
-  ),
-  imageUrl: z.string().min(1, "Image is required"),
-  services: z.string(),
-  bulk: z.boolean(),
-});
+import {
+  CatalogItemFields,
+  type CatalogStagedItem,
+} from "./catalog-item-fields";
+import Image from "next/image";
 
 export function CatalogCreateDialog() {
   const { selectedStoreId } = useSelectedStore();
   const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
-  const [items, setItems] = useState<StagedItem[]>([]);
+  const [items, setItems] = useState<CatalogStagedItem[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   const { mutateAsync: createCatalog, isPending: isSubmitting } = useMutation({
@@ -59,27 +40,9 @@ export function CatalogCreateDialog() {
     },
   });
 
-  const form = useForm({
-    defaultValues: {
-      name: "",
-      description: "",
-      price: "",
-      imageUrl: "",
-      services: "",
-      bulk: false,
-    },
-    validators: { onChange: draftSchema },
-    onSubmit: async ({ value }) => {
-      setItems((prev) => [...prev, { ...value }]);
-      form.reset();
-      setError(null);
-    },
-  });
-
   function resetForm() {
     setOpen(false);
     setItems([]);
-    form.reset();
     setError(null);
   }
 
@@ -111,7 +74,13 @@ export function CatalogCreateDialog() {
   }
 
   return (
-    <Dialog open={open} onOpenChange={(next) => { setOpen(next); if (!next) resetForm(); }}>
+    <Dialog
+      open={open}
+      onOpenChange={(next) => {
+        setOpen(next);
+        if (!next) resetForm();
+      }}
+    >
       <DialogTrigger asChild>
         <Button>
           <PlusIcon className="mr-2 h-4 w-4" />
@@ -126,149 +95,14 @@ export function CatalogCreateDialog() {
           </DialogDescription>
         </DialogHeader>
 
-        <form
-          noValidate
-          onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            form.handleSubmit();
-          }}
-        >
-          <div className="rounded-lg border p-4 space-y-4">
-            <form.Field name="imageUrl">
-              {(field) => {
-                const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid;
-                return (
-                  <Field data-invalid={isInvalid}>
-                    <div className="flex justify-center">
-                      <CloudinaryUpload
-                        value={field.state.value}
-                        onChange={(url) => field.handleChange(url)}
-                      />
-                    </div>
-                    <FieldError errors={field.state.meta.errors} />
-                  </Field>
-                );
-              }}
-            </form.Field>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <form.Field name="name">
-                {(field) => {
-                  const isInvalid =
-                    field.state.meta.isTouched && !field.state.meta.isValid;
-                  return (
-                    <Field data-invalid={isInvalid}>
-                      <FieldLabel>Item Name</FieldLabel>
-                      <Input
-                        value={field.state.value}
-                        onBlur={field.handleBlur}
-                        onChange={(e) => field.handleChange(e.target.value)}
-                        placeholder="e.g. Wash & Fold"
-                      />
-                      <FieldError errors={field.state.meta.errors} />
-                    </Field>
-                  );
-                }}
-              </form.Field>
-
-              <form.Field name="price">
-                {(field) => {
-                  const isInvalid =
-                    field.state.meta.isTouched && !field.state.meta.isValid;
-                  return (
-                    <Field data-invalid={isInvalid}>
-                      <FieldLabel>Price (KES)</FieldLabel>
-                      <Input
-                        type="number"
-                        min="0"
-                        step="0.01"
-                        value={field.state.value}
-                        onBlur={field.handleBlur}
-                        onChange={(e) => field.handleChange(e.target.value)}
-                        placeholder="e.g. 500"
-                      />
-                      <FieldError errors={field.state.meta.errors} />
-                    </Field>
-                  );
-                }}
-              </form.Field>
-            </div>
-
-            <form.Field name="description">
-              {(field) => {
-                const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid;
-                return (
-                  <Field data-invalid={isInvalid}>
-                    <FieldLabel>Description</FieldLabel>
-                    <Textarea
-                      value={field.state.value}
-                      onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      placeholder="Brief description of this item"
-                    />
-                    <FieldError errors={field.state.meta.errors} />
-                  </Field>
-                );
-              }}
-            </form.Field>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <form.Field name="services">
-                {(field) => (
-                  <Field className="col-span-2">
-                    <FieldLabel>Services</FieldLabel>
-                    <Input
-                      value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      placeholder="e.g. washing, ironing, folding"
-                    />
-                    <p className="text-xs text-muted-foreground mt-1">
-                      Separate services with commas
-                    </p>
-                  </Field>
-                )}
-              </form.Field>
-
-              <form.Field name="bulk">
-                {(field) => (
-                  <Field>
-                    <FieldLabel>Billing Type</FieldLabel>
-                    <div className="flex h-9 items-center">
-                      <button
-                        type="button"
-                        onClick={() => field.handleChange(!field.state.value)}
-                        className={`px-3 py-1.5 text-sm rounded-full border transition-colors ${
-                          field.state.value
-                            ? "bg-primary text-primary-foreground border-primary"
-                            : "bg-background text-muted-foreground border-input hover:border-primary"
-                        }`}
-                      >
-                        {field.state.value ? "Per Kg" : "Per Item"}
-                      </button>
-                    </div>
-                  </Field>
-                )}
-              </form.Field>
-            </div>
-
-            <form.Subscribe>
-              {({ isSubmitting: formSubmitting }) => (
-                <Button
-                  type="submit"
-                  variant="outline"
-                  disabled={formSubmitting}
-                  className="w-full"
-                >
-                  <PlusIcon className="size-4 mr-2" />
-                  Add Catalog
-                </Button>
-              )}
-            </form.Subscribe>
-          </div>
-        </form>
+        <div className="rounded-lg border p-4">
+          <CatalogItemFields
+            onSubmit={(value) => {
+              setItems((prev) => [...prev, { ...value }]);
+              setError(null);
+            }}
+          />
+        </div>
 
         {items.length > 0 && (
           <div className="space-y-2">
@@ -283,8 +117,8 @@ export function CatalogCreateDialog() {
                 >
                   <div className="size-14 shrink-0 rounded-md overflow-hidden bg-muted">
                     {item.imageUrl ? (
-                      <img
-                        src={item.imageUrl}
+                      <Image
+                        src={{ src: item.imageUrl, height: 200, width: 200 }}
                         alt={item.name}
                         className="size-full object-cover"
                       />
@@ -296,7 +130,9 @@ export function CatalogCreateDialog() {
                   </div>
                   <div className="flex-1 min-w-0 space-y-1">
                     <div className="flex items-start justify-between gap-2">
-                      <p className="text-sm font-medium truncate">{item.name}</p>
+                      <p className="text-sm font-medium truncate">
+                        {item.name}
+                      </p>
                       <button
                         type="button"
                         onClick={() => removeFromItems(index)}
@@ -335,23 +171,17 @@ export function CatalogCreateDialog() {
           </div>
         )}
 
-        {error && (
-          <p className="text-sm text-destructive">{error}</p>
-        )}
+        {error && <p className="text-sm text-destructive">{error}</p>}
 
-        <form.Subscribe>
-          {({ isSubmitting: formSubmitting }) => (
-            <Button
-              type="button"
-              onClick={handleSubmit}
-              disabled={items.length === 0 || isSubmitting || formSubmitting}
-              className="w-full"
-            >
-              {isSubmitting && <Spinner />}
-              Save {items.length} Item{items.length !== 1 ? "s" : ""}
-            </Button>
-          )}
-        </form.Subscribe>
+        <Button
+          type="button"
+          onClick={handleSubmit}
+          disabled={items.length === 0 || isSubmitting}
+          className="w-full"
+        >
+          {isSubmitting && <Spinner />}
+          Save {items.length} Item{items.length !== 1 ? "s" : ""}
+        </Button>
       </DialogContent>
     </Dialog>
   );

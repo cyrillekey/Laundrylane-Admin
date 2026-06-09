@@ -1,112 +1,63 @@
 "use client";
 
 import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { XIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { FieldGroup } from "@/components/ui/field";
 import { Spinner } from "@/components/ui/spinner";
-import { CloudinaryUpload } from "@/components/shared/cloudinary-upload";
-import { PlusIcon, XIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
-
-interface CatalogItemInput {
-  name: string;
-  description: string;
-  price: string;
-  imageUrl: string;
-  services: string;
-  bulk: boolean;
-}
-
-export type CatalogFormValues = Array<{
-  name: string;
-  description: string;
-  price: number;
-  imageUrl: string;
-  services: string[];
-  bulk: boolean;
-}>;
+import { Badge } from "@/components/ui/badge";
+import {
+  CatalogItemFields,
+  type CatalogStagedItem,
+} from "@/container/forms/catalog/catalog-item-fields";
+import {
+  postCatalogByStoreIdMutation,
+  getCatalogQueryKey,
+} from "@/queries/@tanstack/react-query.gen";
+import { useSelectedStore } from "@/stores/selected-store";
+import { toast } from "sonner";
+import Image from "next/image";
 
 interface CatalogFormProps {
-  onSubmit: (items: CatalogFormValues) => Promise<void>;
-  isSubmitting: boolean;
   onBack: () => void;
+  onSuccess: () => void;
 }
 
-function emptyItem(): CatalogItemInput {
-  return {
-    name: "",
-    description: "",
-    price: "",
-    imageUrl: "",
-    services: "",
-    bulk: false,
-  };
-}
+export function CatalogForm({ onBack, onSuccess }: CatalogFormProps) {
+  const { selectedStoreId } = useSelectedStore();
+  const queryClient = useQueryClient();
+  const [items, setItems] = useState<CatalogStagedItem[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
-export function CatalogForm({
-  onSubmit,
-  isSubmitting,
-}: CatalogFormProps) {
-  const [items, setItems] = useState<CatalogItemInput[]>([emptyItem()]);
-  const [expanded, setExpanded] = useState<Set<number>>(new Set([0]));
+  const { mutateAsync: createCatalog, isPending: isSubmitting } = useMutation({
+    ...postCatalogByStoreIdMutation(),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: getCatalogQueryKey() });
+      setItems([]);
+      setError(null);
+      toast.success("Catalog created successfully!");
+      onSuccess();
+    },
+    onError: () => {
+      toast.error("Failed to create catalog. Please try again.");
+    },
+  });
 
-  function toggleExpand(index: number) {
-    setExpanded((prev) => {
-      const next = new Set(prev);
-      if (next.has(index)) {
-        next.delete(index);
-      } else {
-        next.add(index);
-      }
-      return next;
-    });
-  }
-
-  function updateItem(
-    index: number,
-    field: keyof CatalogItemInput,
-    value: string | boolean,
-  ) {
-    setItems((prev) =>
-      prev.map((item, i) => (i === index ? { ...item, [field]: value } : item)),
-    );
-  }
-
-  function addItem() {
-    setItems((prev) => [...prev, emptyItem()]);
-    setExpanded((prev) => {
-      const next = new Set(prev);
-      next.add(items.length);
-      return next;
-    });
-  }
-
-  function removeItem(index: number) {
+  function removeFromItems(index: number) {
     setItems((prev) => prev.filter((_, i) => i !== index));
-    setExpanded((prev) => {
-      const next = new Set(prev);
-      next.delete(index);
-      return next;
-    });
-  }
-
-  function isValid(): boolean {
-    return items.every(
-      (item) =>
-        item.name.trim() &&
-        item.description.trim() &&
-        item.price.trim() &&
-        !isNaN(Number(item.price)) &&
-        Number(item.price) > 0,
-    );
   }
 
   async function handleSubmit() {
-    if (!isValid()) return;
+    if (items.length === 0) {
+      setError("Add at least one item to the catalog");
+      return;
+    }
+    if (!selectedStoreId) return;
 
-    await onSubmit(
-      items.map((item) => ({
+    await createCatalog({
+      path: { storeId: selectedStoreId },
+      body: items.map((item) => ({
         name: item.name.trim(),
         description: item.description.trim(),
         price: Number(item.price),
@@ -117,154 +68,109 @@ export function CatalogForm({
           .filter(Boolean),
         bulk: item.bulk,
       })),
-    );
+    });
   }
 
-  return (    
-    <form
-      noValidate
-      onSubmit={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        handleSubmit();
-      }}
-    >
+  return (
+    <div className="space-y-6">
       <FieldGroup>
-        
-        <div className="space-y-4 " >
-          {items.map((item, index) => {
-            const isOpen = expanded.has(index);
-            return (
-              <div key={index} className="rounded-lg border p-4 space-y-4">
-                <div className="flex items-center justify-between gap-2">
-                  <button
-                    type="button"
-                    onClick={() => toggleExpand(index)}
-                    className="flex items-center gap-2 text-sm font-medium flex-1 text-left"
-                  >
-                    {isOpen ? (
-                      <ChevronUpIcon className="size-4 text-muted-foreground" />
-                    ) : (
-                      <ChevronDownIcon className="size-4 text-muted-foreground" />
-                    )}
-                    {item.name || `Item ${index + 1}`}
-                  </button>
-                  {items.length > 1 && (
+        <div className="rounded-lg border p-4">
+          <CatalogItemFields
+            onSubmit={(value) => {
+              setItems((prev) => [...prev, { ...value }]);
+              setError(null);
+            }}
+          />
+        </div>
+      </FieldGroup>
+
+      {items.length > 0 && (
+        <div className="space-y-3">
+          <p className="text-sm font-medium text-muted-foreground">
+            Staged Items ({items.length})
+          </p>
+          <div className="h-[5rem] overflow-y-auto space-y-2 pr-1">
+            {items.map((item, index) => (
+              <div
+                key={index}
+                className="flex items-start gap-3 rounded-lg border p-3"
+              >
+                <div className="size-14 shrink-0 rounded-md overflow-hidden bg-muted">
+                  {item.imageUrl ? (
+                    <Image
+                      src={{ src: item.imageUrl, height: 400, width: 400 }}
+                      alt={item.name}
+                      className="size-full object-cover"
+                    />
+                  ) : (
+                    <div className="size-full flex items-center justify-center text-muted-foreground">
+                      <span className="text-xs">—</span>
+                    </div>
+                  )}
+                </div>
+                <div className="flex-1 min-w-0 space-y-1">
+                  <div className="flex items-start justify-between gap-2">
+                    <p className="text-sm font-medium truncate">{item.name}</p>
                     <button
                       type="button"
-                      onClick={() => removeItem(index)}
-                      className="text-muted-foreground hover:text-destructive transition-colors"
+                      onClick={() => removeFromItems(index)}
+                      className="shrink-0 text-muted-foreground hover:text-destructive transition-colors"
                     >
                       <XIcon className="size-4" />
                     </button>
-                  )}
-                </div>
-
-                {isOpen && (
-                  <div className="space-y-4">
-                    <div className="flex justify-center">
-                      <CloudinaryUpload
-                        value={item.imageUrl}
-                        onChange={(url) => updateItem(index, "imageUrl", url)}
-                      />
-                    </div>
-
-                    <Field>
-                      <FieldLabel>Item Name</FieldLabel>
-                      <Input
-                        value={item.name}
-                        onChange={(e) =>
-                          updateItem(index, "name", e.target.value)
-                        }
-                        placeholder="e.g. Wash & Fold"
-                      />
-                    </Field>
-
-                    <Field>
-                      <FieldLabel>Description</FieldLabel>
-                      <Textarea
-                        value={item.description}
-                        onChange={(e) =>
-                          updateItem(index, "description", e.target.value)
-                        }
-                        placeholder="Brief description of this item"
-                      />
-                    </Field>
-
-                    <div className="grid grid-cols-2 gap-4">
-                      <Field>
-                        <FieldLabel>Price (KES)</FieldLabel>
-                        <Input
-                          type="number"
-                          min="0"
-                          step="0.01"
-                          value={item.price}
-                          onChange={(e) =>
-                            updateItem(index, "price", e.target.value)
-                          }
-                          placeholder="e.g. 500"
-                        />
-                      </Field>
-
-                      <Field>
-                        <FieldLabel>Billing</FieldLabel>
-                        <div className="flex h-9 items-center">
-                          <button
-                            type="button"
-                            onClick={() =>
-                              updateItem(index, "bulk", !item.bulk)
-                            }
-                            className={`px-3 py-1.5 text-sm rounded-full border transition-colors ${
-                              item.bulk
-                                ? "bg-primary text-primary-foreground border-primary"
-                                : "bg-background text-muted-foreground border-input hover:border-primary"
-                            }`}
-                          >
-                            {item.bulk ? "Per Kg" : "Per Item"}
-                          </button>
-                        </div>
-                      </Field>
-                    </div>
-
-                    <Field>
-                      <FieldLabel>Services</FieldLabel>
-                      <Input
-                        value={item.services}
-                        onChange={(e) =>
-                          updateItem(index, "services", e.target.value)
-                        }
-                        placeholder="e.g. washing, ironing, folding"
-                      />
-                      <p className="text-xs text-muted-foreground mt-1">
-                        Separate services with commas
-                      </p>
-                    </Field>
                   </div>
-                )}
+                  <p className="text-sm text-muted-foreground line-clamp-1">
+                    {item.description || "—"}
+                  </p>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-sm font-semibold">
+                      KES {Number(item.price).toLocaleString()}
+                    </span>
+                    <Badge
+                      variant="outline"
+                      className={
+                        item.bulk
+                          ? "bg-indigo-100 text-indigo-700 border-indigo-200 text-xs font-medium"
+                          : "bg-amber-100 text-amber-700 border-amber-200 text-xs font-medium"
+                      }
+                    >
+                      {item.bulk ? "Per Kg" : "Per Item"}
+                    </Badge>
+                    {item.services && (
+                      <span className="text-xs text-muted-foreground truncate">
+                        {item.services}
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
-            );
-          })}
+            ))}
+          </div>
         </div>
+      )}
 
+      {error && <p className="text-sm text-destructive">{error}</p>}
+
+      <div className="flex gap-3">
         <Button
           type="button"
           variant="outline"
-          onClick={addItem}
-          className="w-full"
+          onClick={onBack}
+          disabled={isSubmitting}
         >
-          <PlusIcon className="size-4 mr-2" />
-          Add Item
+          Back
         </Button>
 
         <Button
-          type="submit"
-          disabled={!isValid() || isSubmitting}
-          className="w-full"
+          type="button"
+          onClick={handleSubmit}
+          disabled={items.length === 0 || isSubmitting}
+          className="flex-1"
         >
           {isSubmitting && <Spinner />}
-          Save Catalog
+          Save {items.length} Item{items.length !== 1 ? "s" : ""}
         </Button>
-      </FieldGroup>
-    </form>
+      </div>
+    </div>
   );
 }

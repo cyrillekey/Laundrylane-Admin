@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useForm } from "@tanstack/react-form";
 import { PlusIcon, XIcon } from "lucide-react";
 import {
   postCatalogClothesByStoreIdMutation,
@@ -18,58 +17,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Field, FieldError, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
-import z from "zod";
 import {
-  NativeSelect,
-  NativeSelectOption,
-} from "@/components/ui/native-select";
-
-const CLOTH_TYPES = [
-  "Shirt",
-  "T-Shirt",
-  "Casual",
-  "Dress",
-  "Suits",
-  "Trouser",
-  "Jeans",
-  "Jacket",
-  "Coat",
-  "Hoodie",
-  "Sweater",
-  "Shorts",
-  "Skirt",
-  "Blouse",
-  "Traditional",
-  "Uniform",
-  "Other",
-];
-
-interface StagedItem {
-  name: string;
-  type: string;
-  price: string;
-}
-
-const draftSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  type: z.string().min(1, "Type is required"),
-  price: z
-    .string()
-    .min(1, "Price is required")
-    .refine(
-      (v) => !isNaN(Number(v)) && Number(v) > 0,
-      "Price must be a positive number",
-    ),
-});
+  ClothTypeItemFields,
+  type ClothTypeStagedItem,
+} from "./cloth-type-item-fields";
 
 export function ClothTypesCreateDialog() {
   const { selectedStoreId } = useSelectedStore();
   const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
-  const [items, setItems] = useState<StagedItem[]>([]);
+  const [items, setItems] = useState<ClothTypeStagedItem[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   const { mutateAsync: createClothType, isPending: isSubmitting } = useMutation(
@@ -84,20 +42,9 @@ export function ClothTypesCreateDialog() {
     },
   );
 
-  const form = useForm({
-    defaultValues: { name: "", type: "", price: "" },
-    validators: { onChange: draftSchema },
-    onSubmit: async ({ value }) => {
-      setItems((prev) => [...prev, { ...value }]);
-      form.reset();
-      setError(null);
-    },
-  });
-
   function resetForm() {
     setOpen(false);
     setItems([]);
-    form.reset();
     setError(null);
   }
 
@@ -144,97 +91,14 @@ export function ClothTypesCreateDialog() {
           </DialogDescription>
         </DialogHeader>
 
-        <form
-          noValidate
-          onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            form.handleSubmit();
-          }}
-        >
-          <div className="rounded-lg border p-4 space-y-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <form.Field name="name">
-                {(field) => {
-                  const isInvalid =
-                    field.state.meta.isTouched && !field.state.meta.isValid;
-                  return (
-                    <Field data-invalid={isInvalid}>
-                      <FieldLabel>Cloth Name</FieldLabel>
-                      <Input
-                        value={field.state.value}
-                        onBlur={field.handleBlur}
-                        onChange={(e) => field.handleChange(e.target.value)}
-                        placeholder="e.g. Cotton Shirt"
-                      />
-                      <FieldError errors={field.state.meta.errors} />
-                    </Field>
-                  );
-                }}
-              </form.Field>
-
-              <form.Field name="type">
-                {(field) => {
-                  const isInvalid =
-                    field.state.meta.isTouched && !field.state.meta.isValid;
-                  return (
-                    <Field data-invalid={isInvalid}>
-                      <FieldLabel>Type</FieldLabel>
-                      <NativeSelect
-                        name="type"
-                        value={field.state.value}
-                        onChange={(e) => field.handleChange(e.target.value)}
-                      >
-                        {CLOTH_TYPES.map((type) => (
-                          <NativeSelectOption key={type} value={type}>
-                            {type}
-                          </NativeSelectOption>
-                        ))}
-                      </NativeSelect>
-                      <FieldError errors={field.state.meta.errors} />
-                    </Field>
-                  );
-                }}
-              </form.Field>
-            </div>
-
-            <form.Field name="price">
-              {(field) => {
-                const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid;
-                return (
-                  <Field data-invalid={isInvalid}>
-                    <FieldLabel>Price (KES)</FieldLabel>
-                    <Input
-                      type="number"
-                      min="0"
-                      step="0.01"
-                      value={field.state.value}
-                      onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      placeholder="e.g. 150"
-                    />
-                    <FieldError errors={field.state.meta.errors} />
-                  </Field>
-                );
-              }}
-            </form.Field>
-
-            <form.Subscribe>
-              {({ isSubmitting: formSubmitting }) => (
-                <Button
-                  type="submit"
-                  variant="outline"
-                  disabled={formSubmitting}
-                  className="w-full"
-                >
-                  <PlusIcon className="size-4 mr-2" />
-                  Add Cloth Type
-                </Button>
-              )}
-            </form.Subscribe>
-          </div>
-        </form>
+        <div className="rounded-lg border p-4">
+          <ClothTypeItemFields
+            onSubmit={(value) => {
+              setItems((prev) => [...prev, { ...value }]);
+              setError(null);
+            }}
+          />
+        </div>
 
         {items.length > 0 && (
           <div className="space-y-2">
@@ -277,19 +141,15 @@ export function ClothTypesCreateDialog() {
 
         {error && <p className="text-sm text-destructive">{error}</p>}
 
-        <form.Subscribe>
-          {({ isSubmitting: formSubmitting }) => (
-            <Button
-              type="button"
-              onClick={handleSubmit}
-              disabled={items.length === 0 || isSubmitting || formSubmitting}
-              className="w-full"
-            >
-              {isSubmitting && <Spinner />}
-              Save {items.length} Item{items.length !== 1 ? "s" : ""}
-            </Button>
-          )}
-        </form.Subscribe>
+        <Button
+          type="button"
+          onClick={handleSubmit}
+          disabled={items.length === 0 || isSubmitting}
+          className="w-full"
+        >
+          {isSubmitting && <Spinner />}
+          Save {items.length} Item{items.length !== 1 ? "s" : ""}
+        </Button>
       </DialogContent>
     </Dialog>
   );

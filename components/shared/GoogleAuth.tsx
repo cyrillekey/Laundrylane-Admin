@@ -43,7 +43,7 @@ const GoogleAuthButton = () => {
               ) {
                 AuthenticationService.setToken(authResponse.token!);
                 AuthenticationService.setUser(authResponse.user!);
-                router.push("/app");
+                window.location.replace("/app");
               } else
                 toast.error("Error!", {
                   description: "Only admin can login to the admin portal",

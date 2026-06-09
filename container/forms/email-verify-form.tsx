@@ -110,7 +110,7 @@ export function EmailVerifyForm({
         AuthenticationService.setToken(res.token);
         AuthenticationService.setUser(res.user);
         toast.success("Email verified successfully!");
-        router.push("/onboarding");
+        window.location.replace("/onboarding");
       } else {
         toast.error("Verification failed", {
           description: res.message ?? "Invalid code. Please try again.",

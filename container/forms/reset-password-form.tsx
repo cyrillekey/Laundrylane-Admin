@@ -10,8 +10,9 @@ import {
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import logo from "@/public/logos/logo.png";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { useForm } from "@tanstack/react-form";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 import z from "zod";
 import { Spinner } from "@/components/ui/spinner";
 
@@ -29,6 +30,8 @@ export function ResetPasswordForm({
   const { mutateAsync: resetPassword } = useMutation({
     ...postAuthenticationResetpasswordConfirmMutation(),
   });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const form = useForm({
     defaultValues: {
       password: "",
@@ -90,16 +93,31 @@ export function ResetPasswordForm({
                     <div className="flex items-center">
                       <FieldLabel htmlFor="password">Password</FieldLabel>
                     </div>
-                    <Input
-                      id={field.name}
-                      name={field.name}
-                      value={field.state.value}
-                      onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      type="password"
-                      aria-invalid={isInvalid}
-                      required
-                    />
+                    <div className="relative">
+                      <Input
+                        id={field.name}
+                        name={field.name}
+                        value={field.state.value}
+                        onBlur={field.handleBlur}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                        type={showPassword ? "text" : "password"}
+                        aria-invalid={isInvalid}
+                        required
+                        className="pr-9"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword((p) => !p)}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                        tabIndex={-1}
+                      >
+                        {showPassword ? (
+                          <EyeOffIcon className="size-4" />
+                        ) : (
+                          <EyeIcon className="size-4" />
+                        )}
+                      </button>
+                    </div>
                     <FieldError errors={field.state.meta.errors} />
                   </Field>
                 );
@@ -118,16 +136,31 @@ export function ResetPasswordForm({
                         Confirm Password
                       </FieldLabel>
                     </div>
-                    <Input
-                      id={field.name}
-                      name={field.name}
-                      value={field.state.value}
-                      onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      type="password"
-                      aria-invalid={isInvalid}
-                      required
-                    />
+                    <div className="relative">
+                      <Input
+                        id={field.name}
+                        name={field.name}
+                        value={field.state.value}
+                        onBlur={field.handleBlur}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                        type={showConfirm ? "text" : "password"}
+                        aria-invalid={isInvalid}
+                        required
+                        className="pr-9"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowConfirm((p) => !p)}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                        tabIndex={-1}
+                      >
+                        {showConfirm ? (
+                          <EyeOffIcon className="size-4" />
+                        ) : (
+                          <EyeIcon className="size-4" />
+                        )}
+                      </button>
+                    </div>
                     <FieldError errors={field.state.meta.errors} />
                   </Field>
                 );

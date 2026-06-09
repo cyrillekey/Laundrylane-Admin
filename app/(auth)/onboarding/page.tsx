@@ -16,31 +16,23 @@ import {
 import {
   putOrganisationByIdMutation,
   postStoreMutation,
-  postPaymentsMethodByStoreIdMutation,
-  postCatalogByStoreIdMutation,
-  postCatalogServiceTypesByStoreIdMutation,
-  postCatalogClothesByStoreIdMutation,
   getOrganisationUserQueryKey,
+  postPaymentsPayoutByStoreIdMutation,
+  postPaymentsStoreMethodMutation,
 } from "@/queries/@tanstack/react-query.gen";
 import AuthenticationService from "@/services/tokenService";
 import {
   PaymentMethodForm,
   type PaymentMethodFormValues,
 } from "@/container/forms/onboarding/payment-method-form";
+import {
+  StorePaymentMethodsForm,
+} from "@/container/forms/onboarding/store-payment-methods-form";
 import { useSelectedStore } from "@/stores/selected-store";
 import { useOnboardingStep } from "@/stores/onboarding-step";
-import {
-  CatalogForm,
-  type CatalogFormValues,
-} from "@/container/forms/onboarding/catalog-form";
-import {
-  ServiceTypeForm,
-  type ServiceTypeFormValues,
-} from "@/container/forms/onboarding/service-type-form";
-import {
-  ClothTypeForm,
-  type ClothTypeFormValues,
-} from "@/container/forms/onboarding/cloth-type-form";
+import { CatalogForm } from "@/container/forms/onboarding/catalog-form";
+import { ServiceTypeForm } from "@/container/forms/onboarding/service-type-form";
+import { ClothTypeForm } from "@/container/forms/onboarding/cloth-type-form";
 
 const steps = [
   {
@@ -51,8 +43,13 @@ const steps = [
   { id: "store", title: "Store", description: "Set up your store" },
   {
     id: "payment",
-    title: "Payment Method",
-    description: "Set up a payment method",
+    title: "Payout Method",
+    description: "Set up where you want to receive payments",
+  },
+  {
+    id: "payment-methods",
+    title: "Payment Methods",
+    description: "Choose which payment methods your store accepts",
   },
   {
     id: "catalog",
@@ -86,24 +83,14 @@ export default function OnboardingStepper() {
     ...postStoreMutation(),
   });
 
-  const { mutateAsync: createPaymentMethod, isPending: creatingPayment } =
+  const { mutateAsync: createPayoutMethod, isPending: creatingPayment } =
     useMutation({
-      ...postPaymentsMethodByStoreIdMutation(),
+      ...postPaymentsPayoutByStoreIdMutation(),
     });
 
-  const { mutateAsync: createCatalog, isPending: creatingCatalog } =
+  const { mutateAsync: createStorePaymentMethods, isPending: creatingStorePaymentMethods } =
     useMutation({
-      ...postCatalogByStoreIdMutation(),
-    });
-
-  const { mutateAsync: createServiceTypes, isPending: creatingServiceTypes } =
-    useMutation({
-      ...postCatalogServiceTypesByStoreIdMutation(),
-    });
-
-  const { mutateAsync: createClothTypes, isPending: creatingClothTypes } =
-    useMutation({
-      ...postCatalogClothesByStoreIdMutation(),
+      ...postPaymentsStoreMethodMutation(),
     });
 
   const handleOrganisationSubmit = async (values: OrganisationFormValues) => {
@@ -130,7 +117,6 @@ export default function OnboardingStepper() {
   const handleCreateStore = async (store: StoreFormValues) => {
     try {
       const storeResponse = await createStore({
-        
         body: {
           category: store.category,
           serviceNames: store.serviceNames,
@@ -162,8 +148,10 @@ export default function OnboardingStepper() {
   const handleCreatePaymentMethod = async (values: PaymentMethodFormValues) => {
     if (!selectedStoreId) return;
     try {
-      await createPaymentMethod({
-        path: { storeId: selectedStoreId },
+      await createPayoutMethod({
+        path: {
+          storeId: selectedStoreId,
+        },
         body: {
           name: values.name,
           description: values.description,
@@ -183,68 +171,61 @@ export default function OnboardingStepper() {
     setStep(3);
   };
 
-  const handleCreateCatalog = async (items: CatalogFormValues) => {
+  const handleCreateStorePaymentMethods = async (
+    paymentMethodIds: number[],
+  ) => {
     if (!selectedStoreId) return;
     try {
-      await createCatalog({
-        path: { storeId: selectedStoreId },
-        body: items,
-      });
-      toast.success("Catalog created successfully!");
+      await Promise.all(
+        paymentMethodIds.map((paymentMethodId) =>
+          createStorePaymentMethods({
+            body: { paymentMethodId, storeId: selectedStoreId },
+          }),
+        ),
+      );
+      toast.success("Payment methods updated successfully!");
       setStep(4);
     } catch {
-      toast.error("Failed to create catalog. Please try again.");
+      toast.error("Failed to save payment methods. Please try again.");
     }
   };
 
-  const handleBackToPayment = () => {
-    setStep(2);
+  const handleSkipStorePaymentMethods = () => {
+    setStep(4);
   };
 
-  const handleCreateServiceTypes = async (items: ServiceTypeFormValues) => {
-    if (!selectedStoreId) return;
-    try {
-      await createServiceTypes({
-        path: { storeId: selectedStoreId },
-        body: items,
-      });
-      toast.success("Service types created successfully!");
-      setStep(5);
-    } catch {
-      toast.error("Failed to create service types. Please try again.");
-    }
-  };
-
-  const handleSkipServiceTypes = () => {
-    setStep(5);
-  };
-
-  const handleBackToCatalog = () => {
+  const handleBackToPaymentMethods = () => {
     setStep(3);
   };
 
-  const handleCreateClothTypes = async (items: ClothTypeFormValues) => {
-    if (!selectedStoreId) return;
-    try {
-      await createClothTypes({
-        path: { storeId: selectedStoreId },
-        body: items,
-      });
-      toast.success("Cloth types created successfully!");
-      resetStep();
-      router.push("/app");
-    } catch {
-      toast.error("Failed to create cloth types. Please try again.");
-    }
+  const handleCatalogSuccess = () => {
+    setStep(5);
+  };
+
+  const handleSkipServiceTypes = () => {
+    setStep(6);
+  };
+
+  const handleServiceTypesSuccess = () => {
+    setStep(6);
+  };
+
+  const handleBackToCatalog = () => {
+    setStep(4);
   };
 
   const handleSkipClothTypes = () => {
     resetStep();
-    router.push("/app");
+    router.replace("/app");
+  };
+
+  const handleClothTypesSuccess = () => {
+    resetStep();
+    router.replace("/app");
   };
 
   const handleBackToServiceTypes = () => {
-    setStep(4);
+    setStep(5);
   };
 
   return (
@@ -306,26 +287,32 @@ export default function OnboardingStepper() {
         )}
 
         {step === 3 && (
-          <CatalogForm
-            onSubmit={handleCreateCatalog}
-            isSubmitting={creatingCatalog}
-            onBack={handleBackToPayment}
+          <StorePaymentMethodsForm
+            onSubmit={handleCreateStorePaymentMethods}
+            isSubmitting={creatingStorePaymentMethods}
+            onSkip={handleSkipStorePaymentMethods}
+            onBack={() => setStep(2)}
           />
         )}
 
         {step === 4 && (
+          <CatalogForm
+            onSuccess={handleCatalogSuccess}
+            onBack={handleBackToPaymentMethods}
+          />
+        )}
+
+        {step === 5 && (
           <ServiceTypeForm
-            onSubmit={handleCreateServiceTypes}
-            isSubmitting={creatingServiceTypes}
+            onSuccess={handleServiceTypesSuccess}
             onSkip={handleSkipServiceTypes}
             onBack={handleBackToCatalog}
           />
         )}
 
-        {step === 5 && (
+        {step === 6 && (
           <ClothTypeForm
-            onSubmit={handleCreateClothTypes}
-            isSubmitting={creatingClothTypes}
+            onSuccess={handleClothTypesSuccess}
             onSkip={handleSkipClothTypes}
             onBack={handleBackToServiceTypes}
           />

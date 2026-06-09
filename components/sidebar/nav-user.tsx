@@ -33,6 +33,8 @@ import AuthenticationService from "@/services/tokenService";
 import { useRouter } from "next/navigation";
 import { getInitials } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
+import { useSelectedStore } from "@/stores/selected-store";
+import { useOnboardingStep } from "@/stores/onboarding-step";
 import { getNotificationsUnreadCountOptions } from "@/queries/@tanstack/react-query.gen";
 import Link from "next/link";
 
@@ -41,6 +43,8 @@ export function NavUser() {
   const { resolvedTheme, setTheme } = useTheme();
   const router = useRouter();
   const user = AuthenticationService.getUser();
+  const { clearSelectedStore } = useSelectedStore();
+  const { resetStep } = useOnboardingStep();
 
   const { data: unreadData } = useQuery({
     ...getNotificationsUnreadCountOptions(),
@@ -137,6 +141,8 @@ export function NavUser() {
             <DropdownMenuItem
               onClick={() => {
                 AuthenticationService.logOut();
+                clearSelectedStore();
+                resetStep();
                 router.replace("/");
               }}
             >

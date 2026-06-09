@@ -43,3 +43,11 @@ firebase/config.json
 # Sentry Config File
 .env.sentry-build-plugin
 .opencode
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/

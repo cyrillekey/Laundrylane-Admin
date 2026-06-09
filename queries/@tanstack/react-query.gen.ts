@@ -3,8 +3,8 @@
 import { type DefaultError, type InfiniteData, infiniteQueryOptions, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { deleteAddressById, deleteCatalogById, deleteCatalogServiceTypesById, deleteChatSessionById, deleteContentByKey, deleteDeliveryZonesById, deleteFaqById, deleteNotificationsById, deleteOrderById, deletePaymentsCardById, deletePaymentsMethodByPaymentMethodId, deleteStoreById, deleteSupportContactsById, deleteUserDeleteAccount, get, getAddress, getAddressAutocomplete, getCatalog, getCatalogClothes, getCatalogServiceTypes, getChatSessionById, getChatSessionByIdMessages, getChatSessions, getContent, getContentByKey, getCustomers, getDeliveryZones, getDeliveryZonesById, getFaq, getNotifications, getNotificationsById, getNotificationsUnreadCount, getOrder, getOrderById, getOrderByIdItems, getOrderByIdPackagingSlip, getOrganisation, getOrganisationById, getOrganisationUser, getPayments, getPaymentsCard, getPaymentsMethod, getStatsCustomers, getStatsOrders, getStatsSales, getStore, getStoreById, getSupportContacts, getUser, type Options, postAddress, postAddressReverseGeocode, postAuthenticationEmail, postAuthenticationLogin, postAuthenticationResetPassword, postAuthenticationResetpasswordConfirm, postAuthenticationResetpasswordValidateOtp, postAuthenticationSignup, postAuthenticationSignupResendOtp, postAuthenticationSignupVerifyOtp, postAuthenticationSocialAuth, postCatalogByStoreId, postCatalogClothesByStoreId, postCatalogServiceTypesByStoreId, postChatSession, postContent, postDeliveryZonesByStoreId, postFaqByStoreId, postOrderByStoreId, postPaymentsCard, postPaymentsMethodByStoreId, postPaymentsOrderByOrderId, postStore, postSupportContactsByStoreId, postUserFcmToken, putAddressById, putAuthenticationLogout, putAuthenticationResetpasswordUpdatePassword, putCatalogById, putCatalogServiceTypesById, putContentByKey, putDeliveryZonesById, putFaqById, putNotificationsMarkAllRead, putNotificationsMarkReadById, putOrderByIdCancel, putOrderByIdStatus, putOrderByIdWeight, putOrganisationById, putPaymentsCardByIdDefault, putPaymentsMethodByPaymentMethodId, putStoreById, putSupportContactsById, putUser, putUserChangePassword } from '../sdk.gen';
-import type { DeleteAddressByIdData, DeleteAddressByIdError, DeleteAddressByIdResponse, DeleteCatalogByIdData, DeleteCatalogByIdError, DeleteCatalogByIdResponse, DeleteCatalogServiceTypesByIdData, DeleteCatalogServiceTypesByIdError, DeleteCatalogServiceTypesByIdResponse, DeleteChatSessionByIdData, DeleteChatSessionByIdError, DeleteChatSessionByIdResponse, DeleteContentByKeyData, DeleteContentByKeyError, DeleteContentByKeyResponse, DeleteDeliveryZonesByIdData, DeleteDeliveryZonesByIdError, DeleteDeliveryZonesByIdResponse, DeleteFaqByIdData, DeleteFaqByIdError, DeleteFaqByIdResponse, DeleteNotificationsByIdData, DeleteNotificationsByIdError, DeleteNotificationsByIdResponse, DeleteOrderByIdData, DeleteOrderByIdError, DeleteOrderByIdResponse, DeletePaymentsCardByIdData, DeletePaymentsCardByIdError, DeletePaymentsCardByIdResponse, DeletePaymentsMethodByPaymentMethodIdData, DeletePaymentsMethodByPaymentMethodIdError, DeletePaymentsMethodByPaymentMethodIdResponse, DeleteStoreByIdData, DeleteStoreByIdError, DeleteStoreByIdResponse, DeleteSupportContactsByIdData, DeleteSupportContactsByIdError, DeleteSupportContactsByIdResponse, DeleteUserDeleteAccountData, DeleteUserDeleteAccountError, DeleteUserDeleteAccountResponse, GetAddressAutocompleteData, GetAddressAutocompleteError, GetAddressAutocompleteResponse, GetAddressData, GetAddressError, GetAddressResponse, GetCatalogClothesData, GetCatalogClothesError, GetCatalogClothesResponse, GetCatalogData, GetCatalogError, GetCatalogResponse, GetCatalogServiceTypesData, GetCatalogServiceTypesError, GetCatalogServiceTypesResponse, GetChatSessionByIdData, GetChatSessionByIdError, GetChatSessionByIdMessagesData, GetChatSessionByIdMessagesError, GetChatSessionByIdMessagesResponse, GetChatSessionByIdResponse, GetChatSessionsData, GetChatSessionsError, GetChatSessionsResponse, GetContentByKeyData, GetContentByKeyError, GetContentByKeyResponse, GetContentData, GetContentError, GetContentResponse, GetCustomersData, GetCustomersError, GetCustomersResponse, GetData, GetDeliveryZonesByIdData, GetDeliveryZonesByIdError, GetDeliveryZonesByIdResponse, GetDeliveryZonesData, GetDeliveryZonesError, GetDeliveryZonesResponse, GetFaqData, GetFaqError, GetFaqResponse, GetNotificationsByIdData, GetNotificationsByIdError, GetNotificationsByIdResponse, GetNotificationsData, GetNotificationsError, GetNotificationsResponse, GetNotificationsUnreadCountData, GetNotificationsUnreadCountError, GetNotificationsUnreadCountResponse, GetOrderByIdData, GetOrderByIdError, GetOrderByIdItemsData, GetOrderByIdItemsError, GetOrderByIdItemsResponse, GetOrderByIdPackagingSlipData, GetOrderByIdResponse, GetOrderData, GetOrderError, GetOrderResponse, GetOrganisationByIdData, GetOrganisationByIdError, GetOrganisationByIdResponse, GetOrganisationData, GetOrganisationError, GetOrganisationResponse, GetOrganisationUserData, GetOrganisationUserError, GetOrganisationUserResponse, GetPaymentsCardData, GetPaymentsCardError, GetPaymentsCardResponse, GetPaymentsData, GetPaymentsError, GetPaymentsMethodData, GetPaymentsMethodError, GetPaymentsMethodResponse, GetPaymentsResponse, GetResponse, GetStatsCustomersData, GetStatsCustomersError, GetStatsCustomersResponse, GetStatsOrdersData, GetStatsOrdersError, GetStatsOrdersResponse, GetStatsSalesData, GetStatsSalesError, GetStatsSalesResponse, GetStoreByIdData, GetStoreByIdError, GetStoreByIdResponse, GetStoreData, GetStoreError, GetStoreResponse, GetSupportContactsData, GetSupportContactsError, GetSupportContactsResponse, GetUserData, GetUserError, GetUserResponse, PostAddressData, PostAddressError, PostAddressResponse, PostAddressReverseGeocodeData, PostAddressReverseGeocodeResponse, PostAuthenticationEmailData, PostAuthenticationEmailError, PostAuthenticationEmailResponse, PostAuthenticationLoginData, PostAuthenticationLoginError, PostAuthenticationLoginResponse, PostAuthenticationResetpasswordConfirmData, PostAuthenticationResetpasswordConfirmError, PostAuthenticationResetpasswordConfirmResponse, PostAuthenticationResetPasswordData, PostAuthenticationResetPasswordError, PostAuthenticationResetPasswordResponse, PostAuthenticationResetpasswordValidateOtpData, PostAuthenticationResetpasswordValidateOtpError, PostAuthenticationResetpasswordValidateOtpResponse, PostAuthenticationSignupData, PostAuthenticationSignupError, PostAuthenticationSignupResendOtpData, PostAuthenticationSignupResendOtpError, PostAuthenticationSignupResendOtpResponse, PostAuthenticationSignupResponse, PostAuthenticationSignupVerifyOtpData, PostAuthenticationSignupVerifyOtpError, PostAuthenticationSignupVerifyOtpResponse, PostAuthenticationSocialAuthData, PostAuthenticationSocialAuthError, PostAuthenticationSocialAuthResponse, PostCatalogByStoreIdData, PostCatalogByStoreIdError, PostCatalogByStoreIdResponse, PostCatalogClothesByStoreIdData, PostCatalogClothesByStoreIdError, PostCatalogClothesByStoreIdResponse, PostCatalogServiceTypesByStoreIdData, PostCatalogServiceTypesByStoreIdError, PostCatalogServiceTypesByStoreIdResponse, PostChatSessionData, PostChatSessionError, PostChatSessionResponse, PostContentData, PostContentError, PostContentResponse, PostDeliveryZonesByStoreIdData, PostDeliveryZonesByStoreIdError, PostDeliveryZonesByStoreIdResponse, PostFaqByStoreIdData, PostFaqByStoreIdError, PostFaqByStoreIdResponse, PostOrderByStoreIdData, PostOrderByStoreIdError, PostOrderByStoreIdResponse, PostPaymentsCardData, PostPaymentsCardError, PostPaymentsCardResponse, PostPaymentsMethodByStoreIdData, PostPaymentsMethodByStoreIdError, PostPaymentsMethodByStoreIdResponse, PostPaymentsOrderByOrderIdData, PostPaymentsOrderByOrderIdError, PostPaymentsOrderByOrderIdResponse, PostStoreData, PostStoreError, PostStoreResponse, PostSupportContactsByStoreIdData, PostSupportContactsByStoreIdError, PostSupportContactsByStoreIdResponse, PostUserFcmTokenData, PostUserFcmTokenError, PostUserFcmTokenResponse, PutAddressByIdData, PutAddressByIdError, PutAddressByIdResponse, PutAuthenticationLogoutData, PutAuthenticationLogoutError, PutAuthenticationLogoutResponse, PutAuthenticationResetpasswordUpdatePasswordData, PutAuthenticationResetpasswordUpdatePasswordError, PutAuthenticationResetpasswordUpdatePasswordResponse, PutCatalogByIdData, PutCatalogByIdError, PutCatalogByIdResponse, PutCatalogServiceTypesByIdData, PutCatalogServiceTypesByIdError, PutCatalogServiceTypesByIdResponse, PutContentByKeyData, PutContentByKeyError, PutContentByKeyResponse, PutDeliveryZonesByIdData, PutDeliveryZonesByIdError, PutDeliveryZonesByIdResponse, PutFaqByIdData, PutFaqByIdError, PutFaqByIdResponse, PutNotificationsMarkAllReadData, PutNotificationsMarkAllReadError, PutNotificationsMarkAllReadResponse, PutNotificationsMarkReadByIdData, PutNotificationsMarkReadByIdError, PutNotificationsMarkReadByIdResponse, PutOrderByIdCancelData, PutOrderByIdCancelError, PutOrderByIdCancelResponse, PutOrderByIdStatusData, PutOrderByIdStatusError, PutOrderByIdStatusResponse, PutOrderByIdWeightData, PutOrderByIdWeightResponse, PutOrganisationByIdData, PutOrganisationByIdError, PutOrganisationByIdResponse, PutPaymentsCardByIdDefaultData, PutPaymentsCardByIdDefaultError, PutPaymentsCardByIdDefaultResponse, PutPaymentsMethodByPaymentMethodIdData, PutPaymentsMethodByPaymentMethodIdError, PutPaymentsMethodByPaymentMethodIdResponse, PutStoreByIdData, PutStoreByIdError, PutStoreByIdResponse, PutSupportContactsByIdData, PutSupportContactsByIdError, PutSupportContactsByIdResponse, PutUserChangePasswordData, PutUserChangePasswordError, PutUserChangePasswordResponse, PutUserData, PutUserError, PutUserResponse } from '../types.gen';
+import { deleteAddressById, deleteCatalogById, deleteCatalogServiceTypesById, deleteChatSessionById, deleteContentByKey, deleteDeliveryZonesById, deleteFaqById, deleteNotificationsById, deleteOrderById, deletePaymentsCardById, deletePaymentsMethodById, deletePaymentsPayoutByPaymentMethodId, deletePaymentsStoreMethodById, deleteStoreById, deleteSupportContactsById, deleteUserDeleteAccount, get, getAddress, getAddressAutocomplete, getCatalog, getCatalogClothes, getCatalogServiceTypes, getChatSessionById, getChatSessionByIdMessages, getChatSessions, getContent, getContentByKey, getCustomers, getDeliveryZones, getDeliveryZonesById, getFaq, getNotifications, getNotificationsById, getNotificationsUnreadCount, getOrder, getOrderById, getOrderByIdItems, getOrderByIdPackagingSlip, getOrganisation, getOrganisationById, getOrganisationUser, getPaymentsCard, getPaymentsMethod, getPaymentsPayout, getPaymentsStoreMethod, getPaymentsTransactions, getStatsCustomers, getStatsOrders, getStatsSales, getStore, getStoreById, getSupportContacts, getUser, type Options, postAddress, postAddressReverseGeocode, postAuthenticationEmail, postAuthenticationLogin, postAuthenticationResetPassword, postAuthenticationResetpasswordConfirm, postAuthenticationResetpasswordValidateOtp, postAuthenticationSignup, postAuthenticationSignupResendOtp, postAuthenticationSignupVerifyOtp, postAuthenticationSocialAuth, postCatalogByStoreId, postCatalogClothesByStoreId, postCatalogServiceTypesByStoreId, postChatSession, postContent, postDeliveryZonesByStoreId, postFaqByStoreId, postOrderByIdInvoice, postOrderByIdPackingSlip, postOrderByIdPay, postOrderByStoreId, postPaymentsCard, postPaymentsMethod, postPaymentsPayoutByStoreId, postPaymentsStoreMethod, postStore, postSupportContactsByStoreId, postUserFcmToken, putAddressById, putAuthenticationLogout, putAuthenticationResetpasswordUpdatePassword, putCatalogById, putCatalogServiceTypesById, putContentByKey, putDeliveryZonesById, putFaqById, putNotificationsMarkAllRead, putNotificationsMarkReadById, putOrderByIdCancel, putOrderByIdStatus, putOrderByIdWeight, putOrganisationById, putPaymentsCardByIdDefault, putPaymentsMethodById, putPaymentsPayoutByPaymentMethodId, putPaymentsStoreMethodById, putStoreById, putSupportContactsById, putUser, putUserChangePassword } from '../sdk.gen';
+import type { DeleteAddressByIdData, DeleteAddressByIdError, DeleteAddressByIdResponse, DeleteCatalogByIdData, DeleteCatalogByIdError, DeleteCatalogByIdResponse, DeleteCatalogServiceTypesByIdData, DeleteCatalogServiceTypesByIdError, DeleteCatalogServiceTypesByIdResponse, DeleteChatSessionByIdData, DeleteChatSessionByIdError, DeleteChatSessionByIdResponse, DeleteContentByKeyData, DeleteContentByKeyError, DeleteContentByKeyResponse, DeleteDeliveryZonesByIdData, DeleteDeliveryZonesByIdError, DeleteDeliveryZonesByIdResponse, DeleteFaqByIdData, DeleteFaqByIdError, DeleteFaqByIdResponse, DeleteNotificationsByIdData, DeleteNotificationsByIdError, DeleteNotificationsByIdResponse, DeleteOrderByIdData, DeleteOrderByIdError, DeleteOrderByIdResponse, DeletePaymentsCardByIdData, DeletePaymentsCardByIdError, DeletePaymentsCardByIdResponse, DeletePaymentsMethodByIdData, DeletePaymentsMethodByIdError, DeletePaymentsMethodByIdResponse, DeletePaymentsPayoutByPaymentMethodIdData, DeletePaymentsPayoutByPaymentMethodIdError, DeletePaymentsPayoutByPaymentMethodIdResponse, DeletePaymentsStoreMethodByIdData, DeletePaymentsStoreMethodByIdError, DeletePaymentsStoreMethodByIdResponse, DeleteStoreByIdData, DeleteStoreByIdError, DeleteStoreByIdResponse, DeleteSupportContactsByIdData, DeleteSupportContactsByIdError, DeleteSupportContactsByIdResponse, DeleteUserDeleteAccountData, DeleteUserDeleteAccountError, DeleteUserDeleteAccountResponse, GetAddressAutocompleteData, GetAddressAutocompleteError, GetAddressAutocompleteResponse, GetAddressData, GetAddressError, GetAddressResponse, GetCatalogClothesData, GetCatalogClothesError, GetCatalogClothesResponse, GetCatalogData, GetCatalogError, GetCatalogResponse, GetCatalogServiceTypesData, GetCatalogServiceTypesError, GetCatalogServiceTypesResponse, GetChatSessionByIdData, GetChatSessionByIdError, GetChatSessionByIdMessagesData, GetChatSessionByIdMessagesError, GetChatSessionByIdMessagesResponse, GetChatSessionByIdResponse, GetChatSessionsData, GetChatSessionsError, GetChatSessionsResponse, GetContentByKeyData, GetContentByKeyError, GetContentByKeyResponse, GetContentData, GetContentError, GetContentResponse, GetCustomersData, GetCustomersError, GetCustomersResponse, GetData, GetDeliveryZonesByIdData, GetDeliveryZonesByIdError, GetDeliveryZonesByIdResponse, GetDeliveryZonesData, GetDeliveryZonesError, GetDeliveryZonesResponse, GetFaqData, GetFaqError, GetFaqResponse, GetNotificationsByIdData, GetNotificationsByIdError, GetNotificationsByIdResponse, GetNotificationsData, GetNotificationsError, GetNotificationsResponse, GetNotificationsUnreadCountData, GetNotificationsUnreadCountError, GetNotificationsUnreadCountResponse, GetOrderByIdData, GetOrderByIdError, GetOrderByIdItemsData, GetOrderByIdItemsError, GetOrderByIdItemsResponse, GetOrderByIdPackagingSlipData, GetOrderByIdResponse, GetOrderData, GetOrderError, GetOrderResponse, GetOrganisationByIdData, GetOrganisationByIdError, GetOrganisationByIdResponse, GetOrganisationData, GetOrganisationError, GetOrganisationResponse, GetOrganisationUserData, GetOrganisationUserError, GetOrganisationUserResponse, GetPaymentsCardData, GetPaymentsCardError, GetPaymentsCardResponse, GetPaymentsMethodData, GetPaymentsMethodError, GetPaymentsMethodResponse, GetPaymentsPayoutData, GetPaymentsPayoutError, GetPaymentsPayoutResponse, GetPaymentsStoreMethodData, GetPaymentsStoreMethodError, GetPaymentsStoreMethodResponse, GetPaymentsTransactionsData, GetPaymentsTransactionsError, GetPaymentsTransactionsResponse, GetResponse, GetStatsCustomersData, GetStatsCustomersError, GetStatsCustomersResponse, GetStatsOrdersData, GetStatsOrdersError, GetStatsOrdersResponse, GetStatsSalesData, GetStatsSalesError, GetStatsSalesResponse, GetStoreByIdData, GetStoreByIdError, GetStoreByIdResponse, GetStoreData, GetStoreError, GetStoreResponse, GetSupportContactsData, GetSupportContactsError, GetSupportContactsResponse, GetUserData, GetUserError, GetUserResponse, PostAddressData, PostAddressError, PostAddressResponse, PostAddressReverseGeocodeData, PostAddressReverseGeocodeResponse, PostAuthenticationEmailData, PostAuthenticationEmailError, PostAuthenticationEmailResponse, PostAuthenticationLoginData, PostAuthenticationLoginError, PostAuthenticationLoginResponse, PostAuthenticationResetpasswordConfirmData, PostAuthenticationResetpasswordConfirmError, PostAuthenticationResetpasswordConfirmResponse, PostAuthenticationResetPasswordData, PostAuthenticationResetPasswordError, PostAuthenticationResetPasswordResponse, PostAuthenticationResetpasswordValidateOtpData, PostAuthenticationResetpasswordValidateOtpError, PostAuthenticationResetpasswordValidateOtpResponse, PostAuthenticationSignupData, PostAuthenticationSignupError, PostAuthenticationSignupResendOtpData, PostAuthenticationSignupResendOtpError, PostAuthenticationSignupResendOtpResponse, PostAuthenticationSignupResponse, PostAuthenticationSignupVerifyOtpData, PostAuthenticationSignupVerifyOtpError, PostAuthenticationSignupVerifyOtpResponse, PostAuthenticationSocialAuthData, PostAuthenticationSocialAuthError, PostAuthenticationSocialAuthResponse, PostCatalogByStoreIdData, PostCatalogByStoreIdError, PostCatalogByStoreIdResponse, PostCatalogClothesByStoreIdData, PostCatalogClothesByStoreIdError, PostCatalogClothesByStoreIdResponse, PostCatalogServiceTypesByStoreIdData, PostCatalogServiceTypesByStoreIdError, PostCatalogServiceTypesByStoreIdResponse, PostChatSessionData, PostChatSessionError, PostChatSessionResponse, PostContentData, PostContentError, PostContentResponse, PostDeliveryZonesByStoreIdData, PostDeliveryZonesByStoreIdError, PostDeliveryZonesByStoreIdResponse, PostFaqByStoreIdData, PostFaqByStoreIdError, PostFaqByStoreIdResponse, PostOrderByIdInvoiceData, PostOrderByIdInvoiceError, PostOrderByIdInvoiceResponse, PostOrderByIdPackingSlipData, PostOrderByIdPackingSlipError, PostOrderByIdPackingSlipResponse, PostOrderByIdPayData, PostOrderByIdPayError, PostOrderByIdPayResponse, PostOrderByStoreIdData, PostOrderByStoreIdError, PostOrderByStoreIdResponse, PostPaymentsCardData, PostPaymentsCardError, PostPaymentsCardResponse, PostPaymentsMethodData, PostPaymentsMethodError, PostPaymentsMethodResponse, PostPaymentsPayoutByStoreIdData, PostPaymentsPayoutByStoreIdError, PostPaymentsPayoutByStoreIdResponse, PostPaymentsStoreMethodData, PostPaymentsStoreMethodError, PostPaymentsStoreMethodResponse, PostStoreData, PostStoreError, PostStoreResponse, PostSupportContactsByStoreIdData, PostSupportContactsByStoreIdError, PostSupportContactsByStoreIdResponse, PostUserFcmTokenData, PostUserFcmTokenError, PostUserFcmTokenResponse, PutAddressByIdData, PutAddressByIdError, PutAddressByIdResponse, PutAuthenticationLogoutData, PutAuthenticationLogoutError, PutAuthenticationLogoutResponse, PutAuthenticationResetpasswordUpdatePasswordData, PutAuthenticationResetpasswordUpdatePasswordError, PutAuthenticationResetpasswordUpdatePasswordResponse, PutCatalogByIdData, PutCatalogByIdError, PutCatalogByIdResponse, PutCatalogServiceTypesByIdData, PutCatalogServiceTypesByIdError, PutCatalogServiceTypesByIdResponse, PutContentByKeyData, PutContentByKeyError, PutContentByKeyResponse, PutDeliveryZonesByIdData, PutDeliveryZonesByIdError, PutDeliveryZonesByIdResponse, PutFaqByIdData, PutFaqByIdError, PutFaqByIdResponse, PutNotificationsMarkAllReadData, PutNotificationsMarkAllReadError, PutNotificationsMarkAllReadResponse, PutNotificationsMarkReadByIdData, PutNotificationsMarkReadByIdError, PutNotificationsMarkReadByIdResponse, PutOrderByIdCancelData, PutOrderByIdCancelError, PutOrderByIdCancelResponse, PutOrderByIdStatusData, PutOrderByIdStatusError, PutOrderByIdStatusResponse, PutOrderByIdWeightData, PutOrderByIdWeightResponse, PutOrganisationByIdData, PutOrganisationByIdError, PutOrganisationByIdResponse, PutPaymentsCardByIdDefaultData, PutPaymentsCardByIdDefaultError, PutPaymentsCardByIdDefaultResponse, PutPaymentsMethodByIdData, PutPaymentsMethodByIdError, PutPaymentsMethodByIdResponse, PutPaymentsPayoutByPaymentMethodIdData, PutPaymentsPayoutByPaymentMethodIdError, PutPaymentsPayoutByPaymentMethodIdResponse, PutPaymentsStoreMethodByIdData, PutPaymentsStoreMethodByIdError, PutPaymentsStoreMethodByIdResponse, PutStoreByIdData, PutStoreByIdError, PutStoreByIdResponse, PutSupportContactsByIdData, PutSupportContactsByIdError, PutSupportContactsByIdResponse, PutUserChangePasswordData, PutUserChangePasswordError, PutUserChangePasswordResponse, PutUserData, PutUserError, PutUserResponse } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -1362,6 +1362,63 @@ export const getOrderByIdPackagingSlipOptions = (options: Options<GetOrderByIdPa
     queryKey: getOrderByIdPackagingSlipQueryKey(options)
 });
 
+/**
+ * Generate printable invoice PDF for an order
+ *
+ * Generate a PDF invoice for a specific order and return a link to it.
+ */
+export const postOrderByIdInvoiceMutation = (options?: Partial<Options<PostOrderByIdInvoiceData>>): UseMutationOptions<PostOrderByIdInvoiceResponse, PostOrderByIdInvoiceError, Options<PostOrderByIdInvoiceData>> => {
+    const mutationOptions: UseMutationOptions<PostOrderByIdInvoiceResponse, PostOrderByIdInvoiceError, Options<PostOrderByIdInvoiceData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await postOrderByIdInvoice({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Generate printable packing slip PDF for an order
+ *
+ * Generate a PDF packing slip for a specific order and return a link to it.
+ */
+export const postOrderByIdPackingSlipMutation = (options?: Partial<Options<PostOrderByIdPackingSlipData>>): UseMutationOptions<PostOrderByIdPackingSlipResponse, PostOrderByIdPackingSlipError, Options<PostOrderByIdPackingSlipData>> => {
+    const mutationOptions: UseMutationOptions<PostOrderByIdPackingSlipResponse, PostOrderByIdPackingSlipError, Options<PostOrderByIdPackingSlipData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await postOrderByIdPackingSlip({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Create payment transaction for an order
+ *
+ * Create a payment transaction for an order. If the payment method is CASH, the payment is marked as successful immediately.
+ */
+export const postOrderByIdPayMutation = (options?: Partial<Options<PostOrderByIdPayData>>): UseMutationOptions<PostOrderByIdPayResponse, PostOrderByIdPayError, Options<PostOrderByIdPayData>> => {
+    const mutationOptions: UseMutationOptions<PostOrderByIdPayResponse, PostOrderByIdPayError, Options<PostOrderByIdPayData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await postOrderByIdPay({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
 export const getOrganisationQueryKey = (options?: Options<GetOrganisationData>) => createQueryKey('getOrganisation', options);
 
 /**
@@ -1470,102 +1527,6 @@ export const putOrganisationByIdMutation = (options?: Partial<Options<PutOrganis
     return mutationOptions;
 };
 
-export const getPaymentsMethodQueryKey = (options?: Options<GetPaymentsMethodData>) => createQueryKey('getPaymentsMethod', options);
-
-/**
- * Get payment methods
- *
- * Get all configured payment methods
- */
-export const getPaymentsMethodOptions = (options?: Options<GetPaymentsMethodData>) => queryOptions<GetPaymentsMethodResponse, GetPaymentsMethodError, GetPaymentsMethodResponse, ReturnType<typeof getPaymentsMethodQueryKey>>({
-    queryFn: async ({ queryKey, signal }) => {
-        const { data } = await getPaymentsMethod({
-            ...options,
-            ...queryKey[0],
-            signal,
-            throwOnError: true
-        });
-        return data;
-    },
-    queryKey: getPaymentsMethodQueryKey(options)
-});
-
-/**
- * Add a new payment method
- *
- * Add a new payment method to the system. Admin only
- */
-export const postPaymentsMethodByStoreIdMutation = (options?: Partial<Options<PostPaymentsMethodByStoreIdData>>): UseMutationOptions<PostPaymentsMethodByStoreIdResponse, PostPaymentsMethodByStoreIdError, Options<PostPaymentsMethodByStoreIdData>> => {
-    const mutationOptions: UseMutationOptions<PostPaymentsMethodByStoreIdResponse, PostPaymentsMethodByStoreIdError, Options<PostPaymentsMethodByStoreIdData>> = {
-        mutationFn: async (fnOptions) => {
-            const { data } = await postPaymentsMethodByStoreId({
-                ...options,
-                ...fnOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
-/**
- * Delete payment method by id
- *
- * Delete a payment method by id. Admin only
- */
-export const deletePaymentsMethodByPaymentMethodIdMutation = (options?: Partial<Options<DeletePaymentsMethodByPaymentMethodIdData>>): UseMutationOptions<DeletePaymentsMethodByPaymentMethodIdResponse, DeletePaymentsMethodByPaymentMethodIdError, Options<DeletePaymentsMethodByPaymentMethodIdData>> => {
-    const mutationOptions: UseMutationOptions<DeletePaymentsMethodByPaymentMethodIdResponse, DeletePaymentsMethodByPaymentMethodIdError, Options<DeletePaymentsMethodByPaymentMethodIdData>> = {
-        mutationFn: async (fnOptions) => {
-            const { data } = await deletePaymentsMethodByPaymentMethodId({
-                ...options,
-                ...fnOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
-/**
- * Update payment method by id
- *
- * Update a payment method by id. Admin only
- */
-export const putPaymentsMethodByPaymentMethodIdMutation = (options?: Partial<Options<PutPaymentsMethodByPaymentMethodIdData>>): UseMutationOptions<PutPaymentsMethodByPaymentMethodIdResponse, PutPaymentsMethodByPaymentMethodIdError, Options<PutPaymentsMethodByPaymentMethodIdData>> => {
-    const mutationOptions: UseMutationOptions<PutPaymentsMethodByPaymentMethodIdResponse, PutPaymentsMethodByPaymentMethodIdError, Options<PutPaymentsMethodByPaymentMethodIdData>> = {
-        mutationFn: async (fnOptions) => {
-            const { data } = await putPaymentsMethodByPaymentMethodId({
-                ...options,
-                ...fnOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
-/**
- * Make a payment for an order
- *
- * Make a payment for an order
- */
-export const postPaymentsOrderByOrderIdMutation = (options?: Partial<Options<PostPaymentsOrderByOrderIdData>>): UseMutationOptions<PostPaymentsOrderByOrderIdResponse, PostPaymentsOrderByOrderIdError, Options<PostPaymentsOrderByOrderIdData>> => {
-    const mutationOptions: UseMutationOptions<PostPaymentsOrderByOrderIdResponse, PostPaymentsOrderByOrderIdError, Options<PostPaymentsOrderByOrderIdData>> = {
-        mutationFn: async (fnOptions) => {
-            const { data } = await postPaymentsOrderByOrderId({
-                ...options,
-                ...fnOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
 export const getPaymentsCardQueryKey = (options?: Options<GetPaymentsCardData>) => createQueryKey('getPaymentsCard', options);
 
 /**
@@ -1606,25 +1567,6 @@ export const postPaymentsCardMutation = (options?: Partial<Options<PostPaymentsC
 };
 
 /**
- * Delete a payment card
- *
- * Delete a payment card for the current authenticated user
- */
-export const deletePaymentsCardByIdMutation = (options?: Partial<Options<DeletePaymentsCardByIdData>>): UseMutationOptions<DeletePaymentsCardByIdResponse, DeletePaymentsCardByIdError, Options<DeletePaymentsCardByIdData>> => {
-    const mutationOptions: UseMutationOptions<DeletePaymentsCardByIdResponse, DeletePaymentsCardByIdError, Options<DeletePaymentsCardByIdData>> = {
-        mutationFn: async (fnOptions) => {
-            const { data } = await deletePaymentsCardById({
-                ...options,
-                ...fnOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
-/**
  * Set a payment card as default
  *
  * Set a payment card as default for the current authenticated user
@@ -1643,16 +1585,16 @@ export const putPaymentsCardByIdDefaultMutation = (options?: Partial<Options<Put
     return mutationOptions;
 };
 
-export const getPaymentsQueryKey = (options?: Options<GetPaymentsData>) => createQueryKey('getPayments', options);
+export const getPaymentsMethodQueryKey = (options?: Options<GetPaymentsMethodData>) => createQueryKey('getPaymentsMethod', options);
 
 /**
- * Get all payments
+ * List all payment methods
  *
- * Get all payments for the current authenticated user
+ * Retrieve a list of all available payment methods.
  */
-export const getPaymentsOptions = (options?: Options<GetPaymentsData>) => queryOptions<GetPaymentsResponse, GetPaymentsError, GetPaymentsResponse, ReturnType<typeof getPaymentsQueryKey>>({
+export const getPaymentsMethodOptions = (options?: Options<GetPaymentsMethodData>) => queryOptions<GetPaymentsMethodResponse, GetPaymentsMethodError, GetPaymentsMethodResponse, ReturnType<typeof getPaymentsMethodQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await getPayments({
+        const { data } = await getPaymentsMethod({
             ...options,
             ...queryKey[0],
             signal,
@@ -1660,28 +1602,278 @@ export const getPaymentsOptions = (options?: Options<GetPaymentsData>) => queryO
         });
         return data;
     },
-    queryKey: getPaymentsQueryKey(options)
+    queryKey: getPaymentsMethodQueryKey(options)
 });
 
-export const getPaymentsInfiniteQueryKey = (options?: Options<GetPaymentsData>): QueryKey<Options<GetPaymentsData>> => createQueryKey('getPayments', options, true);
+/**
+ * Create a payment method
+ *
+ * Create a new payment method. System admin only.
+ */
+export const postPaymentsMethodMutation = (options?: Partial<Options<PostPaymentsMethodData>>): UseMutationOptions<PostPaymentsMethodResponse, PostPaymentsMethodError, Options<PostPaymentsMethodData>> => {
+    const mutationOptions: UseMutationOptions<PostPaymentsMethodResponse, PostPaymentsMethodError, Options<PostPaymentsMethodData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await postPaymentsMethod({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
 
 /**
- * Get all payments
+ * Delete a payment method
  *
- * Get all payments for the current authenticated user
+ * Delete an existing payment method. System admin only.
  */
-export const getPaymentsInfiniteOptions = (options?: Options<GetPaymentsData>) => infiniteQueryOptions<GetPaymentsResponse, GetPaymentsError, InfiniteData<GetPaymentsResponse>, QueryKey<Options<GetPaymentsData>>, number | Pick<QueryKey<Options<GetPaymentsData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+export const deletePaymentsMethodByIdMutation = (options?: Partial<Options<DeletePaymentsMethodByIdData>>): UseMutationOptions<DeletePaymentsMethodByIdResponse, DeletePaymentsMethodByIdError, Options<DeletePaymentsMethodByIdData>> => {
+    const mutationOptions: UseMutationOptions<DeletePaymentsMethodByIdResponse, DeletePaymentsMethodByIdError, Options<DeletePaymentsMethodByIdData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await deletePaymentsMethodById({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Update a payment method
+ *
+ * Update an existing payment method. System admin only.
+ */
+export const putPaymentsMethodByIdMutation = (options?: Partial<Options<PutPaymentsMethodByIdData>>): UseMutationOptions<PutPaymentsMethodByIdResponse, PutPaymentsMethodByIdError, Options<PutPaymentsMethodByIdData>> => {
+    const mutationOptions: UseMutationOptions<PutPaymentsMethodByIdResponse, PutPaymentsMethodByIdError, Options<PutPaymentsMethodByIdData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await putPaymentsMethodById({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const getPaymentsStoreMethodQueryKey = (options?: Options<GetPaymentsStoreMethodData>) => createQueryKey('getPaymentsStoreMethod', options);
+
+/**
+ * List store payment methods
+ *
+ * Retrieve payment methods for stores. Customers see only their stores' methods; other roles can view all.
+ */
+export const getPaymentsStoreMethodOptions = (options?: Options<GetPaymentsStoreMethodData>) => queryOptions<GetPaymentsStoreMethodResponse, GetPaymentsStoreMethodError, GetPaymentsStoreMethodResponse, ReturnType<typeof getPaymentsStoreMethodQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getPaymentsStoreMethod({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getPaymentsStoreMethodQueryKey(options)
+});
+
+/**
+ * Create a store payment method
+ *
+ * Assign a payment method to a store. Organisation admin only.
+ */
+export const postPaymentsStoreMethodMutation = (options?: Partial<Options<PostPaymentsStoreMethodData>>): UseMutationOptions<PostPaymentsStoreMethodResponse, PostPaymentsStoreMethodError, Options<PostPaymentsStoreMethodData>> => {
+    const mutationOptions: UseMutationOptions<PostPaymentsStoreMethodResponse, PostPaymentsStoreMethodError, Options<PostPaymentsStoreMethodData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await postPaymentsStoreMethod({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Delete a store payment method
+ *
+ * Remove a payment method assignment from a store. Organisation admin only.
+ */
+export const deletePaymentsStoreMethodByIdMutation = (options?: Partial<Options<DeletePaymentsStoreMethodByIdData>>): UseMutationOptions<DeletePaymentsStoreMethodByIdResponse, DeletePaymentsStoreMethodByIdError, Options<DeletePaymentsStoreMethodByIdData>> => {
+    const mutationOptions: UseMutationOptions<DeletePaymentsStoreMethodByIdResponse, DeletePaymentsStoreMethodByIdError, Options<DeletePaymentsStoreMethodByIdData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await deletePaymentsStoreMethodById({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Update a store payment method
+ *
+ * Update a store payment method assignment. Organisation admin only.
+ */
+export const putPaymentsStoreMethodByIdMutation = (options?: Partial<Options<PutPaymentsStoreMethodByIdData>>): UseMutationOptions<PutPaymentsStoreMethodByIdResponse, PutPaymentsStoreMethodByIdError, Options<PutPaymentsStoreMethodByIdData>> => {
+    const mutationOptions: UseMutationOptions<PutPaymentsStoreMethodByIdResponse, PutPaymentsStoreMethodByIdError, Options<PutPaymentsStoreMethodByIdData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await putPaymentsStoreMethodById({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Delete a payment card
+ *
+ * Delete a payment card for the current authenticated user
+ */
+export const deletePaymentsCardByIdMutation = (options?: Partial<Options<DeletePaymentsCardByIdData>>): UseMutationOptions<DeletePaymentsCardByIdResponse, DeletePaymentsCardByIdError, Options<DeletePaymentsCardByIdData>> => {
+    const mutationOptions: UseMutationOptions<DeletePaymentsCardByIdResponse, DeletePaymentsCardByIdError, Options<DeletePaymentsCardByIdData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await deletePaymentsCardById({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const getPaymentsPayoutQueryKey = (options?: Options<GetPaymentsPayoutData>) => createQueryKey('getPaymentsPayout', options);
+
+/**
+ * Get payout methods
+ *
+ * Get all configured payout methods
+ */
+export const getPaymentsPayoutOptions = (options?: Options<GetPaymentsPayoutData>) => queryOptions<GetPaymentsPayoutResponse, GetPaymentsPayoutError, GetPaymentsPayoutResponse, ReturnType<typeof getPaymentsPayoutQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getPaymentsPayout({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getPaymentsPayoutQueryKey(options)
+});
+
+/**
+ * Add a new payout method
+ *
+ * Add a new payout method to the system. Store Admin only
+ */
+export const postPaymentsPayoutByStoreIdMutation = (options?: Partial<Options<PostPaymentsPayoutByStoreIdData>>): UseMutationOptions<PostPaymentsPayoutByStoreIdResponse, PostPaymentsPayoutByStoreIdError, Options<PostPaymentsPayoutByStoreIdData>> => {
+    const mutationOptions: UseMutationOptions<PostPaymentsPayoutByStoreIdResponse, PostPaymentsPayoutByStoreIdError, Options<PostPaymentsPayoutByStoreIdData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await postPaymentsPayoutByStoreId({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Delete payout method by id
+ *
+ * Delete a payout method by id. Admin only
+ */
+export const deletePaymentsPayoutByPaymentMethodIdMutation = (options?: Partial<Options<DeletePaymentsPayoutByPaymentMethodIdData>>): UseMutationOptions<DeletePaymentsPayoutByPaymentMethodIdResponse, DeletePaymentsPayoutByPaymentMethodIdError, Options<DeletePaymentsPayoutByPaymentMethodIdData>> => {
+    const mutationOptions: UseMutationOptions<DeletePaymentsPayoutByPaymentMethodIdResponse, DeletePaymentsPayoutByPaymentMethodIdError, Options<DeletePaymentsPayoutByPaymentMethodIdData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await deletePaymentsPayoutByPaymentMethodId({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Update Payout method by id
+ *
+ * Update a payout method by id. Admin only
+ */
+export const putPaymentsPayoutByPaymentMethodIdMutation = (options?: Partial<Options<PutPaymentsPayoutByPaymentMethodIdData>>): UseMutationOptions<PutPaymentsPayoutByPaymentMethodIdResponse, PutPaymentsPayoutByPaymentMethodIdError, Options<PutPaymentsPayoutByPaymentMethodIdData>> => {
+    const mutationOptions: UseMutationOptions<PutPaymentsPayoutByPaymentMethodIdResponse, PutPaymentsPayoutByPaymentMethodIdError, Options<PutPaymentsPayoutByPaymentMethodIdData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await putPaymentsPayoutByPaymentMethodId({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const getPaymentsTransactionsQueryKey = (options?: Options<GetPaymentsTransactionsData>) => createQueryKey('getPaymentsTransactions', options);
+
+/**
+ * Get all transactions
+ *
+ * Get all transactions for the current authenticated user
+ */
+export const getPaymentsTransactionsOptions = (options?: Options<GetPaymentsTransactionsData>) => queryOptions<GetPaymentsTransactionsResponse, GetPaymentsTransactionsError, GetPaymentsTransactionsResponse, ReturnType<typeof getPaymentsTransactionsQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getPaymentsTransactions({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getPaymentsTransactionsQueryKey(options)
+});
+
+export const getPaymentsTransactionsInfiniteQueryKey = (options?: Options<GetPaymentsTransactionsData>): QueryKey<Options<GetPaymentsTransactionsData>> => createQueryKey('getPaymentsTransactions', options, true);
+
+/**
+ * Get all transactions
+ *
+ * Get all transactions for the current authenticated user
+ */
+export const getPaymentsTransactionsInfiniteOptions = (options?: Options<GetPaymentsTransactionsData>) => infiniteQueryOptions<GetPaymentsTransactionsResponse, GetPaymentsTransactionsError, InfiniteData<GetPaymentsTransactionsResponse>, QueryKey<Options<GetPaymentsTransactionsData>>, number | Pick<QueryKey<Options<GetPaymentsTransactionsData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
 // @ts-ignore
 {
     queryFn: async ({ pageParam, queryKey, signal }) => {
         // @ts-ignore
-        const page: Pick<QueryKey<Options<GetPaymentsData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
+        const page: Pick<QueryKey<Options<GetPaymentsTransactionsData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
             query: {
                 offset: pageParam
             }
         };
         const params = createInfiniteParams(queryKey, page);
-        const { data } = await getPayments({
+        const { data } = await getPaymentsTransactions({
             ...options,
             ...params,
             signal,
@@ -1689,7 +1881,7 @@ export const getPaymentsInfiniteOptions = (options?: Options<GetPaymentsData>) =
         });
         return data;
     },
-    queryKey: getPaymentsInfiniteQueryKey(options)
+    queryKey: getPaymentsTransactionsInfiniteQueryKey(options)
 });
 
 export const getStatsSalesQueryKey = (options?: Options<GetStatsSalesData>) => createQueryKey('getStatsSales', options);

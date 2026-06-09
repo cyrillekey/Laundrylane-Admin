@@ -34,8 +34,14 @@ export function StoreSwitcher() {
     ...getStoreOptions(),
   });
   const { selectedStoreId, setSelectedStoreId } = useSelectedStore();
-  const teams = teamsResponse || [];
+  const teams = React.useMemo(() => teamsResponse || [], [teamsResponse]);
   const activeTeam = teams.find((team) => team.id === selectedStoreId);
+
+  React.useEffect(() => {
+    if (!fetchingStores && teams.length > 0 && !selectedStoreId) {
+      setSelectedStoreId(teams[0].id!);
+    }
+  }, [fetchingStores, teams, selectedStoreId, setSelectedStoreId]);
 
   return (
     <SidebarMenu>

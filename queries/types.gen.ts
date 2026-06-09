@@ -451,7 +451,7 @@ export type PostAuthenticationSignupData = {
         email: string;
         phone?: string;
         fcmToken?: string;
-        role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
+        role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
     };
     path?: never;
     query?: never;
@@ -487,7 +487,7 @@ export type PostAuthenticationSignupResponses = {
             name?: string | null;
             phone?: string | null;
             isVerified?: boolean;
-            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
+            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
             lastLoginDate?: string;
             dateOfBirth?: string | null;
             userName?: string | null;
@@ -594,7 +594,7 @@ export type PostAuthenticationSignupVerifyOtpResponses = {
             name?: string | null;
             phone?: string | null;
             isVerified?: boolean;
-            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
+            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
             lastLoginDate?: string;
             dateOfBirth?: string | null;
             userName?: string | null;
@@ -675,7 +675,7 @@ export type PostAuthenticationLoginResponses = {
             name?: string | null;
             phone?: string | null;
             isVerified?: boolean;
-            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
+            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
             lastLoginDate?: string;
             dateOfBirth?: string | null;
             userName?: string | null;
@@ -728,7 +728,7 @@ export type PostAuthenticationSocialAuthResponses = {
             name?: string | null;
             phone?: string | null;
             isVerified?: boolean;
-            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
+            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
             lastLoginDate?: string;
             dateOfBirth?: string | null;
             userName?: string | null;
@@ -907,7 +907,7 @@ export type PutAuthenticationResetpasswordUpdatePasswordResponses = {
             name?: string | null;
             phone?: string | null;
             isVerified?: boolean;
-            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
+            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
             lastLoginDate?: string;
             dateOfBirth?: string | null;
             userName?: string | null;
@@ -2076,7 +2076,7 @@ export type GetCustomersResponses = {
             name?: string | null;
             phone?: string | null;
             isVerified?: boolean;
-            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
+            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
             lastLoginDate?: string;
             dateOfBirth?: string | null;
             userName?: string | null;
@@ -2975,7 +2975,7 @@ export type GetOrderResponses = {
             name?: string | null;
             phone?: string | null;
             isVerified?: boolean;
-            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
+            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
             lastLoginDate?: string;
             dateOfBirth?: string | null;
             userName?: string | null;
@@ -3088,7 +3088,7 @@ export type GetOrderByIdErrors = {
             name?: string | null;
             phone?: string | null;
             isVerified?: boolean;
-            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
+            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
             lastLoginDate?: string;
             dateOfBirth?: string | null;
             userName?: string | null;
@@ -3186,7 +3186,7 @@ export type GetOrderByIdResponses = {
             name?: string | null;
             phone?: string | null;
             isVerified?: boolean;
-            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
+            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
             lastLoginDate?: string;
             dateOfBirth?: string | null;
             userName?: string | null;
@@ -3493,6 +3493,111 @@ export type GetOrderByIdPackagingSlipResponses = {
     200: unknown;
 };
 
+export type PostOrderByIdInvoiceData = {
+    body?: never;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/order/{id}/invoice';
+};
+
+export type PostOrderByIdInvoiceErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PostOrderByIdInvoiceError = PostOrderByIdInvoiceErrors[keyof PostOrderByIdInvoiceErrors];
+
+export type PostOrderByIdInvoiceResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        success?: boolean;
+        url?: string;
+    };
+};
+
+export type PostOrderByIdInvoiceResponse = PostOrderByIdInvoiceResponses[keyof PostOrderByIdInvoiceResponses];
+
+export type PostOrderByIdPackingSlipData = {
+    body?: never;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/order/{id}/packing-slip';
+};
+
+export type PostOrderByIdPackingSlipErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PostOrderByIdPackingSlipError = PostOrderByIdPackingSlipErrors[keyof PostOrderByIdPackingSlipErrors];
+
+export type PostOrderByIdPackingSlipResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        success?: boolean;
+        url?: string;
+    };
+};
+
+export type PostOrderByIdPackingSlipResponse = PostOrderByIdPackingSlipResponses[keyof PostOrderByIdPackingSlipResponses];
+
+export type PostOrderByIdPayData = {
+    body: {
+        paymentMethodId: number;
+    };
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/order/{id}/pay';
+};
+
+export type PostOrderByIdPayErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PostOrderByIdPayError = PostOrderByIdPayErrors[keyof PostOrderByIdPayErrors];
+
+export type PostOrderByIdPayResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PostOrderByIdPayResponse = PostOrderByIdPayResponses[keyof PostOrderByIdPayResponses];
+
 export type GetOrganisationData = {
     body?: never;
     path?: never;
@@ -3724,203 +3829,6 @@ export type PutOrganisationByIdResponses = {
 
 export type PutOrganisationByIdResponse = PutOrganisationByIdResponses[keyof PutOrganisationByIdResponses];
 
-export type GetPaymentsMethodData = {
-    body?: never;
-    path?: never;
-    query?: {
-        storeId?: number;
-    };
-    url: '/payments/method';
-};
-
-export type GetPaymentsMethodErrors = {
-    /**
-     * Default Response
-     */
-    default: {
-        message?: string;
-        success?: boolean;
-        id?: number;
-    };
-};
-
-export type GetPaymentsMethodError = GetPaymentsMethodErrors[keyof GetPaymentsMethodErrors];
-
-export type GetPaymentsMethodResponses = {
-    /**
-     * Default Response
-     */
-    200: Array<{
-        id?: number;
-        name?: string;
-        description?: string | null;
-        type?: string;
-        enabled?: boolean;
-        createdat?: string;
-        updatedat?: string;
-    }>;
-};
-
-export type GetPaymentsMethodResponse = GetPaymentsMethodResponses[keyof GetPaymentsMethodResponses];
-
-export type PostPaymentsMethodByStoreIdData = {
-    body: {
-        name: string;
-        description: string;
-        type: 'MPESA_NUMBER' | 'MPESA_PAYBILL' | 'MPESA_BUY_GOODS' | 'AIRTEL_NUMBER' | 'BANKACCOUNT';
-        enabled: boolean;
-        configuration?: {
-            [key: string]: unknown;
-        };
-    };
-    path: {
-        storeId: number;
-    };
-    query?: never;
-    url: '/payments/method/{storeId}';
-};
-
-export type PostPaymentsMethodByStoreIdErrors = {
-    /**
-     * Default Response
-     */
-    default: {
-        message?: string;
-        success?: boolean;
-        id?: number;
-    };
-};
-
-export type PostPaymentsMethodByStoreIdError = PostPaymentsMethodByStoreIdErrors[keyof PostPaymentsMethodByStoreIdErrors];
-
-export type PostPaymentsMethodByStoreIdResponses = {
-    /**
-     * Default Response
-     */
-    200: {
-        message?: string;
-        success?: boolean;
-        id?: number;
-    };
-};
-
-export type PostPaymentsMethodByStoreIdResponse = PostPaymentsMethodByStoreIdResponses[keyof PostPaymentsMethodByStoreIdResponses];
-
-export type DeletePaymentsMethodByPaymentMethodIdData = {
-    body?: never;
-    path: {
-        paymentMethodId: number;
-    };
-    query?: never;
-    url: '/payments/method/{paymentMethodId}';
-};
-
-export type DeletePaymentsMethodByPaymentMethodIdErrors = {
-    /**
-     * Default Response
-     */
-    default: {
-        message?: string;
-        success?: boolean;
-        id?: number;
-    };
-};
-
-export type DeletePaymentsMethodByPaymentMethodIdError = DeletePaymentsMethodByPaymentMethodIdErrors[keyof DeletePaymentsMethodByPaymentMethodIdErrors];
-
-export type DeletePaymentsMethodByPaymentMethodIdResponses = {
-    /**
-     * Default Response
-     */
-    200: {
-        message?: string;
-        success?: boolean;
-        id?: number;
-    };
-};
-
-export type DeletePaymentsMethodByPaymentMethodIdResponse = DeletePaymentsMethodByPaymentMethodIdResponses[keyof DeletePaymentsMethodByPaymentMethodIdResponses];
-
-export type PutPaymentsMethodByPaymentMethodIdData = {
-    body?: {
-        name?: string;
-        description?: string;
-        type?: 'MPESA_NUMBER' | 'MPESA_PAYBILL' | 'MPESA_BUY_GOODS' | 'AIRTEL_NUMBER' | 'BANKACCOUNT';
-        enabled?: boolean;
-        configuration?: {
-            [key: string]: unknown;
-        };
-    };
-    path: {
-        paymentMethodId: number;
-    };
-    query?: never;
-    url: '/payments/method/{paymentMethodId}';
-};
-
-export type PutPaymentsMethodByPaymentMethodIdErrors = {
-    /**
-     * Default Response
-     */
-    default: {
-        message?: string;
-        success?: boolean;
-        id?: number;
-    };
-};
-
-export type PutPaymentsMethodByPaymentMethodIdError = PutPaymentsMethodByPaymentMethodIdErrors[keyof PutPaymentsMethodByPaymentMethodIdErrors];
-
-export type PutPaymentsMethodByPaymentMethodIdResponses = {
-    /**
-     * Default Response
-     */
-    200: {
-        message?: string;
-        success?: boolean;
-        id?: number;
-    };
-};
-
-export type PutPaymentsMethodByPaymentMethodIdResponse = PutPaymentsMethodByPaymentMethodIdResponses[keyof PutPaymentsMethodByPaymentMethodIdResponses];
-
-export type PostPaymentsOrderByOrderIdData = {
-    body?: {
-        paymentMethodId?: number;
-    };
-    path: {
-        orderId: number;
-    };
-    query?: never;
-    url: '/payments/order/{orderId}';
-};
-
-export type PostPaymentsOrderByOrderIdErrors = {
-    /**
-     * Default Response
-     */
-    default: {
-        message?: string;
-        success?: boolean;
-        id?: number;
-    };
-};
-
-export type PostPaymentsOrderByOrderIdError = PostPaymentsOrderByOrderIdErrors[keyof PostPaymentsOrderByOrderIdErrors];
-
-export type PostPaymentsOrderByOrderIdResponses = {
-    /**
-     * Default Response
-     */
-    200: {
-        message?: string;
-        success?: boolean;
-        id?: number;
-    };
-};
-
-export type PostPaymentsOrderByOrderIdResponse = PostPaymentsOrderByOrderIdResponses[keyof PostPaymentsOrderByOrderIdResponses];
-
 export type GetPaymentsCardData = {
     body?: never;
     path?: never;
@@ -3932,17 +3840,11 @@ export type GetPaymentsCardErrors = {
     /**
      * Default Response
      */
-    default: Array<{
-        number?: string;
-        expiryDate?: string | null;
-        name?: string;
+    default: {
+        message?: string;
+        success?: boolean;
         id?: number;
-        createdat?: string;
-        updatedat?: string;
-        brand?: string;
-        userId?: number;
-        isDefault?: boolean;
-    }>;
+    };
 };
 
 export type GetPaymentsCardError = GetPaymentsCardErrors[keyof GetPaymentsCardErrors];
@@ -4008,41 +3910,6 @@ export type PostPaymentsCardResponses = {
 
 export type PostPaymentsCardResponse = PostPaymentsCardResponses[keyof PostPaymentsCardResponses];
 
-export type DeletePaymentsCardByIdData = {
-    body?: never;
-    path: {
-        id: number;
-    };
-    query?: never;
-    url: '/payments/card/{id}';
-};
-
-export type DeletePaymentsCardByIdErrors = {
-    /**
-     * Default Response
-     */
-    default: {
-        message?: string;
-        success?: boolean;
-        id?: number;
-    };
-};
-
-export type DeletePaymentsCardByIdError = DeletePaymentsCardByIdErrors[keyof DeletePaymentsCardByIdErrors];
-
-export type DeletePaymentsCardByIdResponses = {
-    /**
-     * Default Response
-     */
-    200: {
-        message?: string;
-        success?: boolean;
-        id?: number;
-    };
-};
-
-export type DeletePaymentsCardByIdResponse = DeletePaymentsCardByIdResponses[keyof DeletePaymentsCardByIdResponses];
-
 export type PutPaymentsCardByIdDefaultData = {
     body?: never;
     path: {
@@ -4078,7 +3945,500 @@ export type PutPaymentsCardByIdDefaultResponses = {
 
 export type PutPaymentsCardByIdDefaultResponse = PutPaymentsCardByIdDefaultResponses[keyof PutPaymentsCardByIdDefaultResponses];
 
-export type GetPaymentsData = {
+export type GetPaymentsMethodData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/payments/method';
+};
+
+export type GetPaymentsMethodErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type GetPaymentsMethodError = GetPaymentsMethodErrors[keyof GetPaymentsMethodErrors];
+
+export type GetPaymentsMethodResponses = {
+    /**
+     * Default Response
+     */
+    200: Array<{
+        id?: number;
+        name?: string;
+        description?: string | null;
+        icon?: string | null;
+    }>;
+};
+
+export type GetPaymentsMethodResponse = GetPaymentsMethodResponses[keyof GetPaymentsMethodResponses];
+
+export type PostPaymentsMethodData = {
+    body: {
+        name: string;
+        description?: string | null;
+        icon?: string | null;
+    };
+    path?: never;
+    query?: never;
+    url: '/payments/method';
+};
+
+export type PostPaymentsMethodErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PostPaymentsMethodError = PostPaymentsMethodErrors[keyof PostPaymentsMethodErrors];
+
+export type PostPaymentsMethodResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PostPaymentsMethodResponse = PostPaymentsMethodResponses[keyof PostPaymentsMethodResponses];
+
+export type DeletePaymentsMethodByIdData = {
+    body?: never;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/payments/method/{id}';
+};
+
+export type DeletePaymentsMethodByIdErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type DeletePaymentsMethodByIdError = DeletePaymentsMethodByIdErrors[keyof DeletePaymentsMethodByIdErrors];
+
+export type DeletePaymentsMethodByIdResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type DeletePaymentsMethodByIdResponse = DeletePaymentsMethodByIdResponses[keyof DeletePaymentsMethodByIdResponses];
+
+export type PutPaymentsMethodByIdData = {
+    body?: {
+        name?: string;
+        description?: string | null;
+        icon?: string | null;
+    };
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/payments/method/{id}';
+};
+
+export type PutPaymentsMethodByIdErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PutPaymentsMethodByIdError = PutPaymentsMethodByIdErrors[keyof PutPaymentsMethodByIdErrors];
+
+export type PutPaymentsMethodByIdResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PutPaymentsMethodByIdResponse = PutPaymentsMethodByIdResponses[keyof PutPaymentsMethodByIdResponses];
+
+export type GetPaymentsStoreMethodData = {
+    body?: never;
+    path?: never;
+    query?: {
+        storeId?: number;
+    };
+    url: '/payments/store-method';
+};
+
+export type GetPaymentsStoreMethodErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type GetPaymentsStoreMethodError = GetPaymentsStoreMethodErrors[keyof GetPaymentsStoreMethodErrors];
+
+export type GetPaymentsStoreMethodResponses = {
+    /**
+     * Default Response
+     */
+    200: Array<{
+        id?: number;
+        paymentMethodId?: number;
+        storeId?: number;
+        paymentMethod?: {
+            id?: number;
+            name?: string;
+            description?: string | null;
+            icon?: string | null;
+        };
+        store?: {
+            id?: number;
+            name?: string;
+        };
+    }>;
+};
+
+export type GetPaymentsStoreMethodResponse = GetPaymentsStoreMethodResponses[keyof GetPaymentsStoreMethodResponses];
+
+export type PostPaymentsStoreMethodData = {
+    body: {
+        paymentMethodId: number;
+        storeId: number;
+    };
+    path?: never;
+    query?: never;
+    url: '/payments/store-method';
+};
+
+export type PostPaymentsStoreMethodErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PostPaymentsStoreMethodError = PostPaymentsStoreMethodErrors[keyof PostPaymentsStoreMethodErrors];
+
+export type PostPaymentsStoreMethodResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PostPaymentsStoreMethodResponse = PostPaymentsStoreMethodResponses[keyof PostPaymentsStoreMethodResponses];
+
+export type DeletePaymentsStoreMethodByIdData = {
+    body?: never;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/payments/store-method/{id}';
+};
+
+export type DeletePaymentsStoreMethodByIdErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type DeletePaymentsStoreMethodByIdError = DeletePaymentsStoreMethodByIdErrors[keyof DeletePaymentsStoreMethodByIdErrors];
+
+export type DeletePaymentsStoreMethodByIdResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type DeletePaymentsStoreMethodByIdResponse = DeletePaymentsStoreMethodByIdResponses[keyof DeletePaymentsStoreMethodByIdResponses];
+
+export type PutPaymentsStoreMethodByIdData = {
+    body: {
+        paymentMethodId: number;
+    };
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/payments/store-method/{id}';
+};
+
+export type PutPaymentsStoreMethodByIdErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PutPaymentsStoreMethodByIdError = PutPaymentsStoreMethodByIdErrors[keyof PutPaymentsStoreMethodByIdErrors];
+
+export type PutPaymentsStoreMethodByIdResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PutPaymentsStoreMethodByIdResponse = PutPaymentsStoreMethodByIdResponses[keyof PutPaymentsStoreMethodByIdResponses];
+
+export type DeletePaymentsCardByIdData = {
+    body?: never;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/payments/card/{id}';
+};
+
+export type DeletePaymentsCardByIdErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type DeletePaymentsCardByIdError = DeletePaymentsCardByIdErrors[keyof DeletePaymentsCardByIdErrors];
+
+export type DeletePaymentsCardByIdResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type DeletePaymentsCardByIdResponse = DeletePaymentsCardByIdResponses[keyof DeletePaymentsCardByIdResponses];
+
+export type GetPaymentsPayoutData = {
+    body?: never;
+    path?: never;
+    query?: {
+        storeId?: number;
+    };
+    url: '/payments/payout';
+};
+
+export type GetPaymentsPayoutErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type GetPaymentsPayoutError = GetPaymentsPayoutErrors[keyof GetPaymentsPayoutErrors];
+
+export type GetPaymentsPayoutResponses = {
+    /**
+     * Default Response
+     */
+    200: Array<{
+        id?: number;
+        name?: string;
+        description?: string | null;
+        type?: string;
+        enabled?: boolean;
+        createdat?: string;
+        updatedat?: string;
+    }>;
+};
+
+export type GetPaymentsPayoutResponse = GetPaymentsPayoutResponses[keyof GetPaymentsPayoutResponses];
+
+export type PostPaymentsPayoutByStoreIdData = {
+    body: {
+        name: string;
+        description: string;
+        type: 'MPESA_NUMBER' | 'MPESA_PAYBILL' | 'MPESA_BUY_GOODS' | 'AIRTEL_NUMBER' | 'BANKACCOUNT';
+        enabled: boolean;
+        configuration?: {
+            [key: string]: unknown;
+        };
+    };
+    path: {
+        storeId: number;
+    };
+    query?: never;
+    url: '/payments/payout/{storeId}';
+};
+
+export type PostPaymentsPayoutByStoreIdErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PostPaymentsPayoutByStoreIdError = PostPaymentsPayoutByStoreIdErrors[keyof PostPaymentsPayoutByStoreIdErrors];
+
+export type PostPaymentsPayoutByStoreIdResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PostPaymentsPayoutByStoreIdResponse = PostPaymentsPayoutByStoreIdResponses[keyof PostPaymentsPayoutByStoreIdResponses];
+
+export type DeletePaymentsPayoutByPaymentMethodIdData = {
+    body?: never;
+    path: {
+        paymentMethodId: number;
+    };
+    query?: never;
+    url: '/payments/payout/{paymentMethodId}';
+};
+
+export type DeletePaymentsPayoutByPaymentMethodIdErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type DeletePaymentsPayoutByPaymentMethodIdError = DeletePaymentsPayoutByPaymentMethodIdErrors[keyof DeletePaymentsPayoutByPaymentMethodIdErrors];
+
+export type DeletePaymentsPayoutByPaymentMethodIdResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type DeletePaymentsPayoutByPaymentMethodIdResponse = DeletePaymentsPayoutByPaymentMethodIdResponses[keyof DeletePaymentsPayoutByPaymentMethodIdResponses];
+
+export type PutPaymentsPayoutByPaymentMethodIdData = {
+    body?: {
+        name?: string;
+        description?: string;
+        type?: 'MPESA_NUMBER' | 'MPESA_PAYBILL' | 'MPESA_BUY_GOODS' | 'AIRTEL_NUMBER' | 'BANKACCOUNT';
+        enabled?: boolean;
+        configuration?: {
+            [key: string]: unknown;
+        };
+    };
+    path: {
+        paymentMethodId: number;
+    };
+    query?: never;
+    url: '/payments/payout/{paymentMethodId}';
+};
+
+export type PutPaymentsPayoutByPaymentMethodIdErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PutPaymentsPayoutByPaymentMethodIdError = PutPaymentsPayoutByPaymentMethodIdErrors[keyof PutPaymentsPayoutByPaymentMethodIdErrors];
+
+export type PutPaymentsPayoutByPaymentMethodIdResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PutPaymentsPayoutByPaymentMethodIdResponse = PutPaymentsPayoutByPaymentMethodIdResponses[keyof PutPaymentsPayoutByPaymentMethodIdResponses];
+
+export type GetPaymentsTransactionsData = {
     body?: never;
     path?: never;
     query?: {
@@ -4089,10 +4449,10 @@ export type GetPaymentsData = {
         status?: 'PENDING' | 'COMPLETED' | 'CANCELLED' | 'SUCCESS';
         orderId?: number;
     };
-    url: '/payments';
+    url: '/payments/transactions';
 };
 
-export type GetPaymentsErrors = {
+export type GetPaymentsTransactionsErrors = {
     /**
      * Default Response
      */
@@ -4115,9 +4475,9 @@ export type GetPaymentsErrors = {
     500: Array<unknown>;
 };
 
-export type GetPaymentsError = GetPaymentsErrors[keyof GetPaymentsErrors];
+export type GetPaymentsTransactionsError = GetPaymentsTransactionsErrors[keyof GetPaymentsTransactionsErrors];
 
-export type GetPaymentsResponses = {
+export type GetPaymentsTransactionsResponses = {
     /**
      * Default Response
      */
@@ -4134,7 +4494,7 @@ export type GetPaymentsResponses = {
     }>;
 };
 
-export type GetPaymentsResponse = GetPaymentsResponses[keyof GetPaymentsResponses];
+export type GetPaymentsTransactionsResponse = GetPaymentsTransactionsResponses[keyof GetPaymentsTransactionsResponses];
 
 export type GetStatsSalesData = {
     body?: never;
@@ -4809,7 +5169,7 @@ export type GetUserResponses = {
         name?: string | null;
         phone?: string | null;
         isVerified?: boolean;
-        role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
+        role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
         lastLoginDate?: string;
         dateOfBirth?: string | null;
         userName?: string | null;
@@ -4866,7 +5226,7 @@ export type PutUserResponses = {
             name?: string | null;
             phone?: string | null;
             isVerified?: boolean;
-            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER';
+            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
             lastLoginDate?: string;
             dateOfBirth?: string | null;
             userName?: string | null;

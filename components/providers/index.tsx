@@ -23,7 +23,7 @@ const queryClient = new QueryClient();
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={true} />
+      <ReactQueryDevtools initialIsOpen={false} />
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
         <Toaster position="top-center" />
         {children}
