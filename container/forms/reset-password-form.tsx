@@ -29,6 +29,9 @@ export function ResetPasswordForm({
   const searchParams = useSearchParams();
   const { mutateAsync: resetPassword } = useMutation({
     ...postAuthenticationResetpasswordConfirmMutation(),
+    onError: (error) => {
+      toast.error("Error!", { description: (error as Error)?.message || "Failed to reset password" });
+    },
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);

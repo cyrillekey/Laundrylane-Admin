@@ -25,6 +25,7 @@ import { Input } from "@/components/ui/input";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import {
   deleteOrderByIdMutation,
   putOrderByIdWeightMutation,
@@ -47,6 +48,9 @@ export function OrderTableActions({ id, isBulk }: TableActionsProps) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: getOrderQueryKey() });
     },
+    onError: (error) => {
+      toast.error("Error!", { description: (error as Error)?.message || "Failed to delete order" });
+    },
   });
 
   const { mutateAsync: updateWeight, isPending: updatingWeight } = useMutation({
@@ -55,6 +59,9 @@ export function OrderTableActions({ id, isBulk }: TableActionsProps) {
       queryClient.invalidateQueries({ queryKey: getOrderQueryKey() });
       setWeightOpen(false);
       setWeight("");
+    },
+    onError: (error) => {
+      toast.error("Error!", { description: (error as Error)?.message || "Failed to update weight" });
     },
   });
 

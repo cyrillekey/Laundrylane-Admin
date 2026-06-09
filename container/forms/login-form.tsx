@@ -36,12 +36,21 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
   const { mutateAsync: checkEmail } = useMutation({
     ...postAuthenticationEmailMutation(),
+    onError(error) {
+      toast.error("Error!", { description: error.message });
+    },
   });
   const { mutateAsync: signUp } = useMutation({
     ...postAuthenticationSignupMutation(),
+    onError(error) {
+      toast.error("Error!", { description: error.message });
+    },
   });
-  const { mutateAsync: login } = useMutation({
+  const { mutateAsync: login, error: loginError } = useMutation({
     ...postAuthenticationLoginMutation(),
+    onError(error) {
+      toast.error("Error!", { description: error.message });
+    },
   });
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
@@ -58,7 +67,6 @@ export function LoginForm({
     },
 
     onSubmit: async ({ value, formApi }) => {
-      console.log(value);
       if (value.type === "initial") {
         const res = await checkEmail({ body: { email: value.email } });
 
@@ -100,12 +108,19 @@ export function LoginForm({
               AuthenticationService.setUser(res.user!);
               window.location.replace("/app");
             } else {
+              if (loginError) {
+                return toast.error("Error!", {
+                  description: loginError.message,
+                });
+              }
               toast.error("Error!", {
                 description: "Only admin can login to the admin portal",
               });
             }
           } else {
-            toast.error("Error!", { description: res.message ?? "Invalid credentials" });
+            toast.error("Error!", {
+              description: res.message ?? "Invalid credentials",
+            });
           }
         }
       }

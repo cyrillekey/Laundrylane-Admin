@@ -30,6 +30,9 @@ export function CreateStoreDialog({ open, onOpenChange }: CreateStoreDialogProps
 
   const { mutateAsync: createStore, isPending: creatingStore } = useMutation({
     ...postStoreMutation(),
+    onError: (error) => {
+      toast.error("Error!", { description: (error as Error)?.message || "Failed to create store" });
+    },
   });
 
   const handleCreateStore = async (store: StoreFormValues) => {

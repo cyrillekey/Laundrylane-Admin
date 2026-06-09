@@ -55,11 +55,17 @@ export function OTPForm({
   });
   const { mutateAsync: requestOtp, isPending: isLoading } = useMutation({
     ...postAuthenticationResetPasswordMutation(),
+    onError: (error) => {
+      toast.error("Error!", { description: (error as Error)?.message || "Failed to request OTP" });
+    },
   });
   const searchParams = useSearchParams();
 
   const { mutateAsync: verifyPassword } = useMutation({
     ...postAuthenticationResetpasswordValidateOtpMutation(),
+    onError: (error) => {
+      toast.error("Error!", { description: (error as Error)?.message || "Failed to verify OTP" });
+    },
   });
   useEffect(() => {
     if (!searchParams.get("email")) {

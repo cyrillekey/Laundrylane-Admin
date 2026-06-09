@@ -36,6 +36,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { deleteCatalogServiceTypesByIdMutation, getCatalogServiceTypesQueryKey } from "@/queries/@tanstack/react-query.gen";
 import { TableActions } from "@/container/service-types/table-actions";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -114,6 +115,9 @@ export function ServiceTypesTable({ serviceTypes, isPending }: ServiceTypesTable
       queryClient.invalidateQueries({ queryKey: getCatalogServiceTypesQueryKey() });
       setRowSelection({});
       setBulkDeleteOpen(false);
+    },
+    onError: (error) => {
+      toast.error("Error!", { description: (error as Error)?.message || "Failed to delete service types" });
     },
   });
 

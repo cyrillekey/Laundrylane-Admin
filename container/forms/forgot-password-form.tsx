@@ -26,6 +26,9 @@ export function ForgotPasswordForm({
   const router = useRouter();
   const { mutateAsync: resetPassword } = useMutation({
     ...postAuthenticationResetPasswordMutation(),
+    onError: (error) => {
+      toast.error("Error!", { description: (error as Error)?.message || "Failed to send reset email" });
+    },
   });
   const form = useForm({
     defaultValues: {

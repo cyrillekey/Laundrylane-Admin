@@ -38,11 +38,15 @@ export function EmailVerifyForm({
 
   const { mutateAsync: verifyOtp, isPending: isVerifying } = useMutation({
     ...postAuthenticationSignupVerifyOtpMutation(),
+    onError: (error) => {
+      toast.error("Error!", { description: (error as Error)?.message || "Failed to verify OTP" });
+    },
   });
 
   const { mutateAsync: resendOtp, isPending: isResending } = useMutation({
     ...postAuthenticationSignupResendOtpMutation(),
     onError: (err) => {
+      toast.error("Error!", { description: (err as Error)?.message || "Failed to resend OTP" });
       const retryAfter = (err as { retryAfter?: number })?.retryAfter;
       if (retryAfter) {
         setCountdown(retryAfter);

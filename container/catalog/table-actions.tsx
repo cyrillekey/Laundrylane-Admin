@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import {
   deleteCatalogByIdMutation,
   getCatalogQueryKey,
@@ -45,6 +46,9 @@ export function TableActions({ id }: TableActionsProps) {
     ...deleteCatalogByIdMutation(),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: getCatalogQueryKey() });
+    },
+    onError: (error) => {
+      toast.error("Error!", { description: (error as Error)?.message || "Failed to delete catalog item" });
     },
   });
 

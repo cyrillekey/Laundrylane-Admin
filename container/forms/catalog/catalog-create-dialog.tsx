@@ -8,6 +8,7 @@ import {
   getCatalogQueryKey,
 } from "@/queries/@tanstack/react-query.gen";
 import { useSelectedStore } from "@/stores/selected-store";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -37,6 +38,9 @@ export function CatalogCreateDialog() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: getCatalogQueryKey() });
       resetForm();
+    },
+    onError: (error) => {
+      toast.error("Error!", { description: (error as Error)?.message || "Failed to create catalog items" });
     },
   });
 

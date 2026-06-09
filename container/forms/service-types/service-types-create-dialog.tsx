@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { PlusIcon, XIcon } from "lucide-react";
 import { postCatalogServiceTypesByStoreIdMutation, getCatalogServiceTypesQueryKey } from "@/queries/@tanstack/react-query.gen";
 import { useSelectedStore } from "@/stores/selected-store";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -32,6 +33,9 @@ export function ServiceTypesCreateDialog() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: getCatalogServiceTypesQueryKey() });
       resetForm();
+    },
+    onError: (error) => {
+      toast.error("Error!", { description: (error as Error)?.message || "Failed to create service types" });
     },
   });
 

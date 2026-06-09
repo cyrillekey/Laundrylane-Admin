@@ -14,7 +14,6 @@ appHeader.set("Content-Type", "application/json");
 appHeader.set("Authorization", `Bearer ${AuthenticationService.getToken()}`);
 client.setConfig({
   baseUrl: sharedValues.baseUrl,
-  throwOnError: true,
   auth: AuthenticationService.getToken() || undefined,
   headers: appHeader,
 });

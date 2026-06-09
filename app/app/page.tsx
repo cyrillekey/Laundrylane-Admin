@@ -13,9 +13,9 @@ export default function AppDashboard() {
   const { selectedStoreId } = useSelectedStore();
   const { data: statsResponse, isLoading: isLoadingStats } = useQuery({
     ...getStatsOrdersOptions({
-      query: { storeId: selectedStoreId ?? undefined },
+      query: { storeId: selectedStoreId ?? undefined },      
     }),
-    enabled: !!selectedStoreId,
+    enabled: !!selectedStoreId,    
   });
   const { data: inProgressResponse, isLoading: isLoadingInProgress } = useQuery(
     {
@@ -32,6 +32,7 @@ export default function AppDashboard() {
         },
       }),
       enabled: !!selectedStoreId,
+      
     },
   );
   const { isLoading: isLoadingCustomers, data: customersResponse } = useQuery({

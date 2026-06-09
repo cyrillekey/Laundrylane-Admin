@@ -49,6 +49,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { getCatalogQueryKey } from "@/queries/@tanstack/react-query.gen";
 import { deleteCatalogById } from "@/queries/sdk.gen";
 import { TableActions } from "@/container/catalog/table-actions";
@@ -158,6 +159,9 @@ export function CatalogTable({ catalogs, isPending }: CatalogTableProps) {
       queryClient.invalidateQueries({ queryKey: getCatalogQueryKey() });
       setRowSelection({});
       setBulkDeleteOpen(false);
+    },
+    onError: (error) => {
+      toast.error("Error!", { description: (error as Error)?.message || "Failed to delete catalog items" });
     },
   });
 

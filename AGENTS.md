@@ -58,6 +58,7 @@ services/             # tokenService (cookie-based auth)
 - All API calls use auto-generated functions from `queries/` (never hand-write API clients)
 - Pattern: `useQuery({ ...getXxxOptions({ query: { storeId } }), enabled: !!storeId })`
 - Mutations: `useMutation({ ...postXxxMutation(), onSuccess: () => queryClient.invalidateQueries({ queryKey: getXxxQueryKey() }) })`
+- **Every `useMutation` and `useQuery` must include an `onError` handler** that shows a toast with `(error as Error)?.message` or a contextual fallback string. Never leave errors unhandled.
 - Errors: `throwOnError: true` is set globally in client config
 - Eslint ignores `queries/**` — generated code is exempt from lint
 

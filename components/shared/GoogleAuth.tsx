@@ -7,7 +7,6 @@ import { Spinner } from "../ui/spinner";
 import { FirebaseError } from "firebase/app";
 import { toast } from "sonner";
 
-import { useRouter } from "next/navigation";
 import AuthenticationService from "@/services/tokenService";
 import { captureException } from "@sentry/nextjs";
 import { useMutation } from "@tanstack/react-query";
@@ -17,8 +16,13 @@ const GoogleAuthButton = () => {
   const [isLoading, setIsloading] = useState<boolean>(false);
   const { mutateAsync: socialLogin } = useMutation({
     ...postAuthenticationSocialAuthMutation(),
+    onError: (error) => {
+      toast.error("Error!", {
+        description: (error as Error)?.message || "Social login failed",
+      });
+    },
   });
-  const router = useRouter();
+
   return (
     <Button
       variant="outline"

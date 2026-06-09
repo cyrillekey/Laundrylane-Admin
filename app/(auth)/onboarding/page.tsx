@@ -25,9 +25,7 @@ import {
   PaymentMethodForm,
   type PaymentMethodFormValues,
 } from "@/container/forms/onboarding/payment-method-form";
-import {
-  StorePaymentMethodsForm,
-} from "@/container/forms/onboarding/store-payment-methods-form";
+import { StorePaymentMethodsForm } from "@/container/forms/onboarding/store-payment-methods-form";
 import { useSelectedStore } from "@/stores/selected-store";
 import { useOnboardingStep } from "@/stores/onboarding-step";
 import { CatalogForm } from "@/container/forms/onboarding/catalog-form";
@@ -77,21 +75,35 @@ export default function OnboardingStepper() {
 
   const { mutateAsync: upsertOrg, isPending: savingOrg } = useMutation({
     ...putOrganisationByIdMutation(),
+    onError(error) {
+      toast.error("Error!", { description: error.message });
+    },
   });
 
   const { mutateAsync: createStore, isPending: creatingStore } = useMutation({
     ...postStoreMutation(),
+    onError(error) {
+      toast.error("Error!", { description: error.message });
+    },
   });
 
   const { mutateAsync: createPayoutMethod, isPending: creatingPayment } =
     useMutation({
       ...postPaymentsPayoutByStoreIdMutation(),
+      onError(error) {
+        toast.error("Error!", { description: error.message });
+      },
     });
 
-  const { mutateAsync: createStorePaymentMethods, isPending: creatingStorePaymentMethods } =
-    useMutation({
-      ...postPaymentsStoreMethodMutation(),
-    });
+  const {
+    mutateAsync: createStorePaymentMethods,
+    isPending: creatingStorePaymentMethods,
+  } = useMutation({
+    ...postPaymentsStoreMethodMutation(),
+    onError: (error) => {
+      toast.error("Error!", { description: (error as Error)?.message || "Failed to save payment methods" });
+    },
+  });
 
   const handleOrganisationSubmit = async (values: OrganisationFormValues) => {
     const response = await upsertOrg({
