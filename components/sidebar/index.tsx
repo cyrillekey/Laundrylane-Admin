@@ -13,7 +13,9 @@ import {
   MessageCircle,
   LifeBuoy,
   BookOpen,
-  ShoppingBasket
+  ShoppingBasket,
+  MapPin,
+  Settings
 } from "lucide-react";
 
 import { NavCategories } from "@/components/sidebar/nav-categories";
@@ -68,7 +70,12 @@ const categories = [
       { title: "Catalog", url: "/app/catalog", icon: ListOrdered },
       { title: "Service Types", url: "/app/service-types", icon: Clock },
       { title: "Cloth Types", url: "/app/cloth-types", icon: Shirt },
+      { title: "Delivery Zones", url: "/app/delivery-zones", icon: MapPin },
     ],
+  },
+  {
+    label: "Settings",
+    items: [{ title: "Settings", url: "/app/settings", icon: Settings }],
   },
   {
     label: "Support",
