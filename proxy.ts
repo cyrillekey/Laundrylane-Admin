@@ -31,6 +31,15 @@ export default function middleware(request: NextRequest) {
     if (!userJson?.isVerified) {
       return NextResponse.redirect(new URL("/email-verify", request.url));
     }
+
+    if (userJson?.onboarded && request.nextUrl.pathname.startsWith("/onboarding")) {
+      return NextResponse.redirect(new URL("/app", request.url));
+    }
+
+    if (!userJson?.onboarded && request.nextUrl.pathname.startsWith("/app")) {
+      return NextResponse.redirect(new URL("/onboarding", request.url));
+    }
+
     return NextResponse.next();
   }
   return NextResponse.next();

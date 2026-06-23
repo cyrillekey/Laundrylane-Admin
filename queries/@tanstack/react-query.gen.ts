@@ -3,8 +3,8 @@
 import { type DefaultError, type InfiniteData, infiniteQueryOptions, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { deleteAddressById, deleteCatalogById, deleteCatalogServiceTypesById, deleteChatSessionById, deleteContentByKey, deleteDeliveryZonesById, deleteFaqById, deleteNotificationsById, deleteOrderById, deletePaymentsCardById, deletePaymentsMethodById, deletePaymentsPayoutByPaymentMethodId, deletePaymentsStoreMethodById, deleteStoreById, deleteSupportContactsById, deleteUserDeleteAccount, get, getAddress, getAddressAutocomplete, getCatalog, getCatalogClothes, getCatalogServiceTypes, getChatSessionById, getChatSessionByIdMessages, getChatSessions, getContent, getContentByKey, getCustomers, getDeliveryZones, getDeliveryZonesById, getFaq, getNotifications, getNotificationsById, getNotificationsUnreadCount, getOrder, getOrderById, getOrderByIdItems, getOrderByIdPackagingSlip, getOrganisation, getOrganisationById, getOrganisationUser, getPaymentsCard, getPaymentsMethod, getPaymentsPayout, getPaymentsStoreMethod, getPaymentsTransactions, getStatsCustomers, getStatsOrders, getStatsSales, getStore, getStoreById, getSupportContacts, getUser, type Options, postAddress, postAddressReverseGeocode, postAuthenticationEmail, postAuthenticationLogin, postAuthenticationResetPassword, postAuthenticationResetpasswordConfirm, postAuthenticationResetpasswordValidateOtp, postAuthenticationSignup, postAuthenticationSignupResendOtp, postAuthenticationSignupVerifyOtp, postAuthenticationSocialAuth, postCatalogByStoreId, postCatalogClothesByStoreId, postCatalogServiceTypesByStoreId, postChatSession, postContent, postDeliveryZonesByStoreId, postFaqByStoreId, postOrderByIdInvoice, postOrderByIdPackingSlip, postOrderByIdPay, postOrderByStoreId, postPaymentsCard, postPaymentsMethod, postPaymentsPayoutByStoreId, postPaymentsStoreMethod, postStore, postSupportContactsByStoreId, postUserFcmToken, putAddressById, putAuthenticationLogout, putAuthenticationResetpasswordUpdatePassword, putCatalogById, putCatalogServiceTypesById, putContentByKey, putDeliveryZonesById, putFaqById, putNotificationsMarkAllRead, putNotificationsMarkReadById, putOrderByIdCancel, putOrderByIdStatus, putOrderByIdWeight, putOrganisationById, putPaymentsCardByIdDefault, putPaymentsMethodById, putPaymentsPayoutByPaymentMethodId, putPaymentsStoreMethodById, putStoreById, putSupportContactsById, putUser, putUserChangePassword } from '../sdk.gen';
-import type { DeleteAddressByIdData, DeleteAddressByIdError, DeleteAddressByIdResponse, DeleteCatalogByIdData, DeleteCatalogByIdError, DeleteCatalogByIdResponse, DeleteCatalogServiceTypesByIdData, DeleteCatalogServiceTypesByIdError, DeleteCatalogServiceTypesByIdResponse, DeleteChatSessionByIdData, DeleteChatSessionByIdError, DeleteChatSessionByIdResponse, DeleteContentByKeyData, DeleteContentByKeyError, DeleteContentByKeyResponse, DeleteDeliveryZonesByIdData, DeleteDeliveryZonesByIdError, DeleteDeliveryZonesByIdResponse, DeleteFaqByIdData, DeleteFaqByIdError, DeleteFaqByIdResponse, DeleteNotificationsByIdData, DeleteNotificationsByIdError, DeleteNotificationsByIdResponse, DeleteOrderByIdData, DeleteOrderByIdError, DeleteOrderByIdResponse, DeletePaymentsCardByIdData, DeletePaymentsCardByIdError, DeletePaymentsCardByIdResponse, DeletePaymentsMethodByIdData, DeletePaymentsMethodByIdError, DeletePaymentsMethodByIdResponse, DeletePaymentsPayoutByPaymentMethodIdData, DeletePaymentsPayoutByPaymentMethodIdError, DeletePaymentsPayoutByPaymentMethodIdResponse, DeletePaymentsStoreMethodByIdData, DeletePaymentsStoreMethodByIdError, DeletePaymentsStoreMethodByIdResponse, DeleteStoreByIdData, DeleteStoreByIdError, DeleteStoreByIdResponse, DeleteSupportContactsByIdData, DeleteSupportContactsByIdError, DeleteSupportContactsByIdResponse, DeleteUserDeleteAccountData, DeleteUserDeleteAccountError, DeleteUserDeleteAccountResponse, GetAddressAutocompleteData, GetAddressAutocompleteError, GetAddressAutocompleteResponse, GetAddressData, GetAddressError, GetAddressResponse, GetCatalogClothesData, GetCatalogClothesError, GetCatalogClothesResponse, GetCatalogData, GetCatalogError, GetCatalogResponse, GetCatalogServiceTypesData, GetCatalogServiceTypesError, GetCatalogServiceTypesResponse, GetChatSessionByIdData, GetChatSessionByIdError, GetChatSessionByIdMessagesData, GetChatSessionByIdMessagesError, GetChatSessionByIdMessagesResponse, GetChatSessionByIdResponse, GetChatSessionsData, GetChatSessionsError, GetChatSessionsResponse, GetContentByKeyData, GetContentByKeyError, GetContentByKeyResponse, GetContentData, GetContentError, GetContentResponse, GetCustomersData, GetCustomersError, GetCustomersResponse, GetData, GetDeliveryZonesByIdData, GetDeliveryZonesByIdError, GetDeliveryZonesByIdResponse, GetDeliveryZonesData, GetDeliveryZonesError, GetDeliveryZonesResponse, GetFaqData, GetFaqError, GetFaqResponse, GetNotificationsByIdData, GetNotificationsByIdError, GetNotificationsByIdResponse, GetNotificationsData, GetNotificationsError, GetNotificationsResponse, GetNotificationsUnreadCountData, GetNotificationsUnreadCountError, GetNotificationsUnreadCountResponse, GetOrderByIdData, GetOrderByIdError, GetOrderByIdItemsData, GetOrderByIdItemsError, GetOrderByIdItemsResponse, GetOrderByIdPackagingSlipData, GetOrderByIdResponse, GetOrderData, GetOrderError, GetOrderResponse, GetOrganisationByIdData, GetOrganisationByIdError, GetOrganisationByIdResponse, GetOrganisationData, GetOrganisationError, GetOrganisationResponse, GetOrganisationUserData, GetOrganisationUserError, GetOrganisationUserResponse, GetPaymentsCardData, GetPaymentsCardError, GetPaymentsCardResponse, GetPaymentsMethodData, GetPaymentsMethodError, GetPaymentsMethodResponse, GetPaymentsPayoutData, GetPaymentsPayoutError, GetPaymentsPayoutResponse, GetPaymentsStoreMethodData, GetPaymentsStoreMethodError, GetPaymentsStoreMethodResponse, GetPaymentsTransactionsData, GetPaymentsTransactionsError, GetPaymentsTransactionsResponse, GetResponse, GetStatsCustomersData, GetStatsCustomersError, GetStatsCustomersResponse, GetStatsOrdersData, GetStatsOrdersError, GetStatsOrdersResponse, GetStatsSalesData, GetStatsSalesError, GetStatsSalesResponse, GetStoreByIdData, GetStoreByIdError, GetStoreByIdResponse, GetStoreData, GetStoreError, GetStoreResponse, GetSupportContactsData, GetSupportContactsError, GetSupportContactsResponse, GetUserData, GetUserError, GetUserResponse, PostAddressData, PostAddressError, PostAddressResponse, PostAddressReverseGeocodeData, PostAddressReverseGeocodeResponse, PostAuthenticationEmailData, PostAuthenticationEmailError, PostAuthenticationEmailResponse, PostAuthenticationLoginData, PostAuthenticationLoginError, PostAuthenticationLoginResponse, PostAuthenticationResetpasswordConfirmData, PostAuthenticationResetpasswordConfirmError, PostAuthenticationResetpasswordConfirmResponse, PostAuthenticationResetPasswordData, PostAuthenticationResetPasswordError, PostAuthenticationResetPasswordResponse, PostAuthenticationResetpasswordValidateOtpData, PostAuthenticationResetpasswordValidateOtpError, PostAuthenticationResetpasswordValidateOtpResponse, PostAuthenticationSignupData, PostAuthenticationSignupError, PostAuthenticationSignupResendOtpData, PostAuthenticationSignupResendOtpError, PostAuthenticationSignupResendOtpResponse, PostAuthenticationSignupResponse, PostAuthenticationSignupVerifyOtpData, PostAuthenticationSignupVerifyOtpError, PostAuthenticationSignupVerifyOtpResponse, PostAuthenticationSocialAuthData, PostAuthenticationSocialAuthError, PostAuthenticationSocialAuthResponse, PostCatalogByStoreIdData, PostCatalogByStoreIdError, PostCatalogByStoreIdResponse, PostCatalogClothesByStoreIdData, PostCatalogClothesByStoreIdError, PostCatalogClothesByStoreIdResponse, PostCatalogServiceTypesByStoreIdData, PostCatalogServiceTypesByStoreIdError, PostCatalogServiceTypesByStoreIdResponse, PostChatSessionData, PostChatSessionError, PostChatSessionResponse, PostContentData, PostContentError, PostContentResponse, PostDeliveryZonesByStoreIdData, PostDeliveryZonesByStoreIdError, PostDeliveryZonesByStoreIdResponse, PostFaqByStoreIdData, PostFaqByStoreIdError, PostFaqByStoreIdResponse, PostOrderByIdInvoiceData, PostOrderByIdInvoiceError, PostOrderByIdInvoiceResponse, PostOrderByIdPackingSlipData, PostOrderByIdPackingSlipError, PostOrderByIdPackingSlipResponse, PostOrderByIdPayData, PostOrderByIdPayError, PostOrderByIdPayResponse, PostOrderByStoreIdData, PostOrderByStoreIdError, PostOrderByStoreIdResponse, PostPaymentsCardData, PostPaymentsCardError, PostPaymentsCardResponse, PostPaymentsMethodData, PostPaymentsMethodError, PostPaymentsMethodResponse, PostPaymentsPayoutByStoreIdData, PostPaymentsPayoutByStoreIdError, PostPaymentsPayoutByStoreIdResponse, PostPaymentsStoreMethodData, PostPaymentsStoreMethodError, PostPaymentsStoreMethodResponse, PostStoreData, PostStoreError, PostStoreResponse, PostSupportContactsByStoreIdData, PostSupportContactsByStoreIdError, PostSupportContactsByStoreIdResponse, PostUserFcmTokenData, PostUserFcmTokenError, PostUserFcmTokenResponse, PutAddressByIdData, PutAddressByIdError, PutAddressByIdResponse, PutAuthenticationLogoutData, PutAuthenticationLogoutError, PutAuthenticationLogoutResponse, PutAuthenticationResetpasswordUpdatePasswordData, PutAuthenticationResetpasswordUpdatePasswordError, PutAuthenticationResetpasswordUpdatePasswordResponse, PutCatalogByIdData, PutCatalogByIdError, PutCatalogByIdResponse, PutCatalogServiceTypesByIdData, PutCatalogServiceTypesByIdError, PutCatalogServiceTypesByIdResponse, PutContentByKeyData, PutContentByKeyError, PutContentByKeyResponse, PutDeliveryZonesByIdData, PutDeliveryZonesByIdError, PutDeliveryZonesByIdResponse, PutFaqByIdData, PutFaqByIdError, PutFaqByIdResponse, PutNotificationsMarkAllReadData, PutNotificationsMarkAllReadError, PutNotificationsMarkAllReadResponse, PutNotificationsMarkReadByIdData, PutNotificationsMarkReadByIdError, PutNotificationsMarkReadByIdResponse, PutOrderByIdCancelData, PutOrderByIdCancelError, PutOrderByIdCancelResponse, PutOrderByIdStatusData, PutOrderByIdStatusError, PutOrderByIdStatusResponse, PutOrderByIdWeightData, PutOrderByIdWeightResponse, PutOrganisationByIdData, PutOrganisationByIdError, PutOrganisationByIdResponse, PutPaymentsCardByIdDefaultData, PutPaymentsCardByIdDefaultError, PutPaymentsCardByIdDefaultResponse, PutPaymentsMethodByIdData, PutPaymentsMethodByIdError, PutPaymentsMethodByIdResponse, PutPaymentsPayoutByPaymentMethodIdData, PutPaymentsPayoutByPaymentMethodIdError, PutPaymentsPayoutByPaymentMethodIdResponse, PutPaymentsStoreMethodByIdData, PutPaymentsStoreMethodByIdError, PutPaymentsStoreMethodByIdResponse, PutStoreByIdData, PutStoreByIdError, PutStoreByIdResponse, PutSupportContactsByIdData, PutSupportContactsByIdError, PutSupportContactsByIdResponse, PutUserChangePasswordData, PutUserChangePasswordError, PutUserChangePasswordResponse, PutUserData, PutUserError, PutUserResponse } from '../types.gen';
+import { deleteAddressById, deleteCatalogById, deleteCatalogServiceTypesById, deleteChatSessionById, deleteContentByKey, deleteDeliveryZonesById, deleteFaqById, deleteNotificationsById, deleteOrderById, deleteOrganisationMembersByUserId, deleteOrganisationMembersInvitesByInviteId, deletePaymentsCardById, deletePaymentsPayoutByPaymentMethodId, deletePaymentsStoreMethodById, deleteStoreById, deleteSupportContactsById, deleteUserBillingAddress, deleteUserDeleteAccount, get, getAddress, getAddressAutocomplete, getCatalog, getCatalogClothes, getCatalogServiceTypes, getChatSessionById, getChatSessionByIdMessages, getChatSessions, getContent, getContentByKey, getCustomers, getDeliveryZones, getDeliveryZonesById, getFaq, getNotifications, getNotificationsById, getNotificationsUnreadCount, getOrder, getOrderById, getOrderByIdItems, getOrderByIdPackagingSlip, getOrganisation, getOrganisationById, getOrganisationMembers, getOrganisationMembersInvites, getOrganisationUser, getPaymentsByIdStatus, getPaymentsCard, getPaymentsMethod, getPaymentsPayout, getPaymentsStoreMethod, getPaymentsTransactions, getStatsCustomers, getStatsOrders, getStatsSales, getStore, getStoreById, getSupportContacts, getUser, getUserBillingAddress, type Options, postAddress, postAddressReverseGeocode, postAuthenticationEmail, postAuthenticationLogin, postAuthenticationResetPassword, postAuthenticationResetpasswordConfirm, postAuthenticationResetpasswordValidateOtp, postAuthenticationSignup, postAuthenticationSignupResendOtp, postAuthenticationSignupVerifyOtp, postAuthenticationSocialAuth, postCatalogByStoreId, postCatalogClothesByStoreId, postCatalogServiceTypesByStoreId, postChatSession, postContent, postDeliveryZonesByStoreId, postFaqByStoreId, postOrderByIdInvoice, postOrderByIdPackingSlip, postOrderByIdPay, postOrderByStoreId, postOrganisationMembers, postOrganisationMembersAcceptInvite, postOrganisationMembersInvitesByInviteIdResend, postPaymentsCard, postPaymentsMethod, postPaymentsPayoutByStoreId, postPaymentsStoreMethod, postStore, postSupportContactsByStoreId, postUserBillingAddress, postUserFcmToken, postUserOnboard, putAddressById, putAuthenticationLogout, putAuthenticationResetpasswordUpdatePassword, putCatalogById, putCatalogServiceTypesById, putContentByKey, putDeliveryZonesById, putFaqById, putNotificationsMarkAllRead, putNotificationsMarkReadById, putOrderByIdCancel, putOrderByIdStatus, putOrderByIdWeight, putOrganisationById, putPaymentsCardByIdDefault, putPaymentsMethodById, putPaymentsPayoutByPaymentMethodId, putPaymentsStoreMethodById, putStoreById, putSupportContactsById, putUser, putUserBillingAddress, putUserChangePassword } from '../sdk.gen';
+import type { DeleteAddressByIdData, DeleteAddressByIdError, DeleteAddressByIdResponse, DeleteCatalogByIdData, DeleteCatalogByIdError, DeleteCatalogByIdResponse, DeleteCatalogServiceTypesByIdData, DeleteCatalogServiceTypesByIdError, DeleteCatalogServiceTypesByIdResponse, DeleteChatSessionByIdData, DeleteChatSessionByIdError, DeleteChatSessionByIdResponse, DeleteContentByKeyData, DeleteContentByKeyError, DeleteContentByKeyResponse, DeleteDeliveryZonesByIdData, DeleteDeliveryZonesByIdError, DeleteDeliveryZonesByIdResponse, DeleteFaqByIdData, DeleteFaqByIdError, DeleteFaqByIdResponse, DeleteNotificationsByIdData, DeleteNotificationsByIdError, DeleteNotificationsByIdResponse, DeleteOrderByIdData, DeleteOrderByIdError, DeleteOrderByIdResponse, DeleteOrganisationMembersByUserIdData, DeleteOrganisationMembersByUserIdError, DeleteOrganisationMembersByUserIdResponse, DeleteOrganisationMembersInvitesByInviteIdData, DeleteOrganisationMembersInvitesByInviteIdError, DeleteOrganisationMembersInvitesByInviteIdResponse, DeletePaymentsCardByIdData, DeletePaymentsCardByIdError, DeletePaymentsCardByIdResponse, DeletePaymentsPayoutByPaymentMethodIdData, DeletePaymentsPayoutByPaymentMethodIdError, DeletePaymentsPayoutByPaymentMethodIdResponse, DeletePaymentsStoreMethodByIdData, DeletePaymentsStoreMethodByIdError, DeletePaymentsStoreMethodByIdResponse, DeleteStoreByIdData, DeleteStoreByIdError, DeleteStoreByIdResponse, DeleteSupportContactsByIdData, DeleteSupportContactsByIdError, DeleteSupportContactsByIdResponse, DeleteUserBillingAddressData, DeleteUserBillingAddressError, DeleteUserBillingAddressResponse, DeleteUserDeleteAccountData, DeleteUserDeleteAccountError, DeleteUserDeleteAccountResponse, GetAddressAutocompleteData, GetAddressAutocompleteError, GetAddressAutocompleteResponse, GetAddressData, GetAddressError, GetAddressResponse, GetCatalogClothesData, GetCatalogClothesError, GetCatalogClothesResponse, GetCatalogData, GetCatalogError, GetCatalogResponse, GetCatalogServiceTypesData, GetCatalogServiceTypesError, GetCatalogServiceTypesResponse, GetChatSessionByIdData, GetChatSessionByIdError, GetChatSessionByIdMessagesData, GetChatSessionByIdMessagesError, GetChatSessionByIdMessagesResponse, GetChatSessionByIdResponse, GetChatSessionsData, GetChatSessionsError, GetChatSessionsResponse, GetContentByKeyData, GetContentByKeyError, GetContentByKeyResponse, GetContentData, GetContentError, GetContentResponse, GetCustomersData, GetCustomersError, GetCustomersResponse, GetData, GetDeliveryZonesByIdData, GetDeliveryZonesByIdError, GetDeliveryZonesByIdResponse, GetDeliveryZonesData, GetDeliveryZonesError, GetDeliveryZonesResponse, GetFaqData, GetFaqError, GetFaqResponse, GetNotificationsByIdData, GetNotificationsByIdError, GetNotificationsByIdResponse, GetNotificationsData, GetNotificationsError, GetNotificationsResponse, GetNotificationsUnreadCountData, GetNotificationsUnreadCountError, GetNotificationsUnreadCountResponse, GetOrderByIdData, GetOrderByIdError, GetOrderByIdItemsData, GetOrderByIdItemsError, GetOrderByIdItemsResponse, GetOrderByIdPackagingSlipData, GetOrderByIdResponse, GetOrderData, GetOrderError, GetOrderResponse, GetOrganisationByIdData, GetOrganisationByIdError, GetOrganisationByIdResponse, GetOrganisationData, GetOrganisationError, GetOrganisationMembersData, GetOrganisationMembersError, GetOrganisationMembersInvitesData, GetOrganisationMembersInvitesError, GetOrganisationMembersInvitesResponse, GetOrganisationMembersResponse, GetOrganisationResponse, GetOrganisationUserData, GetOrganisationUserError, GetOrganisationUserResponse, GetPaymentsByIdStatusData, GetPaymentsByIdStatusError, GetPaymentsByIdStatusResponse, GetPaymentsCardData, GetPaymentsCardError, GetPaymentsCardResponse, GetPaymentsMethodData, GetPaymentsMethodError, GetPaymentsMethodResponse, GetPaymentsPayoutData, GetPaymentsPayoutError, GetPaymentsPayoutResponse, GetPaymentsStoreMethodData, GetPaymentsStoreMethodError, GetPaymentsStoreMethodResponse, GetPaymentsTransactionsData, GetPaymentsTransactionsError, GetPaymentsTransactionsResponse, GetResponse, GetStatsCustomersData, GetStatsCustomersError, GetStatsCustomersResponse, GetStatsOrdersData, GetStatsOrdersError, GetStatsOrdersResponse, GetStatsSalesData, GetStatsSalesError, GetStatsSalesResponse, GetStoreByIdData, GetStoreByIdError, GetStoreByIdResponse, GetStoreData, GetStoreError, GetStoreResponse, GetSupportContactsData, GetSupportContactsError, GetSupportContactsResponse, GetUserBillingAddressData, GetUserBillingAddressError, GetUserBillingAddressResponse, GetUserData, GetUserError, GetUserResponse, PostAddressData, PostAddressError, PostAddressResponse, PostAddressReverseGeocodeData, PostAddressReverseGeocodeResponse, PostAuthenticationEmailData, PostAuthenticationEmailError, PostAuthenticationEmailResponse, PostAuthenticationLoginData, PostAuthenticationLoginError, PostAuthenticationLoginResponse, PostAuthenticationResetpasswordConfirmData, PostAuthenticationResetpasswordConfirmError, PostAuthenticationResetpasswordConfirmResponse, PostAuthenticationResetPasswordData, PostAuthenticationResetPasswordError, PostAuthenticationResetPasswordResponse, PostAuthenticationResetpasswordValidateOtpData, PostAuthenticationResetpasswordValidateOtpError, PostAuthenticationResetpasswordValidateOtpResponse, PostAuthenticationSignupData, PostAuthenticationSignupError, PostAuthenticationSignupResendOtpData, PostAuthenticationSignupResendOtpError, PostAuthenticationSignupResendOtpResponse, PostAuthenticationSignupResponse, PostAuthenticationSignupVerifyOtpData, PostAuthenticationSignupVerifyOtpError, PostAuthenticationSignupVerifyOtpResponse, PostAuthenticationSocialAuthData, PostAuthenticationSocialAuthError, PostAuthenticationSocialAuthResponse, PostCatalogByStoreIdData, PostCatalogByStoreIdError, PostCatalogByStoreIdResponse, PostCatalogClothesByStoreIdData, PostCatalogClothesByStoreIdError, PostCatalogClothesByStoreIdResponse, PostCatalogServiceTypesByStoreIdData, PostCatalogServiceTypesByStoreIdError, PostCatalogServiceTypesByStoreIdResponse, PostChatSessionData, PostChatSessionError, PostChatSessionResponse, PostContentData, PostContentError, PostContentResponse, PostDeliveryZonesByStoreIdData, PostDeliveryZonesByStoreIdError, PostDeliveryZonesByStoreIdResponse, PostFaqByStoreIdData, PostFaqByStoreIdError, PostFaqByStoreIdResponse, PostOrderByIdInvoiceData, PostOrderByIdInvoiceError, PostOrderByIdInvoiceResponse, PostOrderByIdPackingSlipData, PostOrderByIdPackingSlipError, PostOrderByIdPackingSlipResponse, PostOrderByIdPayData, PostOrderByIdPayError, PostOrderByIdPayResponse, PostOrderByStoreIdData, PostOrderByStoreIdError, PostOrderByStoreIdResponse, PostOrganisationMembersAcceptInviteData, PostOrganisationMembersAcceptInviteError, PostOrganisationMembersAcceptInviteResponse, PostOrganisationMembersData, PostOrganisationMembersError, PostOrganisationMembersInvitesByInviteIdResendData, PostOrganisationMembersInvitesByInviteIdResendError, PostOrganisationMembersInvitesByInviteIdResendResponse, PostOrganisationMembersResponse, PostPaymentsCardData, PostPaymentsCardError, PostPaymentsCardResponse, PostPaymentsMethodData, PostPaymentsMethodError, PostPaymentsMethodResponse, PostPaymentsPayoutByStoreIdData, PostPaymentsPayoutByStoreIdError, PostPaymentsPayoutByStoreIdResponse, PostPaymentsStoreMethodData, PostPaymentsStoreMethodError, PostPaymentsStoreMethodResponse, PostStoreData, PostStoreError, PostStoreResponse, PostSupportContactsByStoreIdData, PostSupportContactsByStoreIdError, PostSupportContactsByStoreIdResponse, PostUserBillingAddressData, PostUserBillingAddressError, PostUserBillingAddressResponse, PostUserFcmTokenData, PostUserFcmTokenError, PostUserFcmTokenResponse, PostUserOnboardData, PostUserOnboardError, PostUserOnboardResponse, PutAddressByIdData, PutAddressByIdError, PutAddressByIdResponse, PutAuthenticationLogoutData, PutAuthenticationLogoutError, PutAuthenticationLogoutResponse, PutAuthenticationResetpasswordUpdatePasswordData, PutAuthenticationResetpasswordUpdatePasswordError, PutAuthenticationResetpasswordUpdatePasswordResponse, PutCatalogByIdData, PutCatalogByIdError, PutCatalogByIdResponse, PutCatalogServiceTypesByIdData, PutCatalogServiceTypesByIdError, PutCatalogServiceTypesByIdResponse, PutContentByKeyData, PutContentByKeyError, PutContentByKeyResponse, PutDeliveryZonesByIdData, PutDeliveryZonesByIdError, PutDeliveryZonesByIdResponse, PutFaqByIdData, PutFaqByIdError, PutFaqByIdResponse, PutNotificationsMarkAllReadData, PutNotificationsMarkAllReadError, PutNotificationsMarkAllReadResponse, PutNotificationsMarkReadByIdData, PutNotificationsMarkReadByIdError, PutNotificationsMarkReadByIdResponse, PutOrderByIdCancelData, PutOrderByIdCancelError, PutOrderByIdCancelResponse, PutOrderByIdStatusData, PutOrderByIdStatusError, PutOrderByIdStatusResponse, PutOrderByIdWeightData, PutOrderByIdWeightResponse, PutOrganisationByIdData, PutOrganisationByIdError, PutOrganisationByIdResponse, PutPaymentsCardByIdDefaultData, PutPaymentsCardByIdDefaultError, PutPaymentsCardByIdDefaultResponse, PutPaymentsMethodByIdData, PutPaymentsMethodByIdError, PutPaymentsMethodByIdResponse, PutPaymentsPayoutByPaymentMethodIdData, PutPaymentsPayoutByPaymentMethodIdError, PutPaymentsPayoutByPaymentMethodIdResponse, PutPaymentsStoreMethodByIdData, PutPaymentsStoreMethodByIdError, PutPaymentsStoreMethodByIdResponse, PutStoreByIdData, PutStoreByIdError, PutStoreByIdResponse, PutSupportContactsByIdData, PutSupportContactsByIdError, PutSupportContactsByIdResponse, PutUserBillingAddressData, PutUserBillingAddressError, PutUserBillingAddressResponse, PutUserChangePasswordData, PutUserChangePasswordError, PutUserChangePasswordResponse, PutUserData, PutUserError, PutUserResponse } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -1401,7 +1401,7 @@ export const postOrderByIdPackingSlipMutation = (options?: Partial<Options<PostO
 };
 
 /**
- * Create payment transaction for an order
+ * Pay for order
  *
  * Create a payment transaction for an order. If the payment method is CASH, the payment is marked as successful immediately.
  */
@@ -1527,6 +1527,141 @@ export const putOrganisationByIdMutation = (options?: Partial<Options<PutOrganis
     return mutationOptions;
 };
 
+export const getOrganisationMembersQueryKey = (options?: Options<GetOrganisationMembersData>) => createQueryKey('getOrganisationMembers', options);
+
+/**
+ * Get Organisation Members
+ *
+ * List all members of the current user's organisation
+ */
+export const getOrganisationMembersOptions = (options?: Options<GetOrganisationMembersData>) => queryOptions<GetOrganisationMembersResponse, GetOrganisationMembersError, GetOrganisationMembersResponse, ReturnType<typeof getOrganisationMembersQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getOrganisationMembers({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getOrganisationMembersQueryKey(options)
+});
+
+/**
+ * Invite Organisation Member
+ *
+ * Send an invitation link to join the organisation
+ */
+export const postOrganisationMembersMutation = (options?: Partial<Options<PostOrganisationMembersData>>): UseMutationOptions<PostOrganisationMembersResponse, PostOrganisationMembersError, Options<PostOrganisationMembersData>> => {
+    const mutationOptions: UseMutationOptions<PostOrganisationMembersResponse, PostOrganisationMembersError, Options<PostOrganisationMembersData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await postOrganisationMembers({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Remove Organisation Member
+ *
+ * Remove a user from the current user's organisation
+ */
+export const deleteOrganisationMembersByUserIdMutation = (options?: Partial<Options<DeleteOrganisationMembersByUserIdData>>): UseMutationOptions<DeleteOrganisationMembersByUserIdResponse, DeleteOrganisationMembersByUserIdError, Options<DeleteOrganisationMembersByUserIdData>> => {
+    const mutationOptions: UseMutationOptions<DeleteOrganisationMembersByUserIdResponse, DeleteOrganisationMembersByUserIdError, Options<DeleteOrganisationMembersByUserIdData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await deleteOrganisationMembersByUserId({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const getOrganisationMembersInvitesQueryKey = (options?: Options<GetOrganisationMembersInvitesData>) => createQueryKey('getOrganisationMembersInvites', options);
+
+/**
+ * Get Organisation Invites
+ *
+ * List all pending and accepted invites for the organisation
+ */
+export const getOrganisationMembersInvitesOptions = (options?: Options<GetOrganisationMembersInvitesData>) => queryOptions<GetOrganisationMembersInvitesResponse, GetOrganisationMembersInvitesError, GetOrganisationMembersInvitesResponse, ReturnType<typeof getOrganisationMembersInvitesQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getOrganisationMembersInvites({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getOrganisationMembersInvitesQueryKey(options)
+});
+
+/**
+ * Resend Organisation Invite
+ *
+ * Resend a pending organisation invitation email
+ */
+export const postOrganisationMembersInvitesByInviteIdResendMutation = (options?: Partial<Options<PostOrganisationMembersInvitesByInviteIdResendData>>): UseMutationOptions<PostOrganisationMembersInvitesByInviteIdResendResponse, PostOrganisationMembersInvitesByInviteIdResendError, Options<PostOrganisationMembersInvitesByInviteIdResendData>> => {
+    const mutationOptions: UseMutationOptions<PostOrganisationMembersInvitesByInviteIdResendResponse, PostOrganisationMembersInvitesByInviteIdResendError, Options<PostOrganisationMembersInvitesByInviteIdResendData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await postOrganisationMembersInvitesByInviteIdResend({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Cancel Organisation Invite
+ *
+ * Cancel a pending organisation invitation
+ */
+export const deleteOrganisationMembersInvitesByInviteIdMutation = (options?: Partial<Options<DeleteOrganisationMembersInvitesByInviteIdData>>): UseMutationOptions<DeleteOrganisationMembersInvitesByInviteIdResponse, DeleteOrganisationMembersInvitesByInviteIdError, Options<DeleteOrganisationMembersInvitesByInviteIdData>> => {
+    const mutationOptions: UseMutationOptions<DeleteOrganisationMembersInvitesByInviteIdResponse, DeleteOrganisationMembersInvitesByInviteIdError, Options<DeleteOrganisationMembersInvitesByInviteIdData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await deleteOrganisationMembersInvitesByInviteId({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Accept Organisation Invite
+ *
+ * Accept an invitation to join an organisation
+ */
+export const postOrganisationMembersAcceptInviteMutation = (options?: Partial<Options<PostOrganisationMembersAcceptInviteData>>): UseMutationOptions<PostOrganisationMembersAcceptInviteResponse, PostOrganisationMembersAcceptInviteError, Options<PostOrganisationMembersAcceptInviteData>> => {
+    const mutationOptions: UseMutationOptions<PostOrganisationMembersAcceptInviteResponse, PostOrganisationMembersAcceptInviteError, Options<PostOrganisationMembersAcceptInviteData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await postOrganisationMembersAcceptInvite({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
 export const getPaymentsCardQueryKey = (options?: Options<GetPaymentsCardData>) => createQueryKey('getPaymentsCard', options);
 
 /**
@@ -1614,25 +1749,6 @@ export const postPaymentsMethodMutation = (options?: Partial<Options<PostPayment
     const mutationOptions: UseMutationOptions<PostPaymentsMethodResponse, PostPaymentsMethodError, Options<PostPaymentsMethodData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await postPaymentsMethod({
-                ...options,
-                ...fnOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
-
-/**
- * Delete a payment method
- *
- * Delete an existing payment method. System admin only.
- */
-export const deletePaymentsMethodByIdMutation = (options?: Partial<Options<DeletePaymentsMethodByIdData>>): UseMutationOptions<DeletePaymentsMethodByIdResponse, DeletePaymentsMethodByIdError, Options<DeletePaymentsMethodByIdData>> => {
-    const mutationOptions: UseMutationOptions<DeletePaymentsMethodByIdResponse, DeletePaymentsMethodByIdError, Options<DeletePaymentsMethodByIdData>> = {
-        mutationFn: async (fnOptions) => {
-            const { data } = await deletePaymentsMethodById({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -1738,6 +1854,26 @@ export const putPaymentsStoreMethodByIdMutation = (options?: Partial<Options<Put
     };
     return mutationOptions;
 };
+
+export const getPaymentsByIdStatusQueryKey = (options: Options<GetPaymentsByIdStatusData>) => createQueryKey('getPaymentsByIdStatus', options);
+
+/**
+ * Get payment status
+ *
+ * Check the status of a payment by its ID
+ */
+export const getPaymentsByIdStatusOptions = (options: Options<GetPaymentsByIdStatusData>) => queryOptions<GetPaymentsByIdStatusResponse, GetPaymentsByIdStatusError, GetPaymentsByIdStatusResponse, ReturnType<typeof getPaymentsByIdStatusQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getPaymentsByIdStatus({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getPaymentsByIdStatusQueryKey(options)
+});
 
 /**
  * Delete a payment card
@@ -2233,6 +2369,102 @@ export const deleteUserDeleteAccountMutation = (options?: Partial<Options<Delete
     const mutationOptions: UseMutationOptions<DeleteUserDeleteAccountResponse, DeleteUserDeleteAccountError, Options<DeleteUserDeleteAccountData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await deleteUserDeleteAccount({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Delete Billing Address
+ *
+ * Delete billing address for authenticated user
+ */
+export const deleteUserBillingAddressMutation = (options?: Partial<Options<DeleteUserBillingAddressData>>): UseMutationOptions<DeleteUserBillingAddressResponse, DeleteUserBillingAddressError, Options<DeleteUserBillingAddressData>> => {
+    const mutationOptions: UseMutationOptions<DeleteUserBillingAddressResponse, DeleteUserBillingAddressError, Options<DeleteUserBillingAddressData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await deleteUserBillingAddress({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const getUserBillingAddressQueryKey = (options?: Options<GetUserBillingAddressData>) => createQueryKey('getUserBillingAddress', options);
+
+/**
+ * Get Billing Address
+ *
+ * Get billing address for authenticated user
+ */
+export const getUserBillingAddressOptions = (options?: Options<GetUserBillingAddressData>) => queryOptions<GetUserBillingAddressResponse, GetUserBillingAddressError, GetUserBillingAddressResponse, ReturnType<typeof getUserBillingAddressQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getUserBillingAddress({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getUserBillingAddressQueryKey(options)
+});
+
+/**
+ * Create Billing Address
+ *
+ * Create billing address for authenticated user
+ */
+export const postUserBillingAddressMutation = (options?: Partial<Options<PostUserBillingAddressData>>): UseMutationOptions<PostUserBillingAddressResponse, PostUserBillingAddressError, Options<PostUserBillingAddressData>> => {
+    const mutationOptions: UseMutationOptions<PostUserBillingAddressResponse, PostUserBillingAddressError, Options<PostUserBillingAddressData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await postUserBillingAddress({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Update Billing Address
+ *
+ * Update billing address for authenticated user
+ */
+export const putUserBillingAddressMutation = (options?: Partial<Options<PutUserBillingAddressData>>): UseMutationOptions<PutUserBillingAddressResponse, PutUserBillingAddressError, Options<PutUserBillingAddressData>> => {
+    const mutationOptions: UseMutationOptions<PutUserBillingAddressResponse, PutUserBillingAddressError, Options<PutUserBillingAddressData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await putUserBillingAddress({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Onboard User
+ *
+ * Mark user as onboarded
+ */
+export const postUserOnboardMutation = (options?: Partial<Options<PostUserOnboardData>>): UseMutationOptions<PostUserOnboardResponse, PostUserOnboardError, Options<PostUserOnboardData>> => {
+    const mutationOptions: UseMutationOptions<PostUserOnboardResponse, PostUserOnboardError, Options<PostUserOnboardData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await postUserOnboard({
                 ...options,
                 ...fnOptions,
                 throwOnError: true

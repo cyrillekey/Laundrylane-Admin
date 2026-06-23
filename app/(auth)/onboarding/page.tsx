@@ -19,6 +19,7 @@ import {
   getOrganisationUserQueryKey,
   postPaymentsPayoutByStoreIdMutation,
   postPaymentsStoreMethodMutation,
+  postUserOnboardMutation,
 } from "@/queries/@tanstack/react-query.gen";
 import AuthenticationService from "@/services/tokenService";
 import {
@@ -102,6 +103,13 @@ export default function OnboardingStepper() {
     ...postPaymentsStoreMethodMutation(),
     onError: (error) => {
       toast.error("Error!", { description: (error as Error)?.message || "Failed to save payment methods" });
+    },
+  });
+
+  const { mutateAsync: onboardUser, isPending: onboarding } = useMutation({
+    ...postUserOnboardMutation(),
+    onError(error) {
+      toast.error("Error!", { description: (error as Error)?.message || "Failed to complete onboarding" });
     },
   });
 
@@ -226,12 +234,26 @@ export default function OnboardingStepper() {
     setStep(4);
   };
 
-  const handleSkipClothTypes = () => {
+  const markOnboarded = async () => {
+    try {
+      const response = await onboardUser({});
+      if (response) AuthenticationService.setUser(response);
+    } catch {
+      return false;
+    }
+    return true;
+  };
+
+  const handleSkipClothTypes = async () => {
+    const ok = await markOnboarded();
+    if (!ok) return;
     resetStep();
     router.replace("/app");
   };
 
-  const handleClothTypesSuccess = () => {
+  const handleClothTypesSuccess = async () => {
+    const ok = await markOnboarded();
+    if (!ok) return;
     resetStep();
     router.replace("/app");
   };
@@ -327,6 +349,7 @@ export default function OnboardingStepper() {
             onSuccess={handleClothTypesSuccess}
             onSkip={handleSkipClothTypes}
             onBack={handleBackToServiceTypes}
+            isOnboarding={onboarding}
           />
         )}
       </div>

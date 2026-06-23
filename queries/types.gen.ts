@@ -487,6 +487,7 @@ export type PostAuthenticationSignupResponses = {
             name?: string | null;
             phone?: string | null;
             isVerified?: boolean;
+            onboarded?: boolean;
             role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
             lastLoginDate?: string;
             dateOfBirth?: string | null;
@@ -594,6 +595,7 @@ export type PostAuthenticationSignupVerifyOtpResponses = {
             name?: string | null;
             phone?: string | null;
             isVerified?: boolean;
+            onboarded?: boolean;
             role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
             lastLoginDate?: string;
             dateOfBirth?: string | null;
@@ -675,6 +677,7 @@ export type PostAuthenticationLoginResponses = {
             name?: string | null;
             phone?: string | null;
             isVerified?: boolean;
+            onboarded?: boolean;
             role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
             lastLoginDate?: string;
             dateOfBirth?: string | null;
@@ -728,6 +731,7 @@ export type PostAuthenticationSocialAuthResponses = {
             name?: string | null;
             phone?: string | null;
             isVerified?: boolean;
+            onboarded?: boolean;
             role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
             lastLoginDate?: string;
             dateOfBirth?: string | null;
@@ -907,6 +911,7 @@ export type PutAuthenticationResetpasswordUpdatePasswordResponses = {
             name?: string | null;
             phone?: string | null;
             isVerified?: boolean;
+            onboarded?: boolean;
             role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
             lastLoginDate?: string;
             dateOfBirth?: string | null;
@@ -1785,6 +1790,7 @@ export type GetChatSessionByIdMessagesResponses = {
         read?: boolean;
         senderId?: number;
         chatsessionId?: number;
+        attachments?: Array<string> | null;
         createdat?: string;
         updatedat?: string;
     }>;
@@ -2076,6 +2082,7 @@ export type GetCustomersResponses = {
             name?: string | null;
             phone?: string | null;
             isVerified?: boolean;
+            onboarded?: boolean;
             role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
             lastLoginDate?: string;
             dateOfBirth?: string | null;
@@ -2939,22 +2946,18 @@ export type GetOrderResponses = {
         pickupDate?: string | null;
         pickupTime?: string | null;
         orderStatus?: 'PENDING' | 'IN_PROGRESS' | 'READY_FOR_PICKUP' | 'READY_FOR_DELIVERY' | 'OUT_FOR_DELIVERY' | 'COMPLETED' | 'CANCELLED';
+        paymentStatus?: 'PENDING' | 'READY_FOR_PAYMENT' | 'PARTIALLY_PAID' | 'PAID';
         orderType?: 'PICKUP' | 'DELIVERY' | 'PICKUP_AND_DELIVERY';
         deliveryWindow?: string | null;
         instructions?: string | null;
         weight?: number | null;
+        weighed?: boolean;
         washType?: string;
         deliveryFee?: number;
         total?: number;
         userId?: number;
         serviceTypeId?: number;
-        serviceType?: {
-            id?: number;
-            name?: string;
-            description?: string | null;
-            price?: number;
-            serviceTimelines?: string;
-        };
+        serviceType?: unknown;
         productCatalog?: {
             id?: number;
             name?: string;
@@ -2975,6 +2978,7 @@ export type GetOrderResponses = {
             name?: string | null;
             phone?: string | null;
             isVerified?: boolean;
+            onboarded?: boolean;
             role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
             lastLoginDate?: string;
             dateOfBirth?: string | null;
@@ -3052,22 +3056,18 @@ export type GetOrderByIdErrors = {
         pickupDate?: string | null;
         pickupTime?: string | null;
         orderStatus?: 'PENDING' | 'IN_PROGRESS' | 'READY_FOR_PICKUP' | 'READY_FOR_DELIVERY' | 'OUT_FOR_DELIVERY' | 'COMPLETED' | 'CANCELLED';
+        paymentStatus?: 'PENDING' | 'READY_FOR_PAYMENT' | 'PARTIALLY_PAID' | 'PAID';
         orderType?: 'PICKUP' | 'DELIVERY' | 'PICKUP_AND_DELIVERY';
         deliveryWindow?: string | null;
         instructions?: string | null;
         weight?: number | null;
+        weighed?: boolean;
         washType?: string;
         deliveryFee?: number;
         total?: number;
         userId?: number;
         serviceTypeId?: number;
-        serviceType?: {
-            id?: number;
-            name?: string;
-            description?: string | null;
-            price?: number;
-            serviceTimelines?: string;
-        };
+        serviceType?: unknown;
         productCatalog?: {
             id?: number;
             name?: string;
@@ -3088,6 +3088,7 @@ export type GetOrderByIdErrors = {
             name?: string | null;
             phone?: string | null;
             isVerified?: boolean;
+            onboarded?: boolean;
             role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
             lastLoginDate?: string;
             dateOfBirth?: string | null;
@@ -3150,22 +3151,18 @@ export type GetOrderByIdResponses = {
         pickupDate?: string | null;
         pickupTime?: string | null;
         orderStatus?: 'PENDING' | 'IN_PROGRESS' | 'READY_FOR_PICKUP' | 'READY_FOR_DELIVERY' | 'OUT_FOR_DELIVERY' | 'COMPLETED' | 'CANCELLED';
+        paymentStatus?: 'PENDING' | 'READY_FOR_PAYMENT' | 'PARTIALLY_PAID' | 'PAID';
         orderType?: 'PICKUP' | 'DELIVERY' | 'PICKUP_AND_DELIVERY';
         deliveryWindow?: string | null;
         instructions?: string | null;
         weight?: number | null;
+        weighed?: boolean;
         washType?: string;
         deliveryFee?: number;
         total?: number;
         userId?: number;
         serviceTypeId?: number;
-        serviceType?: {
-            id?: number;
-            name?: string;
-            description?: string | null;
-            price?: number;
-            serviceTimelines?: string;
-        };
+        serviceType?: unknown;
         productCatalog?: {
             id?: number;
             name?: string;
@@ -3186,6 +3183,7 @@ export type GetOrderByIdResponses = {
             name?: string | null;
             phone?: string | null;
             isVerified?: boolean;
+            onboarded?: boolean;
             role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
             lastLoginDate?: string;
             dateOfBirth?: string | null;
@@ -3563,7 +3561,10 @@ export type PostOrderByIdPackingSlipResponse = PostOrderByIdPackingSlipResponses
 
 export type PostOrderByIdPayData = {
     body: {
-        paymentMethodId: number;
+        paymentMethodId?: number;
+        paymentType: 'MOBILE' | 'CARD' | 'CASH' | 'OFFLINE';
+        phone?: string;
+        cardId?: string;
     };
     path: {
         id: number;
@@ -3577,9 +3578,15 @@ export type PostOrderByIdPayErrors = {
      * Default Response
      */
     default: {
-        message?: string;
-        success?: boolean;
-        id?: number;
+        id: number;
+        success: boolean;
+        message: string;
+        status: 'PENDING' | 'FAILED' | 'SUCCESSFULL' | 'CANCELLED';
+        paystack?: {
+            accessToken?: string;
+            publicKey?: string;
+            accessUrl?: string;
+        } | null;
     };
 };
 
@@ -3590,9 +3597,15 @@ export type PostOrderByIdPayResponses = {
      * Default Response
      */
     200: {
-        message?: string;
-        success?: boolean;
-        id?: number;
+        id: number;
+        success: boolean;
+        message: string;
+        status: 'PENDING' | 'FAILED' | 'SUCCESSFULL' | 'CANCELLED';
+        paystack?: {
+            accessToken?: string;
+            publicKey?: string;
+            accessUrl?: string;
+        } | null;
     };
 };
 
@@ -3829,6 +3842,291 @@ export type PutOrganisationByIdResponses = {
 
 export type PutOrganisationByIdResponse = PutOrganisationByIdResponses[keyof PutOrganisationByIdResponses];
 
+export type GetOrganisationMembersData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/organisation/members';
+};
+
+export type GetOrganisationMembersErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type GetOrganisationMembersError = GetOrganisationMembersErrors[keyof GetOrganisationMembersErrors];
+
+export type GetOrganisationMembersResponses = {
+    /**
+     * Default Response
+     */
+    200: Array<{
+        id?: number;
+        email?: string;
+        name?: string | null;
+        phone?: string | null;
+        isVerified?: boolean;
+        onboarded?: boolean;
+        role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
+        lastLoginDate?: string;
+        dateOfBirth?: string | null;
+        userName?: string | null;
+        gender?: string | null;
+        avatar?: string | null;
+        createdat?: string;
+        organisationId?: number | null;
+        updatedat?: string;
+    }>;
+};
+
+export type GetOrganisationMembersResponse = GetOrganisationMembersResponses[keyof GetOrganisationMembersResponses];
+
+export type PostOrganisationMembersData = {
+    body: {
+        email: string;
+        role: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
+    };
+    path?: never;
+    query?: never;
+    url: '/organisation/members';
+};
+
+export type PostOrganisationMembersErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PostOrganisationMembersError = PostOrganisationMembersErrors[keyof PostOrganisationMembersErrors];
+
+export type PostOrganisationMembersResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PostOrganisationMembersResponse = PostOrganisationMembersResponses[keyof PostOrganisationMembersResponses];
+
+export type DeleteOrganisationMembersByUserIdData = {
+    body?: never;
+    path: {
+        userId: number;
+    };
+    query?: never;
+    url: '/organisation/members/{userId}';
+};
+
+export type DeleteOrganisationMembersByUserIdErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type DeleteOrganisationMembersByUserIdError = DeleteOrganisationMembersByUserIdErrors[keyof DeleteOrganisationMembersByUserIdErrors];
+
+export type DeleteOrganisationMembersByUserIdResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type DeleteOrganisationMembersByUserIdResponse = DeleteOrganisationMembersByUserIdResponses[keyof DeleteOrganisationMembersByUserIdResponses];
+
+export type GetOrganisationMembersInvitesData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/organisation/members/invites';
+};
+
+export type GetOrganisationMembersInvitesErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type GetOrganisationMembersInvitesError = GetOrganisationMembersInvitesErrors[keyof GetOrganisationMembersInvitesErrors];
+
+export type GetOrganisationMembersInvitesResponses = {
+    /**
+     * Default Response
+     */
+    200: Array<{
+        id?: number;
+        email?: string;
+        role?: string;
+        status?: string;
+        expiresAt?: string;
+        acceptedAt?: string | null;
+        createdat?: string;
+    }>;
+};
+
+export type GetOrganisationMembersInvitesResponse = GetOrganisationMembersInvitesResponses[keyof GetOrganisationMembersInvitesResponses];
+
+export type PostOrganisationMembersInvitesByInviteIdResendData = {
+    body?: never;
+    path: {
+        inviteId: number;
+    };
+    query?: never;
+    url: '/organisation/members/invites/{inviteId}/resend';
+};
+
+export type PostOrganisationMembersInvitesByInviteIdResendErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PostOrganisationMembersInvitesByInviteIdResendError = PostOrganisationMembersInvitesByInviteIdResendErrors[keyof PostOrganisationMembersInvitesByInviteIdResendErrors];
+
+export type PostOrganisationMembersInvitesByInviteIdResendResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PostOrganisationMembersInvitesByInviteIdResendResponse = PostOrganisationMembersInvitesByInviteIdResendResponses[keyof PostOrganisationMembersInvitesByInviteIdResendResponses];
+
+export type DeleteOrganisationMembersInvitesByInviteIdData = {
+    body?: never;
+    path: {
+        inviteId: number;
+    };
+    query?: never;
+    url: '/organisation/members/invites/{inviteId}';
+};
+
+export type DeleteOrganisationMembersInvitesByInviteIdErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type DeleteOrganisationMembersInvitesByInviteIdError = DeleteOrganisationMembersInvitesByInviteIdErrors[keyof DeleteOrganisationMembersInvitesByInviteIdErrors];
+
+export type DeleteOrganisationMembersInvitesByInviteIdResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type DeleteOrganisationMembersInvitesByInviteIdResponse = DeleteOrganisationMembersInvitesByInviteIdResponses[keyof DeleteOrganisationMembersInvitesByInviteIdResponses];
+
+export type PostOrganisationMembersAcceptInviteData = {
+    body: {
+        token: string;
+        email: string;
+        name: string;
+        password: string;
+        avatar?: string;
+        phone?: string;
+        userName?: string;
+        gender?: string;
+        dateOfBirth?: string;
+    };
+    path?: never;
+    query?: never;
+    url: '/organisation/members/accept-invite';
+};
+
+export type PostOrganisationMembersAcceptInviteErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        id?: number;
+        success?: boolean;
+        message?: string;
+        token?: string;
+    };
+};
+
+export type PostOrganisationMembersAcceptInviteError = PostOrganisationMembersAcceptInviteErrors[keyof PostOrganisationMembersAcceptInviteErrors];
+
+export type PostOrganisationMembersAcceptInviteResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        id?: number;
+        success?: boolean;
+        message?: string;
+        token?: string;
+        user?: {
+            id?: number;
+            email?: string;
+            name?: string | null;
+            phone?: string | null;
+            isVerified?: boolean;
+            onboarded?: boolean;
+            role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
+            lastLoginDate?: string;
+            dateOfBirth?: string | null;
+            userName?: string | null;
+            gender?: string | null;
+            avatar?: string | null;
+            createdat?: string;
+            organisationId?: number | null;
+            updatedat?: string;
+        };
+    };
+};
+
+export type PostOrganisationMembersAcceptInviteResponse = PostOrganisationMembersAcceptInviteResponses[keyof PostOrganisationMembersAcceptInviteResponses];
+
 export type GetPaymentsCardData = {
     body?: never;
     path?: never;
@@ -3869,13 +4167,7 @@ export type GetPaymentsCardResponses = {
 export type GetPaymentsCardResponse = GetPaymentsCardResponses[keyof GetPaymentsCardResponses];
 
 export type PostPaymentsCardData = {
-    body: {
-        cardNumber: string;
-        expiryDate: string;
-        cvv?: string;
-        isDefault?: boolean;
-        name: string;
-    };
+    body?: never;
     path?: never;
     query?: never;
     url: '/payments/card';
@@ -3974,6 +4266,7 @@ export type GetPaymentsMethodResponses = {
         name?: string;
         description?: string | null;
         icon?: string | null;
+        type?: 'MOBILE' | 'CARD' | 'CASH' | 'OFFLINE';
     }>;
 };
 
@@ -3984,6 +4277,7 @@ export type PostPaymentsMethodData = {
         name: string;
         description?: string | null;
         icon?: string | null;
+        type?: 'MOBILE' | 'CARD' | 'CASH' | 'OFFLINE';
     };
     path?: never;
     query?: never;
@@ -4016,46 +4310,12 @@ export type PostPaymentsMethodResponses = {
 
 export type PostPaymentsMethodResponse = PostPaymentsMethodResponses[keyof PostPaymentsMethodResponses];
 
-export type DeletePaymentsMethodByIdData = {
-    body?: never;
-    path: {
-        id: number;
-    };
-    query?: never;
-    url: '/payments/method/{id}';
-};
-
-export type DeletePaymentsMethodByIdErrors = {
-    /**
-     * Default Response
-     */
-    default: {
-        message?: string;
-        success?: boolean;
-        id?: number;
-    };
-};
-
-export type DeletePaymentsMethodByIdError = DeletePaymentsMethodByIdErrors[keyof DeletePaymentsMethodByIdErrors];
-
-export type DeletePaymentsMethodByIdResponses = {
-    /**
-     * Default Response
-     */
-    200: {
-        message?: string;
-        success?: boolean;
-        id?: number;
-    };
-};
-
-export type DeletePaymentsMethodByIdResponse = DeletePaymentsMethodByIdResponses[keyof DeletePaymentsMethodByIdResponses];
-
 export type PutPaymentsMethodByIdData = {
     body?: {
         name?: string;
         description?: string | null;
         icon?: string | null;
+        type?: 'MOBILE' | 'CARD' | 'CASH' | 'OFFLINE';
     };
     path: {
         id: number;
@@ -4125,6 +4385,7 @@ export type GetPaymentsStoreMethodResponses = {
             name?: string;
             description?: string | null;
             icon?: string | null;
+            type?: 'MOBILE' | 'CARD' | 'CASH' | 'OFFLINE';
         };
         store?: {
             id?: number;
@@ -4242,6 +4503,53 @@ export type PutPaymentsStoreMethodByIdResponses = {
 };
 
 export type PutPaymentsStoreMethodByIdResponse = PutPaymentsStoreMethodByIdResponses[keyof PutPaymentsStoreMethodByIdResponses];
+
+export type GetPaymentsByIdStatusData = {
+    body?: never;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/payments/{id}/status';
+};
+
+export type GetPaymentsByIdStatusErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        id: number;
+        success: boolean;
+        message: string;
+        status: 'PENDING' | 'FAILED' | 'SUCCESSFULL' | 'CANCELLED';
+        paystack?: {
+            accessToken?: string;
+            publicKey?: string;
+            accessUrl?: string;
+        } | null;
+    };
+};
+
+export type GetPaymentsByIdStatusError = GetPaymentsByIdStatusErrors[keyof GetPaymentsByIdStatusErrors];
+
+export type GetPaymentsByIdStatusResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        id: number;
+        success: boolean;
+        message: string;
+        status: 'PENDING' | 'FAILED' | 'SUCCESSFULL' | 'CANCELLED';
+        paystack?: {
+            accessToken?: string;
+            publicKey?: string;
+            accessUrl?: string;
+        } | null;
+    };
+};
+
+export type GetPaymentsByIdStatusResponse = GetPaymentsByIdStatusResponses[keyof GetPaymentsByIdStatusResponses];
 
 export type DeletePaymentsCardByIdData = {
     body?: never;
@@ -5169,6 +5477,7 @@ export type GetUserResponses = {
         name?: string | null;
         phone?: string | null;
         isVerified?: boolean;
+        onboarded?: boolean;
         role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
         lastLoginDate?: string;
         dateOfBirth?: string | null;
@@ -5226,6 +5535,7 @@ export type PutUserResponses = {
             name?: string | null;
             phone?: string | null;
             isVerified?: boolean;
+            onboarded?: boolean;
             role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
             lastLoginDate?: string;
             dateOfBirth?: string | null;
@@ -5360,3 +5670,240 @@ export type DeleteUserDeleteAccountResponses = {
 };
 
 export type DeleteUserDeleteAccountResponse = DeleteUserDeleteAccountResponses[keyof DeleteUserDeleteAccountResponses];
+
+export type DeleteUserBillingAddressData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/user/billing-address';
+};
+
+export type DeleteUserBillingAddressErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type DeleteUserBillingAddressError = DeleteUserBillingAddressErrors[keyof DeleteUserBillingAddressErrors];
+
+export type DeleteUserBillingAddressResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type DeleteUserBillingAddressResponse = DeleteUserBillingAddressResponses[keyof DeleteUserBillingAddressResponses];
+
+export type GetUserBillingAddressData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/user/billing-address';
+};
+
+export type GetUserBillingAddressErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type GetUserBillingAddressError = GetUserBillingAddressErrors[keyof GetUserBillingAddressErrors];
+
+export type GetUserBillingAddressResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        id?: number;
+        userId?: number;
+        recipientName?: string;
+        phone?: string | null;
+        email?: string | null;
+        street?: string | null;
+        city?: string | null;
+        state?: string | null;
+        zipCode?: string | null;
+        country?: string | null;
+        taxId?: string | null;
+        createdat?: string;
+        updatedat?: string;
+    };
+};
+
+export type GetUserBillingAddressResponse = GetUserBillingAddressResponses[keyof GetUserBillingAddressResponses];
+
+export type PostUserBillingAddressData = {
+    body: {
+        recipientName: string;
+        phone?: string;
+        email: string;
+        street?: string;
+        city?: string;
+        state?: string;
+        zipCode?: string;
+        country?: string;
+        taxId?: string;
+    };
+    path?: never;
+    query?: never;
+    url: '/user/billing-address';
+};
+
+export type PostUserBillingAddressErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PostUserBillingAddressError = PostUserBillingAddressErrors[keyof PostUserBillingAddressErrors];
+
+export type PostUserBillingAddressResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        success?: boolean;
+        message?: string;
+        id?: number;
+        billingAddress?: {
+            id?: number;
+            userId?: number;
+            recipientName?: string;
+            phone?: string | null;
+            email?: string | null;
+            street?: string | null;
+            city?: string | null;
+            state?: string | null;
+            zipCode?: string | null;
+            country?: string | null;
+            taxId?: string | null;
+            createdat?: string;
+            updatedat?: string;
+        };
+    };
+};
+
+export type PostUserBillingAddressResponse = PostUserBillingAddressResponses[keyof PostUserBillingAddressResponses];
+
+export type PutUserBillingAddressData = {
+    body?: {
+        recipientName?: string;
+        phone?: string;
+        email?: string;
+        street?: string;
+        city?: string;
+        state?: string;
+        zipCode?: string;
+        country?: string;
+        taxId?: string;
+    };
+    path?: never;
+    query?: never;
+    url: '/user/billing-address';
+};
+
+export type PutUserBillingAddressErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PutUserBillingAddressError = PutUserBillingAddressErrors[keyof PutUserBillingAddressErrors];
+
+export type PutUserBillingAddressResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        success?: boolean;
+        message?: string;
+        id?: number;
+        billingAddress?: {
+            id?: number;
+            userId?: number;
+            recipientName?: string;
+            phone?: string | null;
+            email?: string | null;
+            street?: string | null;
+            city?: string | null;
+            state?: string | null;
+            zipCode?: string | null;
+            country?: string | null;
+            taxId?: string | null;
+            createdat?: string;
+            updatedat?: string;
+        };
+    };
+};
+
+export type PutUserBillingAddressResponse = PutUserBillingAddressResponses[keyof PutUserBillingAddressResponses];
+
+export type PostUserOnboardData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/user/onboard';
+};
+
+export type PostUserOnboardErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PostUserOnboardError = PostUserOnboardErrors[keyof PostUserOnboardErrors];
+
+export type PostUserOnboardResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        id?: number;
+        email?: string;
+        name?: string | null;
+        phone?: string | null;
+        isVerified?: boolean;
+        onboarded?: boolean;
+        role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
+        lastLoginDate?: string;
+        dateOfBirth?: string | null;
+        userName?: string | null;
+        gender?: string | null;
+        avatar?: string | null;
+        createdat?: string;
+        organisationId?: number | null;
+        updatedat?: string;
+    };
+};
+
+export type PostUserOnboardResponse = PostUserOnboardResponses[keyof PostUserOnboardResponses];

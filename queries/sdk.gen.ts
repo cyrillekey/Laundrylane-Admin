@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { DeleteAddressByIdData, DeleteAddressByIdErrors, DeleteAddressByIdResponses, DeleteCatalogByIdData, DeleteCatalogByIdErrors, DeleteCatalogByIdResponses, DeleteCatalogServiceTypesByIdData, DeleteCatalogServiceTypesByIdErrors, DeleteCatalogServiceTypesByIdResponses, DeleteChatSessionByIdData, DeleteChatSessionByIdErrors, DeleteChatSessionByIdResponses, DeleteContentByKeyData, DeleteContentByKeyErrors, DeleteContentByKeyResponses, DeleteDeliveryZonesByIdData, DeleteDeliveryZonesByIdErrors, DeleteDeliveryZonesByIdResponses, DeleteFaqByIdData, DeleteFaqByIdErrors, DeleteFaqByIdResponses, DeleteNotificationsByIdData, DeleteNotificationsByIdErrors, DeleteNotificationsByIdResponses, DeleteOrderByIdData, DeleteOrderByIdErrors, DeleteOrderByIdResponses, DeletePaymentsCardByIdData, DeletePaymentsCardByIdErrors, DeletePaymentsCardByIdResponses, DeletePaymentsMethodByIdData, DeletePaymentsMethodByIdErrors, DeletePaymentsMethodByIdResponses, DeletePaymentsPayoutByPaymentMethodIdData, DeletePaymentsPayoutByPaymentMethodIdErrors, DeletePaymentsPayoutByPaymentMethodIdResponses, DeletePaymentsStoreMethodByIdData, DeletePaymentsStoreMethodByIdErrors, DeletePaymentsStoreMethodByIdResponses, DeleteStoreByIdData, DeleteStoreByIdErrors, DeleteStoreByIdResponses, DeleteSupportContactsByIdData, DeleteSupportContactsByIdErrors, DeleteSupportContactsByIdResponses, DeleteUserDeleteAccountData, DeleteUserDeleteAccountErrors, DeleteUserDeleteAccountResponses, GetAddressAutocompleteData, GetAddressAutocompleteErrors, GetAddressAutocompleteResponses, GetAddressData, GetAddressErrors, GetAddressResponses, GetCatalogClothesData, GetCatalogClothesErrors, GetCatalogClothesResponses, GetCatalogData, GetCatalogErrors, GetCatalogResponses, GetCatalogServiceTypesData, GetCatalogServiceTypesErrors, GetCatalogServiceTypesResponses, GetChatSessionByIdData, GetChatSessionByIdErrors, GetChatSessionByIdMessagesData, GetChatSessionByIdMessagesErrors, GetChatSessionByIdMessagesResponses, GetChatSessionByIdResponses, GetChatSessionsData, GetChatSessionsErrors, GetChatSessionsResponses, GetContentByKeyData, GetContentByKeyErrors, GetContentByKeyResponses, GetContentData, GetContentErrors, GetContentResponses, GetCustomersData, GetCustomersErrors, GetCustomersResponses, GetData, GetDeliveryZonesByIdData, GetDeliveryZonesByIdErrors, GetDeliveryZonesByIdResponses, GetDeliveryZonesData, GetDeliveryZonesErrors, GetDeliveryZonesResponses, GetFaqData, GetFaqErrors, GetFaqResponses, GetNotificationsByIdData, GetNotificationsByIdErrors, GetNotificationsByIdResponses, GetNotificationsData, GetNotificationsErrors, GetNotificationsResponses, GetNotificationsUnreadCountData, GetNotificationsUnreadCountErrors, GetNotificationsUnreadCountResponses, GetOrderByIdData, GetOrderByIdErrors, GetOrderByIdItemsData, GetOrderByIdItemsErrors, GetOrderByIdItemsResponses, GetOrderByIdPackagingSlipData, GetOrderByIdPackagingSlipResponses, GetOrderByIdResponses, GetOrderData, GetOrderErrors, GetOrderResponses, GetOrganisationByIdData, GetOrganisationByIdErrors, GetOrganisationByIdResponses, GetOrganisationData, GetOrganisationErrors, GetOrganisationResponses, GetOrganisationUserData, GetOrganisationUserErrors, GetOrganisationUserResponses, GetPaymentsCardData, GetPaymentsCardErrors, GetPaymentsCardResponses, GetPaymentsMethodData, GetPaymentsMethodErrors, GetPaymentsMethodResponses, GetPaymentsPayoutData, GetPaymentsPayoutErrors, GetPaymentsPayoutResponses, GetPaymentsStoreMethodData, GetPaymentsStoreMethodErrors, GetPaymentsStoreMethodResponses, GetPaymentsTransactionsData, GetPaymentsTransactionsErrors, GetPaymentsTransactionsResponses, GetResponses, GetStatsCustomersData, GetStatsCustomersErrors, GetStatsCustomersResponses, GetStatsOrdersData, GetStatsOrdersErrors, GetStatsOrdersResponses, GetStatsSalesData, GetStatsSalesErrors, GetStatsSalesResponses, GetStoreByIdData, GetStoreByIdErrors, GetStoreByIdResponses, GetStoreData, GetStoreErrors, GetStoreResponses, GetSupportContactsData, GetSupportContactsErrors, GetSupportContactsResponses, GetUserData, GetUserErrors, GetUserResponses, PostAddressData, PostAddressErrors, PostAddressResponses, PostAddressReverseGeocodeData, PostAddressReverseGeocodeResponses, PostAuthenticationEmailData, PostAuthenticationEmailErrors, PostAuthenticationEmailResponses, PostAuthenticationLoginData, PostAuthenticationLoginErrors, PostAuthenticationLoginResponses, PostAuthenticationResetpasswordConfirmData, PostAuthenticationResetpasswordConfirmErrors, PostAuthenticationResetpasswordConfirmResponses, PostAuthenticationResetPasswordData, PostAuthenticationResetPasswordErrors, PostAuthenticationResetPasswordResponses, PostAuthenticationResetpasswordValidateOtpData, PostAuthenticationResetpasswordValidateOtpErrors, PostAuthenticationResetpasswordValidateOtpResponses, PostAuthenticationSignupData, PostAuthenticationSignupErrors, PostAuthenticationSignupResendOtpData, PostAuthenticationSignupResendOtpErrors, PostAuthenticationSignupResendOtpResponses, PostAuthenticationSignupResponses, PostAuthenticationSignupVerifyOtpData, PostAuthenticationSignupVerifyOtpErrors, PostAuthenticationSignupVerifyOtpResponses, PostAuthenticationSocialAuthData, PostAuthenticationSocialAuthErrors, PostAuthenticationSocialAuthResponses, PostCatalogByStoreIdData, PostCatalogByStoreIdErrors, PostCatalogByStoreIdResponses, PostCatalogClothesByStoreIdData, PostCatalogClothesByStoreIdErrors, PostCatalogClothesByStoreIdResponses, PostCatalogServiceTypesByStoreIdData, PostCatalogServiceTypesByStoreIdErrors, PostCatalogServiceTypesByStoreIdResponses, PostChatSessionData, PostChatSessionErrors, PostChatSessionResponses, PostContentData, PostContentErrors, PostContentResponses, PostDeliveryZonesByStoreIdData, PostDeliveryZonesByStoreIdErrors, PostDeliveryZonesByStoreIdResponses, PostFaqByStoreIdData, PostFaqByStoreIdErrors, PostFaqByStoreIdResponses, PostOrderByIdInvoiceData, PostOrderByIdInvoiceErrors, PostOrderByIdInvoiceResponses, PostOrderByIdPackingSlipData, PostOrderByIdPackingSlipErrors, PostOrderByIdPackingSlipResponses, PostOrderByIdPayData, PostOrderByIdPayErrors, PostOrderByIdPayResponses, PostOrderByStoreIdData, PostOrderByStoreIdErrors, PostOrderByStoreIdResponses, PostPaymentsCardData, PostPaymentsCardErrors, PostPaymentsCardResponses, PostPaymentsMethodData, PostPaymentsMethodErrors, PostPaymentsMethodResponses, PostPaymentsPayoutByStoreIdData, PostPaymentsPayoutByStoreIdErrors, PostPaymentsPayoutByStoreIdResponses, PostPaymentsStoreMethodData, PostPaymentsStoreMethodErrors, PostPaymentsStoreMethodResponses, PostStoreData, PostStoreErrors, PostStoreResponses, PostSupportContactsByStoreIdData, PostSupportContactsByStoreIdErrors, PostSupportContactsByStoreIdResponses, PostUserFcmTokenData, PostUserFcmTokenErrors, PostUserFcmTokenResponses, PutAddressByIdData, PutAddressByIdErrors, PutAddressByIdResponses, PutAuthenticationLogoutData, PutAuthenticationLogoutErrors, PutAuthenticationLogoutResponses, PutAuthenticationResetpasswordUpdatePasswordData, PutAuthenticationResetpasswordUpdatePasswordErrors, PutAuthenticationResetpasswordUpdatePasswordResponses, PutCatalogByIdData, PutCatalogByIdErrors, PutCatalogByIdResponses, PutCatalogServiceTypesByIdData, PutCatalogServiceTypesByIdErrors, PutCatalogServiceTypesByIdResponses, PutContentByKeyData, PutContentByKeyErrors, PutContentByKeyResponses, PutDeliveryZonesByIdData, PutDeliveryZonesByIdErrors, PutDeliveryZonesByIdResponses, PutFaqByIdData, PutFaqByIdErrors, PutFaqByIdResponses, PutNotificationsMarkAllReadData, PutNotificationsMarkAllReadErrors, PutNotificationsMarkAllReadResponses, PutNotificationsMarkReadByIdData, PutNotificationsMarkReadByIdErrors, PutNotificationsMarkReadByIdResponses, PutOrderByIdCancelData, PutOrderByIdCancelErrors, PutOrderByIdCancelResponses, PutOrderByIdStatusData, PutOrderByIdStatusErrors, PutOrderByIdStatusResponses, PutOrderByIdWeightData, PutOrderByIdWeightResponses, PutOrganisationByIdData, PutOrganisationByIdErrors, PutOrganisationByIdResponses, PutPaymentsCardByIdDefaultData, PutPaymentsCardByIdDefaultErrors, PutPaymentsCardByIdDefaultResponses, PutPaymentsMethodByIdData, PutPaymentsMethodByIdErrors, PutPaymentsMethodByIdResponses, PutPaymentsPayoutByPaymentMethodIdData, PutPaymentsPayoutByPaymentMethodIdErrors, PutPaymentsPayoutByPaymentMethodIdResponses, PutPaymentsStoreMethodByIdData, PutPaymentsStoreMethodByIdErrors, PutPaymentsStoreMethodByIdResponses, PutStoreByIdData, PutStoreByIdErrors, PutStoreByIdResponses, PutSupportContactsByIdData, PutSupportContactsByIdErrors, PutSupportContactsByIdResponses, PutUserChangePasswordData, PutUserChangePasswordErrors, PutUserChangePasswordResponses, PutUserData, PutUserErrors, PutUserResponses } from './types.gen';
+import type { DeleteAddressByIdData, DeleteAddressByIdErrors, DeleteAddressByIdResponses, DeleteCatalogByIdData, DeleteCatalogByIdErrors, DeleteCatalogByIdResponses, DeleteCatalogServiceTypesByIdData, DeleteCatalogServiceTypesByIdErrors, DeleteCatalogServiceTypesByIdResponses, DeleteChatSessionByIdData, DeleteChatSessionByIdErrors, DeleteChatSessionByIdResponses, DeleteContentByKeyData, DeleteContentByKeyErrors, DeleteContentByKeyResponses, DeleteDeliveryZonesByIdData, DeleteDeliveryZonesByIdErrors, DeleteDeliveryZonesByIdResponses, DeleteFaqByIdData, DeleteFaqByIdErrors, DeleteFaqByIdResponses, DeleteNotificationsByIdData, DeleteNotificationsByIdErrors, DeleteNotificationsByIdResponses, DeleteOrderByIdData, DeleteOrderByIdErrors, DeleteOrderByIdResponses, DeleteOrganisationMembersByUserIdData, DeleteOrganisationMembersByUserIdErrors, DeleteOrganisationMembersByUserIdResponses, DeleteOrganisationMembersInvitesByInviteIdData, DeleteOrganisationMembersInvitesByInviteIdErrors, DeleteOrganisationMembersInvitesByInviteIdResponses, DeletePaymentsCardByIdData, DeletePaymentsCardByIdErrors, DeletePaymentsCardByIdResponses, DeletePaymentsPayoutByPaymentMethodIdData, DeletePaymentsPayoutByPaymentMethodIdErrors, DeletePaymentsPayoutByPaymentMethodIdResponses, DeletePaymentsStoreMethodByIdData, DeletePaymentsStoreMethodByIdErrors, DeletePaymentsStoreMethodByIdResponses, DeleteStoreByIdData, DeleteStoreByIdErrors, DeleteStoreByIdResponses, DeleteSupportContactsByIdData, DeleteSupportContactsByIdErrors, DeleteSupportContactsByIdResponses, DeleteUserBillingAddressData, DeleteUserBillingAddressErrors, DeleteUserBillingAddressResponses, DeleteUserDeleteAccountData, DeleteUserDeleteAccountErrors, DeleteUserDeleteAccountResponses, GetAddressAutocompleteData, GetAddressAutocompleteErrors, GetAddressAutocompleteResponses, GetAddressData, GetAddressErrors, GetAddressResponses, GetCatalogClothesData, GetCatalogClothesErrors, GetCatalogClothesResponses, GetCatalogData, GetCatalogErrors, GetCatalogResponses, GetCatalogServiceTypesData, GetCatalogServiceTypesErrors, GetCatalogServiceTypesResponses, GetChatSessionByIdData, GetChatSessionByIdErrors, GetChatSessionByIdMessagesData, GetChatSessionByIdMessagesErrors, GetChatSessionByIdMessagesResponses, GetChatSessionByIdResponses, GetChatSessionsData, GetChatSessionsErrors, GetChatSessionsResponses, GetContentByKeyData, GetContentByKeyErrors, GetContentByKeyResponses, GetContentData, GetContentErrors, GetContentResponses, GetCustomersData, GetCustomersErrors, GetCustomersResponses, GetData, GetDeliveryZonesByIdData, GetDeliveryZonesByIdErrors, GetDeliveryZonesByIdResponses, GetDeliveryZonesData, GetDeliveryZonesErrors, GetDeliveryZonesResponses, GetFaqData, GetFaqErrors, GetFaqResponses, GetNotificationsByIdData, GetNotificationsByIdErrors, GetNotificationsByIdResponses, GetNotificationsData, GetNotificationsErrors, GetNotificationsResponses, GetNotificationsUnreadCountData, GetNotificationsUnreadCountErrors, GetNotificationsUnreadCountResponses, GetOrderByIdData, GetOrderByIdErrors, GetOrderByIdItemsData, GetOrderByIdItemsErrors, GetOrderByIdItemsResponses, GetOrderByIdPackagingSlipData, GetOrderByIdPackagingSlipResponses, GetOrderByIdResponses, GetOrderData, GetOrderErrors, GetOrderResponses, GetOrganisationByIdData, GetOrganisationByIdErrors, GetOrganisationByIdResponses, GetOrganisationData, GetOrganisationErrors, GetOrganisationMembersData, GetOrganisationMembersErrors, GetOrganisationMembersInvitesData, GetOrganisationMembersInvitesErrors, GetOrganisationMembersInvitesResponses, GetOrganisationMembersResponses, GetOrganisationResponses, GetOrganisationUserData, GetOrganisationUserErrors, GetOrganisationUserResponses, GetPaymentsByIdStatusData, GetPaymentsByIdStatusErrors, GetPaymentsByIdStatusResponses, GetPaymentsCardData, GetPaymentsCardErrors, GetPaymentsCardResponses, GetPaymentsMethodData, GetPaymentsMethodErrors, GetPaymentsMethodResponses, GetPaymentsPayoutData, GetPaymentsPayoutErrors, GetPaymentsPayoutResponses, GetPaymentsStoreMethodData, GetPaymentsStoreMethodErrors, GetPaymentsStoreMethodResponses, GetPaymentsTransactionsData, GetPaymentsTransactionsErrors, GetPaymentsTransactionsResponses, GetResponses, GetStatsCustomersData, GetStatsCustomersErrors, GetStatsCustomersResponses, GetStatsOrdersData, GetStatsOrdersErrors, GetStatsOrdersResponses, GetStatsSalesData, GetStatsSalesErrors, GetStatsSalesResponses, GetStoreByIdData, GetStoreByIdErrors, GetStoreByIdResponses, GetStoreData, GetStoreErrors, GetStoreResponses, GetSupportContactsData, GetSupportContactsErrors, GetSupportContactsResponses, GetUserBillingAddressData, GetUserBillingAddressErrors, GetUserBillingAddressResponses, GetUserData, GetUserErrors, GetUserResponses, PostAddressData, PostAddressErrors, PostAddressResponses, PostAddressReverseGeocodeData, PostAddressReverseGeocodeResponses, PostAuthenticationEmailData, PostAuthenticationEmailErrors, PostAuthenticationEmailResponses, PostAuthenticationLoginData, PostAuthenticationLoginErrors, PostAuthenticationLoginResponses, PostAuthenticationResetpasswordConfirmData, PostAuthenticationResetpasswordConfirmErrors, PostAuthenticationResetpasswordConfirmResponses, PostAuthenticationResetPasswordData, PostAuthenticationResetPasswordErrors, PostAuthenticationResetPasswordResponses, PostAuthenticationResetpasswordValidateOtpData, PostAuthenticationResetpasswordValidateOtpErrors, PostAuthenticationResetpasswordValidateOtpResponses, PostAuthenticationSignupData, PostAuthenticationSignupErrors, PostAuthenticationSignupResendOtpData, PostAuthenticationSignupResendOtpErrors, PostAuthenticationSignupResendOtpResponses, PostAuthenticationSignupResponses, PostAuthenticationSignupVerifyOtpData, PostAuthenticationSignupVerifyOtpErrors, PostAuthenticationSignupVerifyOtpResponses, PostAuthenticationSocialAuthData, PostAuthenticationSocialAuthErrors, PostAuthenticationSocialAuthResponses, PostCatalogByStoreIdData, PostCatalogByStoreIdErrors, PostCatalogByStoreIdResponses, PostCatalogClothesByStoreIdData, PostCatalogClothesByStoreIdErrors, PostCatalogClothesByStoreIdResponses, PostCatalogServiceTypesByStoreIdData, PostCatalogServiceTypesByStoreIdErrors, PostCatalogServiceTypesByStoreIdResponses, PostChatSessionData, PostChatSessionErrors, PostChatSessionResponses, PostContentData, PostContentErrors, PostContentResponses, PostDeliveryZonesByStoreIdData, PostDeliveryZonesByStoreIdErrors, PostDeliveryZonesByStoreIdResponses, PostFaqByStoreIdData, PostFaqByStoreIdErrors, PostFaqByStoreIdResponses, PostOrderByIdInvoiceData, PostOrderByIdInvoiceErrors, PostOrderByIdInvoiceResponses, PostOrderByIdPackingSlipData, PostOrderByIdPackingSlipErrors, PostOrderByIdPackingSlipResponses, PostOrderByIdPayData, PostOrderByIdPayErrors, PostOrderByIdPayResponses, PostOrderByStoreIdData, PostOrderByStoreIdErrors, PostOrderByStoreIdResponses, PostOrganisationMembersAcceptInviteData, PostOrganisationMembersAcceptInviteErrors, PostOrganisationMembersAcceptInviteResponses, PostOrganisationMembersData, PostOrganisationMembersErrors, PostOrganisationMembersInvitesByInviteIdResendData, PostOrganisationMembersInvitesByInviteIdResendErrors, PostOrganisationMembersInvitesByInviteIdResendResponses, PostOrganisationMembersResponses, PostPaymentsCardData, PostPaymentsCardErrors, PostPaymentsCardResponses, PostPaymentsMethodData, PostPaymentsMethodErrors, PostPaymentsMethodResponses, PostPaymentsPayoutByStoreIdData, PostPaymentsPayoutByStoreIdErrors, PostPaymentsPayoutByStoreIdResponses, PostPaymentsStoreMethodData, PostPaymentsStoreMethodErrors, PostPaymentsStoreMethodResponses, PostStoreData, PostStoreErrors, PostStoreResponses, PostSupportContactsByStoreIdData, PostSupportContactsByStoreIdErrors, PostSupportContactsByStoreIdResponses, PostUserBillingAddressData, PostUserBillingAddressErrors, PostUserBillingAddressResponses, PostUserFcmTokenData, PostUserFcmTokenErrors, PostUserFcmTokenResponses, PostUserOnboardData, PostUserOnboardErrors, PostUserOnboardResponses, PutAddressByIdData, PutAddressByIdErrors, PutAddressByIdResponses, PutAuthenticationLogoutData, PutAuthenticationLogoutErrors, PutAuthenticationLogoutResponses, PutAuthenticationResetpasswordUpdatePasswordData, PutAuthenticationResetpasswordUpdatePasswordErrors, PutAuthenticationResetpasswordUpdatePasswordResponses, PutCatalogByIdData, PutCatalogByIdErrors, PutCatalogByIdResponses, PutCatalogServiceTypesByIdData, PutCatalogServiceTypesByIdErrors, PutCatalogServiceTypesByIdResponses, PutContentByKeyData, PutContentByKeyErrors, PutContentByKeyResponses, PutDeliveryZonesByIdData, PutDeliveryZonesByIdErrors, PutDeliveryZonesByIdResponses, PutFaqByIdData, PutFaqByIdErrors, PutFaqByIdResponses, PutNotificationsMarkAllReadData, PutNotificationsMarkAllReadErrors, PutNotificationsMarkAllReadResponses, PutNotificationsMarkReadByIdData, PutNotificationsMarkReadByIdErrors, PutNotificationsMarkReadByIdResponses, PutOrderByIdCancelData, PutOrderByIdCancelErrors, PutOrderByIdCancelResponses, PutOrderByIdStatusData, PutOrderByIdStatusErrors, PutOrderByIdStatusResponses, PutOrderByIdWeightData, PutOrderByIdWeightResponses, PutOrganisationByIdData, PutOrganisationByIdErrors, PutOrganisationByIdResponses, PutPaymentsCardByIdDefaultData, PutPaymentsCardByIdDefaultErrors, PutPaymentsCardByIdDefaultResponses, PutPaymentsMethodByIdData, PutPaymentsMethodByIdErrors, PutPaymentsMethodByIdResponses, PutPaymentsPayoutByPaymentMethodIdData, PutPaymentsPayoutByPaymentMethodIdErrors, PutPaymentsPayoutByPaymentMethodIdResponses, PutPaymentsStoreMethodByIdData, PutPaymentsStoreMethodByIdErrors, PutPaymentsStoreMethodByIdResponses, PutStoreByIdData, PutStoreByIdErrors, PutStoreByIdResponses, PutSupportContactsByIdData, PutSupportContactsByIdErrors, PutSupportContactsByIdResponses, PutUserBillingAddressData, PutUserBillingAddressErrors, PutUserBillingAddressResponses, PutUserChangePasswordData, PutUserChangePasswordErrors, PutUserChangePasswordResponses, PutUserData, PutUserErrors, PutUserResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -804,7 +804,7 @@ export const postOrderByIdPackingSlip = <ThrowOnError extends boolean = false>(o
 });
 
 /**
- * Create payment transaction for an order
+ * Pay for order
  *
  * Create a payment transaction for an order. If the payment method is CASH, the payment is marked as successful immediately.
  */
@@ -867,6 +867,90 @@ export const putOrganisationById = <ThrowOnError extends boolean = false>(option
 });
 
 /**
+ * Get Organisation Members
+ *
+ * List all members of the current user's organisation
+ */
+export const getOrganisationMembers = <ThrowOnError extends boolean = false>(options?: Options<GetOrganisationMembersData, ThrowOnError>) => (options?.client ?? client).get<GetOrganisationMembersResponses, GetOrganisationMembersErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/organisation/members',
+    ...options
+});
+
+/**
+ * Invite Organisation Member
+ *
+ * Send an invitation link to join the organisation
+ */
+export const postOrganisationMembers = <ThrowOnError extends boolean = false>(options: Options<PostOrganisationMembersData, ThrowOnError>) => (options.client ?? client).post<PostOrganisationMembersResponses, PostOrganisationMembersErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/organisation/members',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Remove Organisation Member
+ *
+ * Remove a user from the current user's organisation
+ */
+export const deleteOrganisationMembersByUserId = <ThrowOnError extends boolean = false>(options: Options<DeleteOrganisationMembersByUserIdData, ThrowOnError>) => (options.client ?? client).delete<DeleteOrganisationMembersByUserIdResponses, DeleteOrganisationMembersByUserIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/organisation/members/{userId}',
+    ...options
+});
+
+/**
+ * Get Organisation Invites
+ *
+ * List all pending and accepted invites for the organisation
+ */
+export const getOrganisationMembersInvites = <ThrowOnError extends boolean = false>(options?: Options<GetOrganisationMembersInvitesData, ThrowOnError>) => (options?.client ?? client).get<GetOrganisationMembersInvitesResponses, GetOrganisationMembersInvitesErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/organisation/members/invites',
+    ...options
+});
+
+/**
+ * Resend Organisation Invite
+ *
+ * Resend a pending organisation invitation email
+ */
+export const postOrganisationMembersInvitesByInviteIdResend = <ThrowOnError extends boolean = false>(options: Options<PostOrganisationMembersInvitesByInviteIdResendData, ThrowOnError>) => (options.client ?? client).post<PostOrganisationMembersInvitesByInviteIdResendResponses, PostOrganisationMembersInvitesByInviteIdResendErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/organisation/members/invites/{inviteId}/resend',
+    ...options
+});
+
+/**
+ * Cancel Organisation Invite
+ *
+ * Cancel a pending organisation invitation
+ */
+export const deleteOrganisationMembersInvitesByInviteId = <ThrowOnError extends boolean = false>(options: Options<DeleteOrganisationMembersInvitesByInviteIdData, ThrowOnError>) => (options.client ?? client).delete<DeleteOrganisationMembersInvitesByInviteIdResponses, DeleteOrganisationMembersInvitesByInviteIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/organisation/members/invites/{inviteId}',
+    ...options
+});
+
+/**
+ * Accept Organisation Invite
+ *
+ * Accept an invitation to join an organisation
+ */
+export const postOrganisationMembersAcceptInvite = <ThrowOnError extends boolean = false>(options: Options<PostOrganisationMembersAcceptInviteData, ThrowOnError>) => (options.client ?? client).post<PostOrganisationMembersAcceptInviteResponses, PostOrganisationMembersAcceptInviteErrors, ThrowOnError>({
+    url: '/organisation/members/accept-invite',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
  * Get all user payment cards
  *
  * Get all saved cards for the current authenticated user
@@ -882,14 +966,10 @@ export const getPaymentsCard = <ThrowOnError extends boolean = false>(options?: 
  *
  * Add a new payment card for the current authenticated user
  */
-export const postPaymentsCard = <ThrowOnError extends boolean = false>(options: Options<PostPaymentsCardData, ThrowOnError>) => (options.client ?? client).post<PostPaymentsCardResponses, PostPaymentsCardErrors, ThrowOnError>({
+export const postPaymentsCard = <ThrowOnError extends boolean = false>(options?: Options<PostPaymentsCardData, ThrowOnError>) => (options?.client ?? client).post<PostPaymentsCardResponses, PostPaymentsCardErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/payments/card',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
+    ...options
 });
 
 /**
@@ -927,17 +1007,6 @@ export const postPaymentsMethod = <ThrowOnError extends boolean = false>(options
         'Content-Type': 'application/json',
         ...options.headers
     }
-});
-
-/**
- * Delete a payment method
- *
- * Delete an existing payment method. System admin only.
- */
-export const deletePaymentsMethodById = <ThrowOnError extends boolean = false>(options: Options<DeletePaymentsMethodByIdData, ThrowOnError>) => (options.client ?? client).delete<DeletePaymentsMethodByIdResponses, DeletePaymentsMethodByIdErrors, ThrowOnError>({
-    security: [{ scheme: 'bearer', type: 'http' }],
-    url: '/payments/method/{id}',
-    ...options
 });
 
 /**
@@ -1005,6 +1074,17 @@ export const putPaymentsStoreMethodById = <ThrowOnError extends boolean = false>
         'Content-Type': 'application/json',
         ...options.headers
     }
+});
+
+/**
+ * Get payment status
+ *
+ * Check the status of a payment by its ID
+ */
+export const getPaymentsByIdStatus = <ThrowOnError extends boolean = false>(options: Options<GetPaymentsByIdStatusData, ThrowOnError>) => (options.client ?? client).get<GetPaymentsByIdStatusResponses, GetPaymentsByIdStatusErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/payments/{id}/status',
+    ...options
 });
 
 /**
@@ -1293,5 +1373,68 @@ export const putUserChangePassword = <ThrowOnError extends boolean = false>(opti
 export const deleteUserDeleteAccount = <ThrowOnError extends boolean = false>(options?: Options<DeleteUserDeleteAccountData, ThrowOnError>) => (options?.client ?? client).delete<DeleteUserDeleteAccountResponses, DeleteUserDeleteAccountErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/user/delete-account',
+    ...options
+});
+
+/**
+ * Delete Billing Address
+ *
+ * Delete billing address for authenticated user
+ */
+export const deleteUserBillingAddress = <ThrowOnError extends boolean = false>(options?: Options<DeleteUserBillingAddressData, ThrowOnError>) => (options?.client ?? client).delete<DeleteUserBillingAddressResponses, DeleteUserBillingAddressErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/user/billing-address',
+    ...options
+});
+
+/**
+ * Get Billing Address
+ *
+ * Get billing address for authenticated user
+ */
+export const getUserBillingAddress = <ThrowOnError extends boolean = false>(options?: Options<GetUserBillingAddressData, ThrowOnError>) => (options?.client ?? client).get<GetUserBillingAddressResponses, GetUserBillingAddressErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/user/billing-address',
+    ...options
+});
+
+/**
+ * Create Billing Address
+ *
+ * Create billing address for authenticated user
+ */
+export const postUserBillingAddress = <ThrowOnError extends boolean = false>(options: Options<PostUserBillingAddressData, ThrowOnError>) => (options.client ?? client).post<PostUserBillingAddressResponses, PostUserBillingAddressErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/user/billing-address',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Update Billing Address
+ *
+ * Update billing address for authenticated user
+ */
+export const putUserBillingAddress = <ThrowOnError extends boolean = false>(options?: Options<PutUserBillingAddressData, ThrowOnError>) => (options?.client ?? client).put<PutUserBillingAddressResponses, PutUserBillingAddressErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/user/billing-address',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers
+    }
+});
+
+/**
+ * Onboard User
+ *
+ * Mark user as onboarded
+ */
+export const postUserOnboard = <ThrowOnError extends boolean = false>(options?: Options<PostUserOnboardData, ThrowOnError>) => (options?.client ?? client).post<PostUserOnboardResponses, PostUserOnboardErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/user/onboard',
     ...options
 });

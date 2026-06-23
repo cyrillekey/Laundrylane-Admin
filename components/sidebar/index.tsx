@@ -66,7 +66,7 @@ const categories = [
   {
     label: "Configuration",
     items: [
-      { title: "Store", url: "/app/store", icon: StoreIcon },
+      { title: "Store", url: "/app/stores", icon: StoreIcon },
       { title: "Catalog", url: "/app/catalog", icon: ListOrdered },
       { title: "Service Types", url: "/app/service-types", icon: Clock },
       { title: "Cloth Types", url: "/app/cloth-types", icon: Shirt },

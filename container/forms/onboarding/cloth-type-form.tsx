@@ -21,12 +21,14 @@ interface ClothTypeFormProps {
   onSkip: () => void;
   onBack: () => void;
   onSuccess: () => void;
+  isOnboarding?: boolean;
 }
 
 export function ClothTypeForm({
   onSkip,
   onBack,
   onSuccess,
+  isOnboarding,
 }: ClothTypeFormProps) {
   const { selectedStoreId } = useSelectedStore();
   const queryClient = useQueryClient();
@@ -133,7 +135,7 @@ export function ClothTypeForm({
           type="button"
           variant="outline"
           onClick={onBack}
-          disabled={isSubmitting}
+          disabled={isSubmitting || isOnboarding}
         >
           Back
         </Button>
@@ -141,19 +143,20 @@ export function ClothTypeForm({
           type="button"
           variant="outline"
           onClick={onSkip}
-          disabled={isSubmitting}
+          disabled={isSubmitting || isOnboarding}
         >
+          {isOnboarding ? <Spinner /> : null}
           Skip
         </Button>
 
         <Button
           type="button"
           onClick={handleSubmit}
-          disabled={items.length === 0 || isSubmitting}
+          disabled={items.length === 0 || isSubmitting || isOnboarding}
           className="flex-1"
         >
-          {isSubmitting && <Spinner />}
-          Save {items.length} Item{items.length !== 1 ? "s" : ""}
+          {(isSubmitting || isOnboarding) && <Spinner />}
+          {isOnboarding ? "Finishing..." : `Save ${items.length} Item${items.length !== 1 ? "s" : ""}`}
         </Button>
       </div>
     </div>
