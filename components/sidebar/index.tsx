@@ -12,10 +12,9 @@ import {
   Clock,
   MessageCircle,
   LifeBuoy,
-  BookOpen,
   ShoppingBasket,
   MapPin,
-  Settings
+  ScrollText,
 } from "lucide-react";
 
 import { NavCategories } from "@/components/sidebar/nav-categories";
@@ -72,17 +71,23 @@ const categories = [
       { title: "Cloth Types", url: "/app/cloth-types", icon: Shirt },
       { title: "Delivery Zones", url: "/app/delivery-zones", icon: MapPin },
     ],
-  },
-  {
-    label: "Settings",
-    items: [{ title: "Settings", url: "/app/settings", icon: Settings }],
-  },
+  },  
   {
     label: "Support",
     items: [
       { title: "Support Chat", url: "/app/support/chat", icon: MessageCircle },
-      { title: "Help Center", url: "/app/support/help", icon: LifeBuoy },
-      { title: "Documentation", url: "/app/support/docs", icon: BookOpen },
+      { title: "Help Center", url: "/app/support/help", icon: LifeBuoy },      
+      {
+        title: "Policy & Support",
+        url: "/app/support",
+        icon: ScrollText,
+        items: [
+          { title: "Terms and Conditions", url: "/app/support/terms" },
+          { title: "Privacy Policy", url: "/app/support/privacy" },
+          { title: "Support Contacts", url: "/app/support/contacts" },
+          { title: "FAQ", url: "/app/support/faq" },
+        ],
+      },
     ],
   },
 ];

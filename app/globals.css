@@ -124,3 +124,93 @@
     @apply bg-background text-foreground;
   }
 }
+
+.ProseMirror {
+  @apply px-3 py-2 outline-none;
+  min-height: 200px;
+}
+
+.ProseMirror p {
+  @apply leading-relaxed;
+}
+
+.ProseMirror h1 {
+  @apply text-2xl font-bold mb-3 mt-4;
+}
+
+.ProseMirror h2 {
+  @apply text-xl font-semibold mb-2 mt-3;
+}
+
+.ProseMirror h3 {
+  @apply text-lg font-medium mb-2 mt-3;
+}
+
+.ProseMirror ul {
+  @apply list-disc pl-6 mb-2;
+}
+
+.ProseMirror ol {
+  @apply list-decimal pl-6 mb-2;
+}
+
+.ProseMirror li {
+  @apply mb-1;
+}
+
+.ProseMirror blockquote {
+  @apply border-l-4 border-muted-foreground/30 pl-4 italic text-muted-foreground my-2;
+}
+
+.ProseMirror a {
+  @apply text-primary underline underline-offset-2;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  @apply text-muted-foreground pointer-events-none float-left h-0;
+  content: attr(data-placeholder);
+}
+
+.ProseMirror s {
+  @apply line-through;
+}
+
+.content-display {
+  @apply leading-relaxed;
+}
+
+.content-display h1 {
+  @apply text-2xl font-bold mb-3 mt-4;
+}
+
+.content-display h2 {
+  @apply text-xl font-semibold mb-2 mt-3;
+}
+
+.content-display h3 {
+  @apply text-lg font-medium mb-2 mt-3;
+}
+
+.content-display ul {
+  @apply list-disc pl-6 mb-2;
+}
+
+.content-display ol {
+  @apply list-decimal pl-6 mb-2;
+}
+
+.content-display li {
+  @apply mb-1;
+}
+
+.content-display blockquote {
+  @apply border-l-4 border-muted-foreground/30 pl-4 italic text-muted-foreground my-2;
+}
+
+.content-display a {
+  @apply text-primary underline underline-offset-2;
+}
+
+.content-display s {
+  @apply line-through;
+}

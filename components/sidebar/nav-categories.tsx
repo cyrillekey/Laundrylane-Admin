@@ -36,8 +36,7 @@ interface NavCategory {
 }
 
 function isActiveUrl(pathname: string, url: string): boolean {
-  if (url === "/app") return pathname === "/app";
-  return pathname.startsWith(url);
+  return pathname == url;
 }
 
 export function NavCategories({ categories }: { categories: NavCategory[] }) {
@@ -61,7 +60,9 @@ export function NavCategories({ categories }: { categories: NavCategory[] }) {
                     <SidebarMenuButton asChild isActive={active}>
                       <Link href={item.url}>
                         {item.icon && <item.icon className="size-4" />}
-                        <span className="text-md font-normal">{item.title}</span>
+                        <span className="text-md font-normal">
+                          {item.title}
+                        </span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -94,7 +95,9 @@ export function NavCategories({ categories }: { categories: NavCategory[] }) {
                               isActive={isActiveUrl(pathname, subItem.url)}
                             >
                               <Link href={subItem.url}>
-                                <span className="text-xs font-normal">{subItem.title}</span>
+                                <span className="text-xs font-normal">
+                                  {subItem.title}
+                                </span>
                               </Link>
                             </SidebarMenuSubButton>
                           </SidebarMenuSubItem>
