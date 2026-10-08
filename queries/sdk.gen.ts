@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { DeleteAddressByIdData, DeleteAddressByIdErrors, DeleteAddressByIdResponses, DeleteCatalogByIdData, DeleteCatalogByIdErrors, DeleteCatalogByIdResponses, DeleteCatalogServiceTypesByIdData, DeleteCatalogServiceTypesByIdErrors, DeleteCatalogServiceTypesByIdResponses, DeleteChatSessionByIdData, DeleteChatSessionByIdErrors, DeleteChatSessionByIdResponses, DeleteContentByKeyData, DeleteContentByKeyErrors, DeleteContentByKeyResponses, DeleteDeliveryZonesByIdData, DeleteDeliveryZonesByIdErrors, DeleteDeliveryZonesByIdResponses, DeleteFaqByIdData, DeleteFaqByIdErrors, DeleteFaqByIdResponses, DeleteNotificationsByIdData, DeleteNotificationsByIdErrors, DeleteNotificationsByIdResponses, DeleteOrderByIdData, DeleteOrderByIdErrors, DeleteOrderByIdResponses, DeleteOrganisationMembersByUserIdData, DeleteOrganisationMembersByUserIdErrors, DeleteOrganisationMembersByUserIdResponses, DeleteOrganisationMembersInvitesByInviteIdData, DeleteOrganisationMembersInvitesByInviteIdErrors, DeleteOrganisationMembersInvitesByInviteIdResponses, DeletePaymentsCardByIdData, DeletePaymentsCardByIdErrors, DeletePaymentsCardByIdResponses, DeletePaymentsPayoutByPaymentMethodIdData, DeletePaymentsPayoutByPaymentMethodIdErrors, DeletePaymentsPayoutByPaymentMethodIdResponses, DeletePaymentsStoreMethodByIdData, DeletePaymentsStoreMethodByIdErrors, DeletePaymentsStoreMethodByIdResponses, DeleteStoreByIdData, DeleteStoreByIdErrors, DeleteStoreByIdResponses, DeleteSupportContactsByIdData, DeleteSupportContactsByIdErrors, DeleteSupportContactsByIdResponses, DeleteUserBillingAddressData, DeleteUserBillingAddressErrors, DeleteUserBillingAddressResponses, DeleteUserDeleteAccountData, DeleteUserDeleteAccountErrors, DeleteUserDeleteAccountResponses, GetAddressAutocompleteData, GetAddressAutocompleteErrors, GetAddressAutocompleteResponses, GetAddressData, GetAddressErrors, GetAddressResponses, GetCatalogClothesData, GetCatalogClothesErrors, GetCatalogClothesResponses, GetCatalogData, GetCatalogErrors, GetCatalogResponses, GetCatalogServiceTypesData, GetCatalogServiceTypesErrors, GetCatalogServiceTypesResponses, GetChatSessionByIdData, GetChatSessionByIdErrors, GetChatSessionByIdMessagesData, GetChatSessionByIdMessagesErrors, GetChatSessionByIdMessagesResponses, GetChatSessionByIdResponses, GetChatSessionsData, GetChatSessionsErrors, GetChatSessionsResponses, GetContentByKeyData, GetContentByKeyErrors, GetContentByKeyResponses, GetContentData, GetContentErrors, GetContentResponses, GetCustomersData, GetCustomersErrors, GetCustomersResponses, GetData, GetDeliveryZonesByIdData, GetDeliveryZonesByIdErrors, GetDeliveryZonesByIdResponses, GetDeliveryZonesData, GetDeliveryZonesErrors, GetDeliveryZonesResponses, GetFaqData, GetFaqErrors, GetFaqResponses, GetNotificationsByIdData, GetNotificationsByIdErrors, GetNotificationsByIdResponses, GetNotificationsData, GetNotificationsErrors, GetNotificationsResponses, GetNotificationsUnreadCountData, GetNotificationsUnreadCountErrors, GetNotificationsUnreadCountResponses, GetOrderByIdData, GetOrderByIdErrors, GetOrderByIdItemsData, GetOrderByIdItemsErrors, GetOrderByIdItemsResponses, GetOrderByIdPackagingSlipData, GetOrderByIdPackagingSlipResponses, GetOrderByIdResponses, GetOrderData, GetOrderErrors, GetOrderResponses, GetOrganisationByIdData, GetOrganisationByIdErrors, GetOrganisationByIdResponses, GetOrganisationData, GetOrganisationErrors, GetOrganisationMembersData, GetOrganisationMembersErrors, GetOrganisationMembersInvitesData, GetOrganisationMembersInvitesErrors, GetOrganisationMembersInvitesResponses, GetOrganisationMembersResponses, GetOrganisationResponses, GetOrganisationUserData, GetOrganisationUserErrors, GetOrganisationUserResponses, GetPaymentsByIdStatusData, GetPaymentsByIdStatusErrors, GetPaymentsByIdStatusResponses, GetPaymentsCardData, GetPaymentsCardErrors, GetPaymentsCardResponses, GetPaymentsMethodData, GetPaymentsMethodErrors, GetPaymentsMethodResponses, GetPaymentsPayoutData, GetPaymentsPayoutErrors, GetPaymentsPayoutResponses, GetPaymentsStoreMethodData, GetPaymentsStoreMethodErrors, GetPaymentsStoreMethodResponses, GetPaymentsTransactionsData, GetPaymentsTransactionsErrors, GetPaymentsTransactionsResponses, GetResponses, GetStatsCustomersData, GetStatsCustomersErrors, GetStatsCustomersResponses, GetStatsOrdersData, GetStatsOrdersErrors, GetStatsOrdersResponses, GetStatsSalesData, GetStatsSalesErrors, GetStatsSalesResponses, GetStoreByIdData, GetStoreByIdErrors, GetStoreByIdResponses, GetStoreData, GetStoreErrors, GetStoreResponses, GetSupportContactsData, GetSupportContactsErrors, GetSupportContactsResponses, GetUserBillingAddressData, GetUserBillingAddressErrors, GetUserBillingAddressResponses, GetUserData, GetUserErrors, GetUserResponses, PostAddressData, PostAddressErrors, PostAddressResponses, PostAddressReverseGeocodeData, PostAddressReverseGeocodeResponses, PostAuthenticationEmailData, PostAuthenticationEmailErrors, PostAuthenticationEmailResponses, PostAuthenticationLoginData, PostAuthenticationLoginErrors, PostAuthenticationLoginResponses, PostAuthenticationResetpasswordConfirmData, PostAuthenticationResetpasswordConfirmErrors, PostAuthenticationResetpasswordConfirmResponses, PostAuthenticationResetPasswordData, PostAuthenticationResetPasswordErrors, PostAuthenticationResetPasswordResponses, PostAuthenticationResetpasswordValidateOtpData, PostAuthenticationResetpasswordValidateOtpErrors, PostAuthenticationResetpasswordValidateOtpResponses, PostAuthenticationSignupData, PostAuthenticationSignupErrors, PostAuthenticationSignupResendOtpData, PostAuthenticationSignupResendOtpErrors, PostAuthenticationSignupResendOtpResponses, PostAuthenticationSignupResponses, PostAuthenticationSignupVerifyOtpData, PostAuthenticationSignupVerifyOtpErrors, PostAuthenticationSignupVerifyOtpResponses, PostAuthenticationSocialAuthData, PostAuthenticationSocialAuthErrors, PostAuthenticationSocialAuthResponses, PostCatalogByStoreIdData, PostCatalogByStoreIdErrors, PostCatalogByStoreIdResponses, PostCatalogClothesByStoreIdData, PostCatalogClothesByStoreIdErrors, PostCatalogClothesByStoreIdResponses, PostCatalogServiceTypesByStoreIdData, PostCatalogServiceTypesByStoreIdErrors, PostCatalogServiceTypesByStoreIdResponses, PostChatSessionData, PostChatSessionErrors, PostChatSessionResponses, PostContentData, PostContentErrors, PostContentResponses, PostDeliveryZonesByStoreIdData, PostDeliveryZonesByStoreIdErrors, PostDeliveryZonesByStoreIdResponses, PostFaqByStoreIdData, PostFaqByStoreIdErrors, PostFaqByStoreIdResponses, PostOrderByIdInvoiceData, PostOrderByIdInvoiceErrors, PostOrderByIdInvoiceResponses, PostOrderByIdPackingSlipData, PostOrderByIdPackingSlipErrors, PostOrderByIdPackingSlipResponses, PostOrderByIdPayData, PostOrderByIdPayErrors, PostOrderByIdPayResponses, PostOrderByStoreIdData, PostOrderByStoreIdErrors, PostOrderByStoreIdResponses, PostOrganisationMembersAcceptInviteData, PostOrganisationMembersAcceptInviteErrors, PostOrganisationMembersAcceptInviteResponses, PostOrganisationMembersData, PostOrganisationMembersErrors, PostOrganisationMembersInvitesByInviteIdResendData, PostOrganisationMembersInvitesByInviteIdResendErrors, PostOrganisationMembersInvitesByInviteIdResendResponses, PostOrganisationMembersResponses, PostPaymentsCardData, PostPaymentsCardErrors, PostPaymentsCardResponses, PostPaymentsMethodData, PostPaymentsMethodErrors, PostPaymentsMethodResponses, PostPaymentsPayoutByStoreIdData, PostPaymentsPayoutByStoreIdErrors, PostPaymentsPayoutByStoreIdResponses, PostPaymentsStoreMethodData, PostPaymentsStoreMethodErrors, PostPaymentsStoreMethodResponses, PostStoreData, PostStoreErrors, PostStoreResponses, PostSupportContactsByStoreIdData, PostSupportContactsByStoreIdErrors, PostSupportContactsByStoreIdResponses, PostUserBillingAddressData, PostUserBillingAddressErrors, PostUserBillingAddressResponses, PostUserFcmTokenData, PostUserFcmTokenErrors, PostUserFcmTokenResponses, PostUserOnboardData, PostUserOnboardErrors, PostUserOnboardResponses, PutAddressByIdData, PutAddressByIdErrors, PutAddressByIdResponses, PutAuthenticationLogoutData, PutAuthenticationLogoutErrors, PutAuthenticationLogoutResponses, PutAuthenticationResetpasswordUpdatePasswordData, PutAuthenticationResetpasswordUpdatePasswordErrors, PutAuthenticationResetpasswordUpdatePasswordResponses, PutCatalogByIdData, PutCatalogByIdErrors, PutCatalogByIdResponses, PutCatalogServiceTypesByIdData, PutCatalogServiceTypesByIdErrors, PutCatalogServiceTypesByIdResponses, PutContentByKeyData, PutContentByKeyErrors, PutContentByKeyResponses, PutDeliveryZonesByIdData, PutDeliveryZonesByIdErrors, PutDeliveryZonesByIdResponses, PutFaqByIdData, PutFaqByIdErrors, PutFaqByIdResponses, PutNotificationsMarkAllReadData, PutNotificationsMarkAllReadErrors, PutNotificationsMarkAllReadResponses, PutNotificationsMarkReadByIdData, PutNotificationsMarkReadByIdErrors, PutNotificationsMarkReadByIdResponses, PutOrderByIdCancelData, PutOrderByIdCancelErrors, PutOrderByIdCancelResponses, PutOrderByIdStatusData, PutOrderByIdStatusErrors, PutOrderByIdStatusResponses, PutOrderByIdWeightData, PutOrderByIdWeightResponses, PutOrganisationByIdData, PutOrganisationByIdErrors, PutOrganisationByIdResponses, PutPaymentsCardByIdDefaultData, PutPaymentsCardByIdDefaultErrors, PutPaymentsCardByIdDefaultResponses, PutPaymentsMethodByIdData, PutPaymentsMethodByIdErrors, PutPaymentsMethodByIdResponses, PutPaymentsPayoutByPaymentMethodIdData, PutPaymentsPayoutByPaymentMethodIdErrors, PutPaymentsPayoutByPaymentMethodIdResponses, PutPaymentsStoreMethodByIdData, PutPaymentsStoreMethodByIdErrors, PutPaymentsStoreMethodByIdResponses, PutStoreByIdData, PutStoreByIdErrors, PutStoreByIdResponses, PutSupportContactsByIdData, PutSupportContactsByIdErrors, PutSupportContactsByIdResponses, PutUserBillingAddressData, PutUserBillingAddressErrors, PutUserBillingAddressResponses, PutUserChangePasswordData, PutUserChangePasswordErrors, PutUserChangePasswordResponses, PutUserData, PutUserErrors, PutUserResponses } from './types.gen';
+import type { DeleteAddressByIdData, DeleteAddressByIdErrors, DeleteAddressByIdResponses, DeleteCatalogByIdData, DeleteCatalogByIdErrors, DeleteCatalogByIdResponses, DeleteCatalogServiceTypesByIdData, DeleteCatalogServiceTypesByIdErrors, DeleteCatalogServiceTypesByIdResponses, DeleteChatSessionByIdData, DeleteChatSessionByIdErrors, DeleteChatSessionByIdResponses, DeleteContentByKeyData, DeleteContentByKeyErrors, DeleteContentByKeyResponses, DeleteDeliveryDriversByIdData, DeleteDeliveryDriversByIdErrors, DeleteDeliveryDriversByIdResponses, DeleteDeliveryDriversByIdZonesData, DeleteDeliveryDriversByIdZonesErrors, DeleteDeliveryDriversByIdZonesResponses, DeleteDeliveryZonesByIdData, DeleteDeliveryZonesByIdErrors, DeleteDeliveryZonesByIdResponses, DeleteFaqByIdData, DeleteFaqByIdErrors, DeleteFaqByIdResponses, DeleteNotificationsByIdData, DeleteNotificationsByIdErrors, DeleteNotificationsByIdResponses, DeleteOrderByIdData, DeleteOrderByIdErrors, DeleteOrderByIdResponses, DeleteOrganisationMembersByUserIdData, DeleteOrganisationMembersByUserIdErrors, DeleteOrganisationMembersByUserIdResponses, DeleteOrganisationMembersInvitesByInviteIdData, DeleteOrganisationMembersInvitesByInviteIdErrors, DeleteOrganisationMembersInvitesByInviteIdResponses, DeletePaymentsCardByIdData, DeletePaymentsCardByIdErrors, DeletePaymentsCardByIdResponses, DeletePaymentsPayoutByPaymentMethodIdData, DeletePaymentsPayoutByPaymentMethodIdErrors, DeletePaymentsPayoutByPaymentMethodIdResponses, DeletePaymentsStoreMethodByIdData, DeletePaymentsStoreMethodByIdErrors, DeletePaymentsStoreMethodByIdResponses, DeleteStoreByIdData, DeleteStoreByIdErrors, DeleteStoreByIdResponses, DeleteSupportContactsByIdData, DeleteSupportContactsByIdErrors, DeleteSupportContactsByIdResponses, DeleteUserBillingAddressData, DeleteUserBillingAddressErrors, DeleteUserBillingAddressResponses, DeleteUserDeleteAccountData, DeleteUserDeleteAccountErrors, DeleteUserDeleteAccountResponses, GetAddressAutocompleteData, GetAddressAutocompleteErrors, GetAddressAutocompleteResponses, GetAddressData, GetAddressErrors, GetAddressResponses, GetCatalogClothesData, GetCatalogClothesErrors, GetCatalogClothesResponses, GetCatalogData, GetCatalogErrors, GetCatalogResponses, GetCatalogServiceTypesData, GetCatalogServiceTypesErrors, GetCatalogServiceTypesResponses, GetChatSessionByIdData, GetChatSessionByIdErrors, GetChatSessionByIdMessagesData, GetChatSessionByIdMessagesErrors, GetChatSessionByIdMessagesResponses, GetChatSessionByIdResponses, GetChatSessionsData, GetChatSessionsErrors, GetChatSessionsResponses, GetContentByKeyData, GetContentByKeyErrors, GetContentByKeyResponses, GetContentData, GetContentErrors, GetContentResponses, GetCustomersData, GetCustomersErrors, GetCustomersResponses, GetData, GetDeliveryDriversByIdData, GetDeliveryDriversByIdErrors, GetDeliveryDriversByIdResponses, GetDeliveryDriversData, GetDeliveryDriversErrors, GetDeliveryDriversResponses, GetDeliveryZonesByIdData, GetDeliveryZonesByIdErrors, GetDeliveryZonesByIdResponses, GetDeliveryZonesData, GetDeliveryZonesErrors, GetDeliveryZonesResponses, GetFaqData, GetFaqErrors, GetFaqResponses, GetNotificationsByIdData, GetNotificationsByIdErrors, GetNotificationsByIdResponses, GetNotificationsData, GetNotificationsErrors, GetNotificationsResponses, GetNotificationsUnreadCountData, GetNotificationsUnreadCountErrors, GetNotificationsUnreadCountResponses, GetOrderByIdData, GetOrderByIdErrors, GetOrderByIdItemsData, GetOrderByIdItemsErrors, GetOrderByIdItemsResponses, GetOrderByIdPackagingSlipData, GetOrderByIdPackagingSlipResponses, GetOrderByIdResponses, GetOrderData, GetOrderErrors, GetOrderResponses, GetOrganisationByIdData, GetOrganisationByIdErrors, GetOrganisationByIdResponses, GetOrganisationData, GetOrganisationErrors, GetOrganisationMembersData, GetOrganisationMembersErrors, GetOrganisationMembersInvitesData, GetOrganisationMembersInvitesErrors, GetOrganisationMembersInvitesResponses, GetOrganisationMembersResponses, GetOrganisationResponses, GetOrganisationSettingsData, GetOrganisationSettingsErrors, GetOrganisationSettingsResponses, GetOrganisationUserData, GetOrganisationUserErrors, GetOrganisationUserResponses, GetPaymentsByIdStatusData, GetPaymentsByIdStatusErrors, GetPaymentsByIdStatusResponses, GetPaymentsCardData, GetPaymentsCardErrors, GetPaymentsCardResponses, GetPaymentsMethodData, GetPaymentsMethodErrors, GetPaymentsMethodResponses, GetPaymentsPayoutData, GetPaymentsPayoutErrors, GetPaymentsPayoutResponses, GetPaymentsStoreMethodData, GetPaymentsStoreMethodErrors, GetPaymentsStoreMethodResponses, GetPaymentsTransactionsData, GetPaymentsTransactionsErrors, GetPaymentsTransactionsResponses, GetResponses, GetStatsCustomersData, GetStatsCustomersErrors, GetStatsCustomersResponses, GetStatsMonthlyData, GetStatsMonthlyErrors, GetStatsMonthlyResponses, GetStatsOrdersByStatusData, GetStatsOrdersByStatusErrors, GetStatsOrdersByStatusResponses, GetStatsOrdersData, GetStatsOrdersErrors, GetStatsOrdersResponses, GetStatsOrdersSummaryData, GetStatsOrdersSummaryErrors, GetStatsOrdersSummaryResponses, GetStatsSalesData, GetStatsSalesErrors, GetStatsSalesResponses, GetStoreByIdData, GetStoreByIdErrors, GetStoreByIdResponses, GetStoreData, GetStoreErrors, GetStoreResponses, GetSupportContactsData, GetSupportContactsErrors, GetSupportContactsResponses, GetUserBillingAddressData, GetUserBillingAddressErrors, GetUserBillingAddressResponses, GetUserData, GetUserErrors, GetUserResponses, PostAddressData, PostAddressErrors, PostAddressResponses, PostAddressReverseGeocodeData, PostAddressReverseGeocodeResponses, PostAuthenticationEmailData, PostAuthenticationEmailErrors, PostAuthenticationEmailResponses, PostAuthenticationLoginData, PostAuthenticationLoginErrors, PostAuthenticationLoginResponses, PostAuthenticationResetpasswordConfirmData, PostAuthenticationResetpasswordConfirmErrors, PostAuthenticationResetpasswordConfirmResponses, PostAuthenticationResetPasswordData, PostAuthenticationResetPasswordErrors, PostAuthenticationResetPasswordResponses, PostAuthenticationResetpasswordValidateOtpData, PostAuthenticationResetpasswordValidateOtpErrors, PostAuthenticationResetpasswordValidateOtpResponses, PostAuthenticationSignupData, PostAuthenticationSignupErrors, PostAuthenticationSignupResendOtpData, PostAuthenticationSignupResendOtpErrors, PostAuthenticationSignupResendOtpResponses, PostAuthenticationSignupResponses, PostAuthenticationSignupVerifyOtpData, PostAuthenticationSignupVerifyOtpErrors, PostAuthenticationSignupVerifyOtpResponses, PostAuthenticationSocialAuthData, PostAuthenticationSocialAuthErrors, PostAuthenticationSocialAuthResponses, PostCatalogByStoreIdData, PostCatalogByStoreIdErrors, PostCatalogByStoreIdResponses, PostCatalogClothesByStoreIdData, PostCatalogClothesByStoreIdErrors, PostCatalogClothesByStoreIdResponses, PostCatalogServiceTypesByStoreIdData, PostCatalogServiceTypesByStoreIdErrors, PostCatalogServiceTypesByStoreIdResponses, PostChatSessionData, PostChatSessionErrors, PostChatSessionResponses, PostContentData, PostContentErrors, PostContentResponses, PostDeliveryDriversByIdZonesData, PostDeliveryDriversByIdZonesErrors, PostDeliveryDriversByIdZonesResponses, PostDeliveryDriversData, PostDeliveryDriversErrors, PostDeliveryDriversResponses, PostDeliveryDriversStatusData, PostDeliveryDriversStatusErrors, PostDeliveryDriversStatusResponses, PostDeliveryZonesByStoreIdData, PostDeliveryZonesByStoreIdErrors, PostDeliveryZonesByStoreIdResponses, PostFaqByStoreIdData, PostFaqByStoreIdErrors, PostFaqByStoreIdResponses, PostOrderByIdInvoiceData, PostOrderByIdInvoiceErrors, PostOrderByIdInvoiceResponses, PostOrderByIdPackingSlipData, PostOrderByIdPackingSlipErrors, PostOrderByIdPackingSlipResponses, PostOrderByIdPayData, PostOrderByIdPayErrors, PostOrderByIdPayResponses, PostOrderByStoreIdData, PostOrderByStoreIdErrors, PostOrderByStoreIdResponses, PostOrganisationMembersAcceptInviteData, PostOrganisationMembersAcceptInviteErrors, PostOrganisationMembersAcceptInviteResponses, PostOrganisationMembersData, PostOrganisationMembersErrors, PostOrganisationMembersInvitesByInviteIdResendData, PostOrganisationMembersInvitesByInviteIdResendErrors, PostOrganisationMembersInvitesByInviteIdResendResponses, PostOrganisationMembersResponses, PostPaymentsCardData, PostPaymentsCardErrors, PostPaymentsCardResponses, PostPaymentsMethodData, PostPaymentsMethodErrors, PostPaymentsMethodResponses, PostPaymentsPayoutByStoreIdData, PostPaymentsPayoutByStoreIdErrors, PostPaymentsPayoutByStoreIdResponses, PostPaymentsStoreMethodData, PostPaymentsStoreMethodErrors, PostPaymentsStoreMethodResponses, PostStoreData, PostStoreErrors, PostStoreResponses, PostSupportContactsByStoreIdData, PostSupportContactsByStoreIdErrors, PostSupportContactsByStoreIdResponses, PostUserBillingAddressData, PostUserBillingAddressErrors, PostUserBillingAddressResponses, PostUserFcmTokenData, PostUserFcmTokenErrors, PostUserFcmTokenResponses, PostUserOnboardData, PostUserOnboardErrors, PostUserOnboardResponses, PutAddressByIdData, PutAddressByIdErrors, PutAddressByIdResponses, PutAuthenticationLogoutData, PutAuthenticationLogoutErrors, PutAuthenticationLogoutResponses, PutAuthenticationResetpasswordUpdatePasswordData, PutAuthenticationResetpasswordUpdatePasswordErrors, PutAuthenticationResetpasswordUpdatePasswordResponses, PutCatalogByIdData, PutCatalogByIdErrors, PutCatalogByIdResponses, PutCatalogServiceTypesByIdData, PutCatalogServiceTypesByIdErrors, PutCatalogServiceTypesByIdResponses, PutContentByKeyData, PutContentByKeyErrors, PutContentByKeyResponses, PutDeliveryDriversByIdData, PutDeliveryDriversByIdErrors, PutDeliveryDriversByIdResponses, PutDeliveryZonesByIdData, PutDeliveryZonesByIdErrors, PutDeliveryZonesByIdResponses, PutFaqByIdData, PutFaqByIdErrors, PutFaqByIdResponses, PutNotificationsMarkAllReadData, PutNotificationsMarkAllReadErrors, PutNotificationsMarkAllReadResponses, PutNotificationsMarkReadByIdData, PutNotificationsMarkReadByIdErrors, PutNotificationsMarkReadByIdResponses, PutOrderByIdCancelData, PutOrderByIdCancelErrors, PutOrderByIdCancelResponses, PutOrderByIdStatusData, PutOrderByIdStatusErrors, PutOrderByIdStatusResponses, PutOrderByIdWeightData, PutOrderByIdWeightResponses, PutOrganisationByIdData, PutOrganisationByIdErrors, PutOrganisationByIdResponses, PutOrganisationSettingsData, PutOrganisationSettingsErrors, PutOrganisationSettingsResponses, PutPaymentsCardByIdDefaultData, PutPaymentsCardByIdDefaultErrors, PutPaymentsCardByIdDefaultResponses, PutPaymentsMethodByIdData, PutPaymentsMethodByIdErrors, PutPaymentsMethodByIdResponses, PutPaymentsPayoutByPaymentMethodIdData, PutPaymentsPayoutByPaymentMethodIdErrors, PutPaymentsPayoutByPaymentMethodIdResponses, PutPaymentsStoreMethodByIdData, PutPaymentsStoreMethodByIdErrors, PutPaymentsStoreMethodByIdResponses, PutStoreByIdData, PutStoreByIdErrors, PutStoreByIdResponses, PutSupportContactsByIdData, PutSupportContactsByIdErrors, PutSupportContactsByIdResponses, PutUserBillingAddressData, PutUserBillingAddressErrors, PutUserBillingAddressResponses, PutUserChangePasswordData, PutUserChangePasswordErrors, PutUserChangePasswordResponses, PutUserData, PutUserErrors, PutUserResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -553,6 +553,106 @@ export const postDeliveryZonesByStoreId = <ThrowOnError extends boolean = false>
 });
 
 /**
+ * Get Delivery Drivers
+ *
+ * Retrieve all delivery drivers
+ */
+export const getDeliveryDrivers = <ThrowOnError extends boolean = false>(options?: Options<GetDeliveryDriversData, ThrowOnError>) => (options?.client ?? client).get<GetDeliveryDriversResponses, GetDeliveryDriversErrors, ThrowOnError>({ url: '/delivery/drivers', ...options });
+
+/**
+ * Create Delivery Driver
+ *
+ * Create a new user and delivery driver profile for them (admin only)
+ */
+export const postDeliveryDrivers = <ThrowOnError extends boolean = false>(options: Options<PostDeliveryDriversData, ThrowOnError>) => (options.client ?? client).post<PostDeliveryDriversResponses, PostDeliveryDriversErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/delivery/drivers',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Delete Delivery Driver
+ *
+ * Delete a delivery driver by ID (admin only)
+ */
+export const deleteDeliveryDriversById = <ThrowOnError extends boolean = false>(options: Options<DeleteDeliveryDriversByIdData, ThrowOnError>) => (options.client ?? client).delete<DeleteDeliveryDriversByIdResponses, DeleteDeliveryDriversByIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/delivery/drivers/{id}',
+    ...options
+});
+
+/**
+ * Get Delivery Driver by ID
+ *
+ * Retrieve a single delivery driver by its ID
+ */
+export const getDeliveryDriversById = <ThrowOnError extends boolean = false>(options: Options<GetDeliveryDriversByIdData, ThrowOnError>) => (options.client ?? client).get<GetDeliveryDriversByIdResponses, GetDeliveryDriversByIdErrors, ThrowOnError>({ url: '/delivery/drivers/{id}', ...options });
+
+/**
+ * Update Delivery Driver
+ *
+ * Update an existing delivery driver (admin only)
+ */
+export const putDeliveryDriversById = <ThrowOnError extends boolean = false>(options: Options<PutDeliveryDriversByIdData, ThrowOnError>) => (options.client ?? client).put<PutDeliveryDriversByIdResponses, PutDeliveryDriversByIdErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/delivery/drivers/{id}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Update Driver Active Status
+ *
+ * Allow the authenticated driver to mark themselves as active or inactive
+ */
+export const postDeliveryDriversStatus = <ThrowOnError extends boolean = false>(options: Options<PostDeliveryDriversStatusData, ThrowOnError>) => (options.client ?? client).post<PostDeliveryDriversStatusResponses, PostDeliveryDriversStatusErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/delivery/drivers/status',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Unassign Delivery Zones from Driver
+ *
+ * Remove one or more delivery zones from a driver (admin only)
+ */
+export const deleteDeliveryDriversByIdZones = <ThrowOnError extends boolean = false>(options: Options<DeleteDeliveryDriversByIdZonesData, ThrowOnError>) => (options.client ?? client).delete<DeleteDeliveryDriversByIdZonesResponses, DeleteDeliveryDriversByIdZonesErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/delivery/drivers/{id}/zones',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Assign Delivery Zones to Driver
+ *
+ * Assign one or more delivery zones to a driver (admin only)
+ */
+export const postDeliveryDriversByIdZones = <ThrowOnError extends boolean = false>(options: Options<PostDeliveryDriversByIdZonesData, ThrowOnError>) => (options.client ?? client).post<PostDeliveryDriversByIdZonesResponses, PostDeliveryDriversByIdZonesErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/delivery/drivers/{id}/zones',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
  * Get FAQs
  *
  * Retrieve all FAQ entries
@@ -859,6 +959,32 @@ export const getOrganisationById = <ThrowOnError extends boolean = false>(option
 export const putOrganisationById = <ThrowOnError extends boolean = false>(options: Options<PutOrganisationByIdData, ThrowOnError>) => (options.client ?? client).put<PutOrganisationByIdResponses, PutOrganisationByIdErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/organisation/{id}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Get Organisation Settings
+ *
+ * Retrieve settings for the current user's organisation
+ */
+export const getOrganisationSettings = <ThrowOnError extends boolean = false>(options?: Options<GetOrganisationSettingsData, ThrowOnError>) => (options?.client ?? client).get<GetOrganisationSettingsResponses, GetOrganisationSettingsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/organisation/settings',
+    ...options
+});
+
+/**
+ * Update Organisation Settings
+ *
+ * Update settings for the current user's organisation
+ */
+export const putOrganisationSettings = <ThrowOnError extends boolean = false>(options: Options<PutOrganisationSettingsData, ThrowOnError>) => (options.client ?? client).put<PutOrganisationSettingsResponses, PutOrganisationSettingsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/organisation/settings',
     ...options,
     headers: {
         'Content-Type': 'application/json',
@@ -1184,6 +1310,39 @@ export const getStatsOrders = <ThrowOnError extends boolean = false>(options?: O
 });
 
 /**
+ * Get aggregated order stats for a period
+ *
+ * Aggregate total orders, completed orders, total sales and total profit (total sales less delivery fees) for a given period. Defaults to the current month when fromDate/toDate are not provided.
+ */
+export const getStatsOrdersSummary = <ThrowOnError extends boolean = false>(options?: Options<GetStatsOrdersSummaryData, ThrowOnError>) => (options?.client ?? client).get<GetStatsOrdersSummaryResponses, GetStatsOrdersSummaryErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/stats/orders/summary',
+    ...options
+});
+
+/**
+ * Get total orders grouped by status
+ *
+ * Fetch count of orders grouped by order status for a given period. Defaults to the current month when fromDate/toDate are not provided.
+ */
+export const getStatsOrdersByStatus = <ThrowOnError extends boolean = false>(options?: Options<GetStatsOrdersByStatusData, ThrowOnError>) => (options?.client ?? client).get<GetStatsOrdersByStatusResponses, GetStatsOrdersByStatusErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/stats/orders/by-status',
+    ...options
+});
+
+/**
+ * Get month-by-month stats for a year
+ *
+ * Breakdown of total sales, total orders and total profit (total sales less delivery fees) for each month in a given year. Defaults to the current year.
+ */
+export const getStatsMonthly = <ThrowOnError extends boolean = false>(options?: Options<GetStatsMonthlyData, ThrowOnError>) => (options?.client ?? client).get<GetStatsMonthlyResponses, GetStatsMonthlyErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/stats/monthly',
+    ...options
+});
+
+/**
  * Get total customers
  *
  * Fetch count of unique customers who placed orders in a given time period. Includes last period comparison and delta change.
@@ -1418,13 +1577,13 @@ export const postUserBillingAddress = <ThrowOnError extends boolean = false>(opt
  *
  * Update billing address for authenticated user
  */
-export const putUserBillingAddress = <ThrowOnError extends boolean = false>(options?: Options<PutUserBillingAddressData, ThrowOnError>) => (options?.client ?? client).put<PutUserBillingAddressResponses, PutUserBillingAddressErrors, ThrowOnError>({
+export const putUserBillingAddress = <ThrowOnError extends boolean = false>(options: Options<PutUserBillingAddressData, ThrowOnError>) => (options.client ?? client).put<PutUserBillingAddressResponses, PutUserBillingAddressErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/user/billing-address',
     ...options,
     headers: {
         'Content-Type': 'application/json',
-        ...options?.headers
+        ...options.headers
     }
 });
 

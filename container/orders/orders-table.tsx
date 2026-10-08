@@ -48,6 +48,7 @@ interface OrderItem {
     services?: Array<string>;
     bulk?: boolean;
   };
+  weighed?: boolean;
 }
 
 const statusStyles: Record<string, string> = {
@@ -256,7 +257,7 @@ export function OrdersTable({ orders }: OrdersTableProps) {
     {
       id: "actions",
       header: "",
-      cell: ({ row }) => <OrderTableActions id={row.original.id!} isBulk={row.original.productCatalog?.bulk} />,
+      cell: ({ row }) => <OrderTableActions id={row.original.id!} isBulk={row.original.productCatalog?.bulk} weighed={row.original.weighed} />,
       enableSorting: false,
     },
   ];

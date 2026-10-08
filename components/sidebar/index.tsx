@@ -15,6 +15,7 @@ import {
   ShoppingBasket,
   MapPin,
   ScrollText,
+  Truck,
 } from "lucide-react";
 
 import { NavCategories } from "@/components/sidebar/nav-categories";
@@ -70,6 +71,7 @@ const categories = [
       { title: "Service Types", url: "/app/service-types", icon: Clock },
       { title: "Cloth Types", url: "/app/cloth-types", icon: Shirt },
       { title: "Delivery Zones", url: "/app/delivery-zones", icon: MapPin },
+      { title: "Drivers", url: "/app/drivers", icon: Truck },
     ],
   },  
   {

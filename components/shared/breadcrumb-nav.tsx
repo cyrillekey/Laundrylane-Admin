@@ -27,8 +27,13 @@ const labelMap: Record<string, string> = {
   docs: "Documentation",
 };
 
-function getSegmentLabel(segment: string): string {
-  return labelMap[segment] || segment.charAt(0).toUpperCase() + segment.slice(1);
+function getSegmentLabel(segment: string, prev?: string): string {
+  if (labelMap[segment]) return labelMap[segment];
+  if (/^\d+$/.test(segment) && prev) {
+    const parent = labelMap[prev] || prev.charAt(0).toUpperCase() + prev.slice(1);
+    return `#${segment}`;
+  }
+  return segment.charAt(0).toUpperCase() + segment.slice(1);
 }
 
 export function BreadcrumbNav() {
@@ -38,9 +43,11 @@ export function BreadcrumbNav() {
   const crumbs: { label: string; href: string }[] = [];
   let href = "";
 
-  for (const segment of segments) {
+  for (let i = 0; i < segments.length; i++) {
+    const segment = segments[i];
     href += `/${segment}`;
-    crumbs.push({ label: getSegmentLabel(segment), href });
+    const prev = i > 0 ? segments[i - 1] : undefined;
+    crumbs.push({ label: getSegmentLabel(segment, prev), href });
   }
 
   if (crumbs.length === 0) return null;

@@ -344,7 +344,7 @@ export type DeleteAddressByIdResponses = {
 export type DeleteAddressByIdResponse = DeleteAddressByIdResponses[keyof DeleteAddressByIdResponses];
 
 export type PutAddressByIdData = {
-    body?: {
+    body: {
         latitude?: number;
         longitude?: number;
         type?: string;
@@ -1012,7 +1012,7 @@ export type GetCatalogResponses = {
 export type GetCatalogResponse = GetCatalogResponses[keyof GetCatalogResponses];
 
 export type PostCatalogByStoreIdData = {
-    body?: Array<{
+    body: Array<{
         name: string;
         description: string;
         price: number;
@@ -1124,7 +1124,7 @@ export type PutCatalogByIdData = {
     /**
      * Catalog Item Input
      */
-    body?: {
+    body: {
         name?: string;
         description?: string;
         price?: number;
@@ -1221,7 +1221,7 @@ export type GetCatalogServiceTypesResponses = {
 export type GetCatalogServiceTypesResponse = GetCatalogServiceTypesResponses[keyof GetCatalogServiceTypesResponses];
 
 export type PostCatalogServiceTypesByStoreIdData = {
-    body?: Array<{
+    body: Array<{
         name: string;
         description?: string;
         price: number;
@@ -1328,7 +1328,7 @@ export type DeleteCatalogServiceTypesByIdResponses = {
 export type DeleteCatalogServiceTypesByIdResponse = DeleteCatalogServiceTypesByIdResponses[keyof DeleteCatalogServiceTypesByIdResponses];
 
 export type PutCatalogServiceTypesByIdData = {
-    body?: {
+    body: {
         name?: string;
         description?: string;
         price?: number;
@@ -1445,7 +1445,7 @@ export type GetCatalogClothesResponses = {
 export type GetCatalogClothesResponse = GetCatalogClothesResponses[keyof GetCatalogClothesResponses];
 
 export type PostCatalogClothesByStoreIdData = {
-    body?: Array<{
+    body: Array<{
         name: string;
         type: string;
         price: number;
@@ -1613,6 +1613,7 @@ export type GetChatSessionsResponses = {
             senderId?: number;
             createdat?: string;
         } | null;
+        unreadCount?: number;
     }>;
 };
 
@@ -1734,6 +1735,7 @@ export type GetChatSessionByIdResponses = {
             senderId?: number;
             createdat?: string;
         } | null;
+        unreadCount?: number;
     };
 };
 
@@ -1991,7 +1993,7 @@ export type GetContentByKeyResponses = {
 export type GetContentByKeyResponse = GetContentByKeyResponses[keyof GetContentByKeyResponses];
 
 export type PutContentByKeyData = {
-    body?: {
+    body: {
         title?: string;
         content?: string;
     };
@@ -2256,7 +2258,7 @@ export type GetDeliveryZonesByIdResponses = {
 export type GetDeliveryZonesByIdResponse = GetDeliveryZonesByIdResponses[keyof GetDeliveryZonesByIdResponses];
 
 export type PutDeliveryZonesByIdData = {
-    body?: {
+    body: {
         name?: string;
         location?: string;
         latitude?: number;
@@ -2382,6 +2384,422 @@ export type PostDeliveryZonesByStoreIdResponses = {
 };
 
 export type PostDeliveryZonesByStoreIdResponse = PostDeliveryZonesByStoreIdResponses[keyof PostDeliveryZonesByStoreIdResponses];
+
+export type GetDeliveryDriversData = {
+    body?: never;
+    path?: never;
+    query?: {
+        storeId?: number;
+        isActive?: boolean;
+    };
+    url: '/delivery/drivers';
+};
+
+export type GetDeliveryDriversErrors = {
+    /**
+     * Default Response
+     */
+    default: Array<{
+        id?: number;
+        isActive?: boolean;
+        vehicleType?: string | null;
+        vehicleNumber?: string | null;
+        deliveryType?: 'PICKUP' | 'DROPOFF' | 'PICKUP_AND_DROPOFF';
+        userId?: number;
+        createdat?: string;
+        updatedat?: string;
+    }>;
+};
+
+export type GetDeliveryDriversError = GetDeliveryDriversErrors[keyof GetDeliveryDriversErrors];
+
+export type GetDeliveryDriversResponses = {
+    /**
+     * Default Response
+     */
+    200: Array<{
+        id?: number;
+        isActive?: boolean;
+        vehicleType?: string | null;
+        vehicleNumber?: string | null;
+        deliveryType?: 'PICKUP' | 'DROPOFF' | 'PICKUP_AND_DROPOFF';
+        userId?: number;
+        createdat?: string;
+        updatedat?: string;
+    }>;
+};
+
+export type GetDeliveryDriversResponse = GetDeliveryDriversResponses[keyof GetDeliveryDriversResponses];
+
+export type PostDeliveryDriversData = {
+    body: {
+        name?: string;
+        email: string;
+        password: string;
+        phone?: string | null;
+        role?: 'CUSTOMER' | 'ADMIN' | 'ORGANISATION_ADMIN' | 'ORGANISATION_USER' | 'STORE_MANAGER';
+        isActive?: boolean | null;
+        vehicleType?: string | null;
+        vehicleNumber?: string | null;
+        deliveryType?: 'PICKUP' | 'DROPOFF' | 'PICKUP_AND_DROPOFF';
+    };
+    path?: never;
+    query?: never;
+    url: '/delivery/drivers';
+};
+
+export type PostDeliveryDriversErrors = {
+    /**
+     * Default Response
+     */
+    403: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PostDeliveryDriversError = PostDeliveryDriversErrors[keyof PostDeliveryDriversErrors];
+
+export type PostDeliveryDriversResponses = {
+    /**
+     * Default Response
+     */
+    201: {
+        id?: number;
+        isActive?: boolean;
+        vehicleType?: string | null;
+        vehicleNumber?: string | null;
+        deliveryType?: 'PICKUP' | 'DROPOFF' | 'PICKUP_AND_DROPOFF';
+        userId?: number;
+        createdat?: string;
+        updatedat?: string;
+    };
+};
+
+export type PostDeliveryDriversResponse = PostDeliveryDriversResponses[keyof PostDeliveryDriversResponses];
+
+export type DeleteDeliveryDriversByIdData = {
+    body?: never;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/delivery/drivers/{id}';
+};
+
+export type DeleteDeliveryDriversByIdErrors = {
+    /**
+     * Default Response
+     */
+    403: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+    /**
+     * Default Response
+     */
+    404: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type DeleteDeliveryDriversByIdError = DeleteDeliveryDriversByIdErrors[keyof DeleteDeliveryDriversByIdErrors];
+
+export type DeleteDeliveryDriversByIdResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type DeleteDeliveryDriversByIdResponse = DeleteDeliveryDriversByIdResponses[keyof DeleteDeliveryDriversByIdResponses];
+
+export type GetDeliveryDriversByIdData = {
+    body?: never;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/delivery/drivers/{id}';
+};
+
+export type GetDeliveryDriversByIdErrors = {
+    /**
+     * Default Response
+     */
+    404: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type GetDeliveryDriversByIdError = GetDeliveryDriversByIdErrors[keyof GetDeliveryDriversByIdErrors];
+
+export type GetDeliveryDriversByIdResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        id?: number;
+        isActive?: boolean;
+        vehicleType?: string | null;
+        vehicleNumber?: string | null;
+        deliveryType?: 'PICKUP' | 'DROPOFF' | 'PICKUP_AND_DROPOFF';
+        userId?: number;
+        createdat?: string;
+        updatedat?: string;
+    };
+};
+
+export type GetDeliveryDriversByIdResponse = GetDeliveryDriversByIdResponses[keyof GetDeliveryDriversByIdResponses];
+
+export type PutDeliveryDriversByIdData = {
+    body: {
+        isActive?: boolean;
+        vehicleType?: string | null;
+        vehicleNumber?: string | null;
+        deliveryType?: 'PICKUP' | 'DROPOFF' | 'PICKUP_AND_DROPOFF';
+    };
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/delivery/drivers/{id}';
+};
+
+export type PutDeliveryDriversByIdErrors = {
+    /**
+     * Default Response
+     */
+    403: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+    /**
+     * Default Response
+     */
+    404: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PutDeliveryDriversByIdError = PutDeliveryDriversByIdErrors[keyof PutDeliveryDriversByIdErrors];
+
+export type PutDeliveryDriversByIdResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        id?: number;
+        isActive?: boolean;
+        vehicleType?: string | null;
+        vehicleNumber?: string | null;
+        deliveryType?: 'PICKUP' | 'DROPOFF' | 'PICKUP_AND_DROPOFF';
+        userId?: number;
+        createdat?: string;
+        updatedat?: string;
+    };
+};
+
+export type PutDeliveryDriversByIdResponse = PutDeliveryDriversByIdResponses[keyof PutDeliveryDriversByIdResponses];
+
+export type PostDeliveryDriversStatusData = {
+    body: {
+        isActive: boolean;
+    };
+    path?: never;
+    query?: never;
+    url: '/delivery/drivers/status';
+};
+
+export type PostDeliveryDriversStatusErrors = {
+    /**
+     * Default Response
+     */
+    404: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PostDeliveryDriversStatusError = PostDeliveryDriversStatusErrors[keyof PostDeliveryDriversStatusErrors];
+
+export type PostDeliveryDriversStatusResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        id?: number;
+        isActive?: boolean;
+        vehicleType?: string | null;
+        vehicleNumber?: string | null;
+        deliveryType?: 'PICKUP' | 'DROPOFF' | 'PICKUP_AND_DROPOFF';
+        userId?: number;
+        createdat?: string;
+        updatedat?: string;
+    };
+};
+
+export type PostDeliveryDriversStatusResponse = PostDeliveryDriversStatusResponses[keyof PostDeliveryDriversStatusResponses];
+
+export type DeleteDeliveryDriversByIdZonesData = {
+    body: {
+        zoneIds: Array<number>;
+    };
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/delivery/drivers/{id}/zones';
+};
+
+export type DeleteDeliveryDriversByIdZonesErrors = {
+    /**
+     * Default Response
+     */
+    403: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+    /**
+     * Default Response
+     */
+    404: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type DeleteDeliveryDriversByIdZonesError = DeleteDeliveryDriversByIdZonesErrors[keyof DeleteDeliveryDriversByIdZonesErrors];
+
+export type DeleteDeliveryDriversByIdZonesResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type DeleteDeliveryDriversByIdZonesResponse = DeleteDeliveryDriversByIdZonesResponses[keyof DeleteDeliveryDriversByIdZonesResponses];
+
+export type PostDeliveryDriversByIdZonesData = {
+    body: {
+        zoneIds: Array<number>;
+    };
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/delivery/drivers/{id}/zones';
+};
+
+export type PostDeliveryDriversByIdZonesErrors = {
+    /**
+     * Default Response
+     */
+    403: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+    /**
+     * Default Response
+     */
+    404: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PostDeliveryDriversByIdZonesError = PostDeliveryDriversByIdZonesErrors[keyof PostDeliveryDriversByIdZonesErrors];
+
+export type PostDeliveryDriversByIdZonesResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PostDeliveryDriversByIdZonesResponse = PostDeliveryDriversByIdZonesResponses[keyof PostDeliveryDriversByIdZonesResponses];
 
 export type GetFaqData = {
     body?: never;
@@ -2528,7 +2946,7 @@ export type DeleteFaqByIdResponses = {
 export type DeleteFaqByIdResponse = DeleteFaqByIdResponses[keyof DeleteFaqByIdResponses];
 
 export type PutFaqByIdData = {
-    body?: {
+    body: {
         question?: string;
         answer?: string;
     };
@@ -3640,6 +4058,18 @@ export type GetOrganisationErrors = {
         tel?: string | null;
         email?: string | null;
         website?: string | null;
+        settings?: {
+            id?: number;
+            organisationId?: number;
+            timeZone?: string;
+            currency?: string;
+            language?: string;
+            dateFormat?: string;
+            timeFormat?: string;
+            weekStartDay?: string;
+            createdat?: string;
+            updatedat?: string;
+        } | null;
         createdat?: string;
         updatedat?: string;
     }>;
@@ -3658,6 +4088,18 @@ export type GetOrganisationResponses = {
         tel?: string | null;
         email?: string | null;
         website?: string | null;
+        settings?: {
+            id?: number;
+            organisationId?: number;
+            timeZone?: string;
+            currency?: string;
+            language?: string;
+            dateFormat?: string;
+            timeFormat?: string;
+            weekStartDay?: string;
+            createdat?: string;
+            updatedat?: string;
+        } | null;
         createdat?: string;
         updatedat?: string;
     }>;
@@ -3704,6 +4146,18 @@ export type GetOrganisationUserResponses = {
         tel?: string | null;
         email?: string | null;
         website?: string | null;
+        settings?: {
+            id?: number;
+            organisationId?: number;
+            timeZone?: string;
+            currency?: string;
+            language?: string;
+            dateFormat?: string;
+            timeFormat?: string;
+            weekStartDay?: string;
+            createdat?: string;
+            updatedat?: string;
+        } | null;
         createdat?: string;
         updatedat?: string;
     };
@@ -3760,6 +4214,18 @@ export type GetOrganisationByIdResponses = {
         tel?: string | null;
         email?: string | null;
         website?: string | null;
+        settings?: {
+            id?: number;
+            organisationId?: number;
+            timeZone?: string;
+            currency?: string;
+            language?: string;
+            dateFormat?: string;
+            timeFormat?: string;
+            weekStartDay?: string;
+            createdat?: string;
+            updatedat?: string;
+        } | null;
         createdat?: string;
         updatedat?: string;
     };
@@ -3768,7 +4234,7 @@ export type GetOrganisationByIdResponses = {
 export type GetOrganisationByIdResponse = GetOrganisationByIdResponses[keyof GetOrganisationByIdResponses];
 
 export type PutOrganisationByIdData = {
-    body?: {
+    body: {
         name?: string;
         address?: string;
         tel?: string;
@@ -3822,6 +4288,18 @@ export type PutOrganisationByIdResponses = {
         tel?: string | null;
         email?: string | null;
         website?: string | null;
+        settings?: {
+            id?: number;
+            organisationId?: number;
+            timeZone?: string;
+            currency?: string;
+            language?: string;
+            dateFormat?: string;
+            timeFormat?: string;
+            weekStartDay?: string;
+            createdat?: string;
+            updatedat?: string;
+        } | null;
         createdat?: string;
         updatedat?: string;
     };
@@ -3835,12 +4313,127 @@ export type PutOrganisationByIdResponses = {
         tel?: string | null;
         email?: string | null;
         website?: string | null;
+        settings?: {
+            id?: number;
+            organisationId?: number;
+            timeZone?: string;
+            currency?: string;
+            language?: string;
+            dateFormat?: string;
+            timeFormat?: string;
+            weekStartDay?: string;
+            createdat?: string;
+            updatedat?: string;
+        } | null;
         createdat?: string;
         updatedat?: string;
     };
 };
 
 export type PutOrganisationByIdResponse = PutOrganisationByIdResponses[keyof PutOrganisationByIdResponses];
+
+export type GetOrganisationSettingsData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/organisation/settings';
+};
+
+export type GetOrganisationSettingsErrors = {
+    /**
+     * Default Response
+     */
+    404: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type GetOrganisationSettingsError = GetOrganisationSettingsErrors[keyof GetOrganisationSettingsErrors];
+
+export type GetOrganisationSettingsResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        id?: number;
+        organisationId?: number;
+        timeZone?: string;
+        currency?: string;
+        language?: string;
+        dateFormat?: string;
+        timeFormat?: string;
+        weekStartDay?: string;
+        createdat?: string;
+        updatedat?: string;
+    };
+};
+
+export type GetOrganisationSettingsResponse = GetOrganisationSettingsResponses[keyof GetOrganisationSettingsResponses];
+
+export type PutOrganisationSettingsData = {
+    body: {
+        timeZone?: string;
+        currency?: string;
+        language?: string;
+        dateFormat?: string;
+        timeFormat?: string;
+        weekStartDay?: string;
+    };
+    path?: never;
+    query?: never;
+    url: '/organisation/settings';
+};
+
+export type PutOrganisationSettingsErrors = {
+    /**
+     * Default Response
+     */
+    404: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PutOrganisationSettingsError = PutOrganisationSettingsErrors[keyof PutOrganisationSettingsErrors];
+
+export type PutOrganisationSettingsResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        id?: number;
+        organisationId?: number;
+        timeZone?: string;
+        currency?: string;
+        language?: string;
+        dateFormat?: string;
+        timeFormat?: string;
+        weekStartDay?: string;
+        createdat?: string;
+        updatedat?: string;
+    };
+};
+
+export type PutOrganisationSettingsResponse = PutOrganisationSettingsResponses[keyof PutOrganisationSettingsResponses];
 
 export type GetOrganisationMembersData = {
     body?: never;
@@ -4311,7 +4904,7 @@ export type PostPaymentsMethodResponses = {
 export type PostPaymentsMethodResponse = PostPaymentsMethodResponses[keyof PostPaymentsMethodResponses];
 
 export type PutPaymentsMethodByIdData = {
-    body?: {
+    body: {
         name?: string;
         description?: string | null;
         icon?: string | null;
@@ -4704,7 +5297,7 @@ export type DeletePaymentsPayoutByPaymentMethodIdResponses = {
 export type DeletePaymentsPayoutByPaymentMethodIdResponse = DeletePaymentsPayoutByPaymentMethodIdResponses[keyof DeletePaymentsPayoutByPaymentMethodIdResponses];
 
 export type PutPaymentsPayoutByPaymentMethodIdData = {
-    body?: {
+    body: {
         name?: string;
         description?: string;
         type?: 'MPESA_NUMBER' | 'MPESA_PAYBILL' | 'MPESA_BUY_GOODS' | 'AIRTEL_NUMBER' | 'BANKACCOUNT';
@@ -4877,6 +5470,118 @@ export type GetStatsOrdersResponses = {
 };
 
 export type GetStatsOrdersResponse = GetStatsOrdersResponses[keyof GetStatsOrdersResponses];
+
+export type GetStatsOrdersSummaryData = {
+    body?: never;
+    path?: never;
+    query?: {
+        storeId?: number;
+        fromDate?: string;
+        toDate?: string;
+    };
+    url: '/stats/orders/summary';
+};
+
+export type GetStatsOrdersSummaryErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type GetStatsOrdersSummaryError = GetStatsOrdersSummaryErrors[keyof GetStatsOrdersSummaryErrors];
+
+export type GetStatsOrdersSummaryResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        totalOrders?: number;
+        totalCompletedOrders?: number;
+        totalSales?: number;
+        totalDeliveryFees?: number;
+        totalProfit?: number;
+    };
+};
+
+export type GetStatsOrdersSummaryResponse = GetStatsOrdersSummaryResponses[keyof GetStatsOrdersSummaryResponses];
+
+export type GetStatsOrdersByStatusData = {
+    body?: never;
+    path?: never;
+    query?: {
+        storeId?: number;
+        fromDate?: string;
+        toDate?: string;
+    };
+    url: '/stats/orders/by-status';
+};
+
+export type GetStatsOrdersByStatusErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type GetStatsOrdersByStatusError = GetStatsOrdersByStatusErrors[keyof GetStatsOrdersByStatusErrors];
+
+export type GetStatsOrdersByStatusResponses = {
+    /**
+     * Default Response
+     */
+    200: Array<{
+        status?: string;
+        total?: number;
+    }>;
+};
+
+export type GetStatsOrdersByStatusResponse = GetStatsOrdersByStatusResponses[keyof GetStatsOrdersByStatusResponses];
+
+export type GetStatsMonthlyData = {
+    body?: never;
+    path?: never;
+    query?: {
+        year?: number;
+        storeId?: number;
+    };
+    url: '/stats/monthly';
+};
+
+export type GetStatsMonthlyErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type GetStatsMonthlyError = GetStatsMonthlyErrors[keyof GetStatsMonthlyErrors];
+
+export type GetStatsMonthlyResponses = {
+    /**
+     * Default Response
+     */
+    200: Array<{
+        month?: string;
+        totalOrders?: number;
+        totalSales?: number;
+        totalProfit?: number;
+    }>;
+};
+
+export type GetStatsMonthlyResponse = GetStatsMonthlyResponses[keyof GetStatsMonthlyResponses];
 
 export type GetStatsCustomersData = {
     body?: never;
@@ -5167,7 +5872,7 @@ export type GetStoreByIdResponses = {
 export type GetStoreByIdResponse = GetStoreByIdResponses[keyof GetStoreByIdResponses];
 
 export type PutStoreByIdData = {
-    body?: {
+    body: {
         name?: string;
         category?: string;
         serviceNames?: Array<string>;
@@ -5393,7 +6098,7 @@ export type DeleteSupportContactsByIdResponses = {
 export type DeleteSupportContactsByIdResponse = DeleteSupportContactsByIdResponses[keyof DeleteSupportContactsByIdResponses];
 
 export type PutSupportContactsByIdData = {
-    body?: {
+    body: {
         name?: string;
         value?: string;
         type?: string;
@@ -5806,7 +6511,7 @@ export type PostUserBillingAddressResponses = {
 export type PostUserBillingAddressResponse = PostUserBillingAddressResponses[keyof PostUserBillingAddressResponses];
 
 export type PutUserBillingAddressData = {
-    body?: {
+    body: {
         recipientName?: string;
         phone?: string;
         email?: string;

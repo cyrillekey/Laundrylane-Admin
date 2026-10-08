@@ -3,6 +3,8 @@
 import { useSelectedStore } from "@/stores/selected-store";
 import { StatCard } from "@/container/dashboard/stat-card";
 import { SalesStatsCard } from "@/container/dashboard/sales-stats-card";
+import { MonthlyStatsChart } from "@/container/dashboard/monthly-stats-chart";
+import { OrdersByStatusChart } from "@/container/dashboard/orders-by-status-chart";
 import { useQuery } from "@tanstack/react-query";
 import {
   getStatsCustomersOptions,
@@ -66,6 +68,14 @@ export default function AppDashboard() {
           loading={isLoadingCustomers}
           trend={customersResponse?.delta ?? 0}
         />
+      </div>
+      <div className="flex flex-col gap-6 lg:flex-row">
+        <div className="w-full lg:w-2/3">
+          <MonthlyStatsChart />
+        </div>
+        <div className="w-full lg:w-1/3">
+          <OrdersByStatusChart />
+        </div>
       </div>
     </div>
   );

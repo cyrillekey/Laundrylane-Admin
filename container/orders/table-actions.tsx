@@ -25,6 +25,7 @@ import { Input } from "@/components/ui/input";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
   deleteOrderByIdMutation,
@@ -35,13 +36,15 @@ import {
 interface TableActionsProps {
   id: number;
   isBulk?: boolean;
+  weighed?: boolean;
 }
 
-export function OrderTableActions({ id, isBulk }: TableActionsProps) {
+export function OrderTableActions({ id, isBulk, weighed }: TableActionsProps) {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [weightOpen, setWeightOpen] = useState(false);
   const [weight, setWeight] = useState("");
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const { mutateAsync: deleteOrder, isPending: deleting } = useMutation({
     ...deleteOrderByIdMutation(),
@@ -75,11 +78,11 @@ export function OrderTableActions({ id, isBulk }: TableActionsProps) {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => {}}>
+          <DropdownMenuItem onClick={() => router.push(`/app/orders/${id}`)}>
             <Eye className="size-4" />
             View Details
           </DropdownMenuItem>
-          {isBulk && (
+          {isBulk && !weighed && (
             <>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => setWeightOpen(true)}>

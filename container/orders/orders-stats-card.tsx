@@ -1,56 +1,78 @@
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  BoxIcon,
-  Coins,
-  ShipIcon,
-  ShoppingBag,
-  TrendingUpDown,
-} from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { BoxIcon, Coins, ShipIcon, ShoppingBag } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { getStatsOrdersSummaryOptions } from "@/queries/@tanstack/react-query.gen";
+import { useSelectedStore } from "@/stores/selected-store";
 
 const OrdersStatisticsCard = () => {
-  const EcommerceActions = [
+  const { selectedStoreId } = useSelectedStore();
+  const { data: summary, isLoading } = useQuery({
+    ...getStatsOrdersSummaryOptions({
+      query: { storeId: selectedStoreId ?? undefined },
+    }),
+    enabled: !!selectedStoreId,
+  });
+
+  const actions = [
     {
       title: "Orders",
-      subtitle: "5868",
+      subtitle: summary?.totalOrders?.toLocaleString() ?? "0",
+      caption: `${summary?.totalCompletedOrders ?? 0} completed this month`,
       cardIcon: <ShipIcon className="size-5" />,
-      badgeColor: "bg-teal-400/10",
-      statusValue: "+18%",
-      statusIcon: <TrendingUpDown className="size-3" />,
     },
     {
       title: "Sales",
-      subtitle: "$96,850",
+      subtitle: `KES ${summary?.totalSales?.toLocaleString() ?? 0}`,
+      caption: "This month",
       cardIcon: <BoxIcon className="size-5" />,
-      badgeColor: "bg-orange-400/10",
-      statusValue: "-5%",
-      statusIcon: <TrendingUpDown className="size-3" />,
     },
     {
       title: "Profit",
-      subtitle: "$82,906",
+      subtitle: `KES ${summary?.totalProfit?.toLocaleString() ?? 0}`,
+      caption: "This month",
       cardIcon: <Coins className="size-5" />,
-      badgeColor: "bg-teal-400/10",
-      statusValue: "+18%",
-      statusIcon: <TrendingUpDown className="size-3" />,
     },
     {
-      title: "Expense",
-      subtitle: "$14,653",
+      title: "Delivery Fees",
+      subtitle: `KES ${summary?.totalDeliveryFees?.toLocaleString() ?? 0}`,
+      caption: "This month",
       cardIcon: <ShoppingBag className="size-5" />,
-      badgeColor: "bg-teal-400/10",
-      statusValue: "+18%",
-      statusIcon: <TrendingUpDown className="size-3" />,
     },
   ];
+
+  if (isLoading) {
+    return (
+      <div className="mx-auto w-full">
+        <Card className="p-0">
+          <CardContent className="flex items-center w-full lg:flex-nowrap flex-wrap px-0">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <div
+                className="lg:w-3/12 md:w-6/12 w-full border-e border-border last:border-e-0"
+                key={index}
+              >
+                <div className="p-6">
+                  <div className="flex flex-col gap-3">
+                    <Skeleton className="h-5 w-24" />
+                    <Skeleton className="h-8 w-28" />
+                    <Skeleton className="h-4 w-32" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto w-full">
       <Card className="p-0">
         <CardContent className="flex items-center w-full lg:flex-nowrap flex-wrap px-0">
-          {EcommerceActions.map((item, index) => {
+          {actions.map((item, index) => {
             return (
               <div
                 className="lg:w-3/12 md:w-6/12 w-full border-e border-border last:border-e-0"
@@ -72,16 +94,8 @@ const OrdersStatisticsCard = () => {
                       </h5>
                       <div className="flex items-center gap-2">
                         <p className="text-xs text-muted-foreground">
-                          Last 7 days
+                          {item.caption}
                         </p>
-                        <Badge
-                          className={`${item.badgeColor} text-muted-foreground`}
-                        >
-                          <div className="flex items-center gap-1">
-                            {item.statusValue}
-                            {item.statusIcon}
-                          </div>
-                        </Badge>
                       </div>
                     </div>
                   </div>
