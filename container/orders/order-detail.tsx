@@ -6,14 +6,17 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
   ArrowLeft,
+  Banknote,
   Check,
   Clock,
+  CreditCard,
   FileText,
   Package,
   PackageCheck,
   Printer,
   RefreshCw,
   ShoppingBag,
+  Smartphone,
   Star,
   Truck,
   X,
@@ -24,6 +27,7 @@ import {
   getCatalogOptions,
   getOrderByIdOptions,
   getOrderByIdQueryKey,
+  getPaymentsTransactionsOptions,
   getStoreByIdOptions,
   putOrderByIdStatusMutation,
   putOrderByIdCancelMutation,
@@ -85,6 +89,34 @@ const paymentStatusStyles: Record<string, string> = {
   PAID: "bg-emerald-100 text-emerald-700 border-emerald-200",
 };
 
+const transactionStatusLabels: Record<string, string> = {
+  PENDING: "Pending",
+  FAILED: "Failed",
+  SUCCESSFULL: "Successful",
+  CANCELLED: "Cancelled",
+};
+
+const transactionStatusStyles: Record<string, string> = {
+  PENDING: "bg-amber-100 text-amber-700 border-amber-200",
+  FAILED: "bg-red-100 text-red-700 border-red-200",
+  SUCCESSFULL: "bg-emerald-100 text-emerald-700 border-emerald-200",
+  CANCELLED: "bg-gray-100 text-gray-700 border-gray-200",
+};
+
+const paymentMethodLabels: Record<string, string> = {
+  MOBILE: "Mobile",
+  CARD: "Card",
+  CASH: "Cash",
+  OFFLINE: "Offline",
+};
+
+const paymentMethodIcons: Record<string, LucideIcon> = {
+  MOBILE: Smartphone,
+  CARD: CreditCard,
+  CASH: Banknote,
+  OFFLINE: FileText,
+};
+
 const statusStepIcons: Record<string, LucideIcon> = {
   PENDING: Clock,
   IN_PROGRESS: RefreshCw,
@@ -129,6 +161,19 @@ export function OrderDetail({ id }: OrderDetailProps) {
     ...getCatalogOptions({ query: { storeId: selectedStoreId ?? undefined } }),
     enabled: selectedStoreId != null,
   });
+
+  const { data: transactions, isPending: transactionsPending } = useQuery({
+    ...getPaymentsTransactionsOptions({ query: { orderId: id } }),
+    enabled: !!id,
+  });
+
+  const totalPaid = useMemo(
+    () =>
+      (transactions ?? [])
+        .filter((tx) => tx.status === "SUCCESSFULL")
+        .reduce((sum, tx) => sum + (tx.amount ?? 0), 0),
+    [transactions],
+  );
 
   const catalogById = useMemo(
     () =>
@@ -537,6 +582,103 @@ export function OrderDetail({ id }: OrderDetailProps) {
                 <span>Total</span>
                 <span>KES {(order.total ?? 0).toLocaleString()}</span>
               </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Payments</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm">
+              {transactionsPending ? (
+                <>
+                  <Skeleton className="h-12 w-full" />
+                  <Skeleton className="h-12 w-full" />
+                </>
+              ) : transactions && transactions.length > 0 ? (
+                <>
+                  {transactions.map((tx) => {
+                    const txStatus = tx.status ?? "";
+                    const methodType = tx.method?.type ?? "";
+                    const MethodIcon =
+                      paymentMethodIcons[methodType] ?? CreditCard;
+                    return (
+                      <div
+                        key={tx.id}
+                        className="flex items-center justify-between gap-3"
+                      >
+                        <div className="flex min-w-0 items-center gap-3">
+                          <div className="flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-muted">
+                            {tx.method?.icon ? (
+                              <img
+                                src={tx.method.icon}
+                                alt={tx.method.name ?? "Payment method"}
+                                className="size-full object-cover"
+                              />
+                            ) : (
+                              <MethodIcon className="size-4 text-muted-foreground" />
+                            )}
+                          </div>
+                          <div className="min-w-0">
+                            <p className="flex items-center gap-2 font-medium">
+                              <span className="truncate">
+                                {tx.method?.name ?? "Payment"}
+                              </span>
+                              {methodType && (
+                                <Badge
+                                  variant="outline"
+                                  className="shrink-0 text-[11px] font-medium"
+                                >
+                                  {paymentMethodLabels[methodType] ??
+                                    methodType}
+                                </Badge>
+                              )}
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                              {tx.createdat
+                                ? new Date(tx.createdat).toLocaleDateString()
+                                : "—"}
+                              {tx.transactionId
+                                ? ` · ${tx.transactionId}`
+                                : ""}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex shrink-0 items-center gap-2">
+                          <Badge
+                            variant="outline"
+                            className={cn(
+                              "text-xs font-medium",
+                              transactionStatusStyles[txStatus],
+                            )}
+                          >
+                            {transactionStatusLabels[txStatus] ?? txStatus}
+                          </Badge>
+                          <span className="font-medium">
+                            KES {(tx.amount ?? 0).toLocaleString()}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                  <Separator />
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Total paid</span>
+                    <span>KES {totalPaid.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between font-medium">
+                    <span>Balance</span>
+                    <span>
+                      KES{" "}
+                      {((order.total ?? 0) - totalPaid).toLocaleString()}
+                    </span>
+                  </div>
+                </>
+              ) : (
+                <p className="text-muted-foreground">
+                  No payments recorded for this order.
+                </p>
+              )}
             </CardContent>
           </Card>
         </div>

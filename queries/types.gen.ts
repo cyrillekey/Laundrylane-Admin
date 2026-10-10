@@ -3542,6 +3542,24 @@ export type GetOrderByIdErrors = {
             createdat?: string;
             updatedat?: string;
         }>;
+        payments?: Array<{
+            id?: number;
+            amount?: number;
+            status?: 'PENDING' | 'FAILED' | 'SUCCESSFULL' | 'CANCELLED';
+            transactionId?: string;
+            cardId?: number | null;
+            orderId?: number | null;
+            paymentMethodId?: number;
+            method?: {
+                id?: number;
+                name?: string;
+                description?: string | null;
+                icon?: string | null;
+                type?: 'MOBILE' | 'CARD' | 'CASH' | 'OFFLINE';
+            } | null;
+            createdat?: string;
+            updatedat?: string;
+        }>;
         deliveryZone?: {
             id?: number;
             name?: string;
@@ -3654,6 +3672,24 @@ export type GetOrderByIdResponses = {
             orderId?: number;
             status?: 'PENDING' | 'IN_PROGRESS' | 'READY_FOR_PICKUP' | 'READY_FOR_DELIVERY' | 'OUT_FOR_DELIVERY' | 'COMPLETED' | 'CANCELLED';
             description?: string | null;
+            createdat?: string;
+            updatedat?: string;
+        }>;
+        payments?: Array<{
+            id?: number;
+            amount?: number;
+            status?: 'PENDING' | 'FAILED' | 'SUCCESSFULL' | 'CANCELLED';
+            transactionId?: string;
+            cardId?: number | null;
+            orderId?: number | null;
+            paymentMethodId?: number;
+            method?: {
+                id?: number;
+                name?: string;
+                description?: string | null;
+                icon?: string | null;
+                type?: 'MOBILE' | 'CARD' | 'CASH' | 'OFFLINE';
+            } | null;
             createdat?: string;
             updatedat?: string;
         }>;
@@ -5469,12 +5505,19 @@ export type GetPaymentsTransactionsResponses = {
      */
     200: Array<{
         id?: number;
-        userId?: number;
-        paymentMethodId?: number;
-        status?: 'PENDING' | 'COMPLETED' | 'FAILED' | 'SUCCESS';
         amount?: number;
+        status?: 'PENDING' | 'FAILED' | 'SUCCESSFULL' | 'CANCELLED';
         transactionId?: string;
-        orderId?: number;
+        cardId?: number | null;
+        orderId?: number | null;
+        paymentMethodId?: number;
+        method?: {
+            id?: number;
+            name?: string;
+            description?: string | null;
+            icon?: string | null;
+            type?: 'MOBILE' | 'CARD' | 'CASH' | 'OFFLINE';
+        } | null;
         createdat?: string;
         updatedat?: string;
     }>;
