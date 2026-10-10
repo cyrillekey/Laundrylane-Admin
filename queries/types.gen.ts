@@ -3538,6 +3538,7 @@ export type GetOrderByIdErrors = {
             id?: number;
             orderId?: number;
             status?: 'PENDING' | 'IN_PROGRESS' | 'READY_FOR_PICKUP' | 'READY_FOR_DELIVERY' | 'OUT_FOR_DELIVERY' | 'COMPLETED' | 'CANCELLED';
+            description?: string | null;
             createdat?: string;
             updatedat?: string;
         }>;
@@ -3554,6 +3555,25 @@ export type GetOrderByIdErrors = {
             createdat?: string;
             updatedat?: string;
         } | null;
+        store?: {
+            id?: number;
+            name?: string;
+            category?: string;
+            serviceNames?: Array<string>;
+            rating?: number;
+            logo?: string | null;
+            coverImage?: string | null;
+            location?: string;
+            latitude?: number;
+            longitude?: number;
+            radius?: number;
+            opening?: string;
+            closing?: string;
+            daysOff?: Array<number>;
+            organisationId?: number;
+            createdat?: string;
+            updatedat?: string;
+        };
     };
 };
 
@@ -3633,6 +3653,7 @@ export type GetOrderByIdResponses = {
             id?: number;
             orderId?: number;
             status?: 'PENDING' | 'IN_PROGRESS' | 'READY_FOR_PICKUP' | 'READY_FOR_DELIVERY' | 'OUT_FOR_DELIVERY' | 'COMPLETED' | 'CANCELLED';
+            description?: string | null;
             createdat?: string;
             updatedat?: string;
         }>;
@@ -3649,6 +3670,25 @@ export type GetOrderByIdResponses = {
             createdat?: string;
             updatedat?: string;
         } | null;
+        store?: {
+            id?: number;
+            name?: string;
+            category?: string;
+            serviceNames?: Array<string>;
+            rating?: number;
+            logo?: string | null;
+            coverImage?: string | null;
+            location?: string;
+            latitude?: number;
+            longitude?: number;
+            radius?: number;
+            opening?: string;
+            closing?: string;
+            daysOff?: Array<number>;
+            organisationId?: number;
+            createdat?: string;
+            updatedat?: string;
+        };
     };
 };
 
@@ -3808,6 +3848,51 @@ export type PutOrderByIdStatusResponses = {
 };
 
 export type PutOrderByIdStatusResponse = PutOrderByIdStatusResponses[keyof PutOrderByIdStatusResponses];
+
+export type PostOrderByIdAcceptData = {
+    body: {
+        pin: string;
+    };
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/order/{id}/accept';
+};
+
+export type PostOrderByIdAcceptErrors = {
+    /**
+     * Default Response
+     */
+    403: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PostOrderByIdAcceptError = PostOrderByIdAcceptErrors[keyof PostOrderByIdAcceptErrors];
+
+export type PostOrderByIdAcceptResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PostOrderByIdAcceptResponse = PostOrderByIdAcceptResponses[keyof PostOrderByIdAcceptResponses];
 
 export type PostOrderByStoreIdData = {
     body: {
@@ -6612,3 +6697,95 @@ export type PostUserOnboardResponses = {
 };
 
 export type PostUserOnboardResponse = PostUserOnboardResponses[keyof PostUserOnboardResponses];
+
+export type GetUserSecuritySettingsData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/user/security-settings';
+};
+
+export type GetUserSecuritySettingsErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type GetUserSecuritySettingsError = GetUserSecuritySettingsErrors[keyof GetUserSecuritySettingsErrors];
+
+export type GetUserSecuritySettingsResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        id?: number;
+        userId?: number | null;
+        organisationId?: number | null;
+        twoFactorEnabled?: boolean;
+        enforceTwoFactor?: boolean;
+        loginAlerts?: boolean;
+        maxLoginAttempts?: number;
+        requirePinOnDelivery?: boolean;
+        requirePinOnPickup?: boolean;
+        ipWhitelist?: Array<string>;
+        createdat?: string;
+        updatedat?: string;
+    };
+};
+
+export type GetUserSecuritySettingsResponse = GetUserSecuritySettingsResponses[keyof GetUserSecuritySettingsResponses];
+
+export type PutUserSecuritySettingsData = {
+    body: {
+        twoFactorEnabled?: boolean;
+        enforceTwoFactor?: boolean;
+        loginAlerts?: boolean;
+        maxLoginAttempts?: number;
+        requirePinOnDelivery?: boolean;
+        requirePinOnPickup?: boolean;
+        ipWhitelist?: Array<string>;
+    };
+    path?: never;
+    query?: never;
+    url: '/user/security-settings';
+};
+
+export type PutUserSecuritySettingsErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        message?: string;
+        success?: boolean;
+        id?: number;
+    };
+};
+
+export type PutUserSecuritySettingsError = PutUserSecuritySettingsErrors[keyof PutUserSecuritySettingsErrors];
+
+export type PutUserSecuritySettingsResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        id?: number;
+        userId?: number | null;
+        organisationId?: number | null;
+        twoFactorEnabled?: boolean;
+        enforceTwoFactor?: boolean;
+        loginAlerts?: boolean;
+        maxLoginAttempts?: number;
+        requirePinOnDelivery?: boolean;
+        requirePinOnPickup?: boolean;
+        ipWhitelist?: Array<string>;
+        createdat?: string;
+        updatedat?: string;
+    };
+};
+
+export type PutUserSecuritySettingsResponse = PutUserSecuritySettingsResponses[keyof PutUserSecuritySettingsResponses];

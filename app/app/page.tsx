@@ -5,6 +5,7 @@ import { StatCard } from "@/container/dashboard/stat-card";
 import { SalesStatsCard } from "@/container/dashboard/sales-stats-card";
 import { MonthlyStatsChart } from "@/container/dashboard/monthly-stats-chart";
 import { OrdersByStatusChart } from "@/container/dashboard/orders-by-status-chart";
+import { RecentOrdersTable } from "@/container/dashboard/recent-orders-table";
 import { useQuery } from "@tanstack/react-query";
 import {
   getStatsCustomersOptions,
@@ -77,6 +78,7 @@ export default function AppDashboard() {
           <OrdersByStatusChart />
         </div>
       </div>
+      <RecentOrdersTable />
     </div>
   );
 }

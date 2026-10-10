@@ -22,6 +22,7 @@ import { InvitesTable } from "@/container/invites/invites-table";
 import { InviteDialog } from "@/container/invites/invite-dialog";
 import { AccountForm } from "@/container/forms/settings/account-form";
 import { OrganisationForm } from "@/container/forms/settings/organisation-form";
+import { SecurityForm } from "@/container/forms/settings/security-form";
 
 const tabs = [
   { value: "account", label: "Account" },
@@ -178,7 +179,7 @@ const SettingsPage = () => {
           </Card>
         </TabsContent>
 
-        <TabsContent value="security" className="mt-6">
+        <TabsContent value="security" className="mt-6 space-y-6">
           <Card>
             <CardHeader>
               <CardTitle>Security</CardTitle>
@@ -200,6 +201,19 @@ const SettingsPage = () => {
                 </div>
               </div>
               <Button>Update Password</Button>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Security Settings</CardTitle>
+              <CardDescription>
+                Control two-factor authentication, login alerts, delivery PINs
+                and access restrictions
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <SecurityForm />
             </CardContent>
           </Card>
         </TabsContent>
