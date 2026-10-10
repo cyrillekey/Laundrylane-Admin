@@ -4098,58 +4098,6 @@ export type PostOrderByIdPackingSlipResponses = {
 
 export type PostOrderByIdPackingSlipResponse = PostOrderByIdPackingSlipResponses[keyof PostOrderByIdPackingSlipResponses];
 
-export type PostOrderByIdPayData = {
-    body: {
-        paymentMethodId?: number;
-        paymentType: 'MOBILE' | 'CARD' | 'CASH' | 'OFFLINE';
-        phone?: string;
-        cardId?: string;
-    };
-    path: {
-        id: number;
-    };
-    query?: never;
-    url: '/order/{id}/pay';
-};
-
-export type PostOrderByIdPayErrors = {
-    /**
-     * Default Response
-     */
-    default: {
-        id: number;
-        success: boolean;
-        message: string;
-        status: 'PENDING' | 'FAILED' | 'SUCCESSFULL' | 'CANCELLED';
-        paystack?: {
-            accessToken?: string;
-            publicKey?: string;
-            accessUrl?: string;
-        } | null;
-    };
-};
-
-export type PostOrderByIdPayError = PostOrderByIdPayErrors[keyof PostOrderByIdPayErrors];
-
-export type PostOrderByIdPayResponses = {
-    /**
-     * Default Response
-     */
-    200: {
-        id: number;
-        success: boolean;
-        message: string;
-        status: 'PENDING' | 'FAILED' | 'SUCCESSFULL' | 'CANCELLED';
-        paystack?: {
-            accessToken?: string;
-            publicKey?: string;
-            accessUrl?: string;
-        } | null;
-    };
-};
-
-export type PostOrderByIdPayResponse = PostOrderByIdPayResponses[keyof PostOrderByIdPayResponses];
-
 export type GetOrganisationData = {
     body?: never;
     path?: never;
@@ -5524,6 +5472,58 @@ export type GetPaymentsTransactionsResponses = {
 };
 
 export type GetPaymentsTransactionsResponse = GetPaymentsTransactionsResponses[keyof GetPaymentsTransactionsResponses];
+
+export type PostPaymentsTransactionsByIdPayData = {
+    body: {
+        paymentMethodId?: number;
+        paymentType: 'MOBILE' | 'CARD' | 'CASH' | 'OFFLINE';
+        phone?: string;
+        cardId?: string;
+    };
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/payments/transactions/{id}/pay';
+};
+
+export type PostPaymentsTransactionsByIdPayErrors = {
+    /**
+     * Default Response
+     */
+    default: {
+        id: number;
+        success: boolean;
+        message: string;
+        status: 'PENDING' | 'FAILED' | 'SUCCESSFULL' | 'CANCELLED';
+        paystack?: {
+            accessToken?: string;
+            publicKey?: string;
+            accessUrl?: string;
+        } | null;
+    };
+};
+
+export type PostPaymentsTransactionsByIdPayError = PostPaymentsTransactionsByIdPayErrors[keyof PostPaymentsTransactionsByIdPayErrors];
+
+export type PostPaymentsTransactionsByIdPayResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        id: number;
+        success: boolean;
+        message: string;
+        status: 'PENDING' | 'FAILED' | 'SUCCESSFULL' | 'CANCELLED';
+        paystack?: {
+            accessToken?: string;
+            publicKey?: string;
+            accessUrl?: string;
+        } | null;
+    };
+};
+
+export type PostPaymentsTransactionsByIdPayResponse = PostPaymentsTransactionsByIdPayResponses[keyof PostPaymentsTransactionsByIdPayResponses];
 
 export type GetStatsSalesData = {
     body?: never;

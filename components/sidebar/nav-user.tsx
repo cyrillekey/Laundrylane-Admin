@@ -36,9 +36,12 @@ import { useQuery } from "@tanstack/react-query";
 import { useSelectedStore } from "@/stores/selected-store";
 import { useOnboardingStep } from "@/stores/onboarding-step";
 import { getNotificationsUnreadCountOptions } from "@/queries/@tanstack/react-query.gen";
+import { NotificationsDrawer } from "@/container/notifications/notifications-drawer";
 import Link from "next/link";
+import { useState } from "react";
 
 export function NavUser() {
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
   const { isMobile } = useSidebar();
   const { resolvedTheme, setTheme } = useTheme();
   const router = useRouter();
@@ -127,7 +130,7 @@ export function NavUser() {
                 {resolvedTheme === "dark" ? <Sun /> : <Moon />}
                 {resolvedTheme === "dark" ? "Light Mode" : "Dark Mode"}
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => setNotificationsOpen(true)}>
                 <Bell />
                 <span className="flex-1">Notifications</span>
                 {unreadCount > 0 && (
@@ -152,6 +155,10 @@ export function NavUser() {
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
+      <NotificationsDrawer
+        open={notificationsOpen}
+        onOpenChange={setNotificationsOpen}
+      />
     </SidebarMenu>
   );
 }
