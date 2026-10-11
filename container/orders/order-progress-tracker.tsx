@@ -1,11 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import {
   ArrowRight,
   Check,
   Clock,
   PackageCheck,
   RefreshCw,
+  Scale,
   ShoppingBag,
   Truck,
   X,
@@ -16,6 +18,19 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogMedia,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { Input } from "@/components/ui/input";
+import { Field, FieldLabel } from "@/components/ui/field";
 import { cn } from "@/lib/utils";
 
 const stepLabels: Record<string, string> = {
@@ -82,6 +97,11 @@ interface OrderProgressTrackerProps {
   history?: Array<string | undefined | null>;
   advancing?: boolean;
   onAdvance?: (nextStatus: OrderStatus) => void;
+  isBulk?: boolean;
+  weighed?: boolean;
+  weight?: number | null;
+  recordingWeight?: boolean;
+  onRecordWeight?: (weight: number) => void | Promise<void>;
 }
 
 export function OrderProgressTracker({
@@ -90,7 +110,14 @@ export function OrderProgressTracker({
   history = [],
   advancing = false,
   onAdvance,
+  isBulk,
+  weighed,
+  weight,
+  recordingWeight = false,
+  onRecordWeight,
 }: OrderProgressTrackerProps) {
+  const [weightOpen, setWeightOpen] = useState(false);
+  const [weightInput, setWeightInput] = useState("");
   const steps = buildSteps(orderType, status);
   const isCancelled = status === "CANCELLED";
   const isCompleted = status === "COMPLETED";
@@ -112,11 +139,33 @@ export function OrderProgressTracker({
       ? steps[currentIndex + 1]
       : null;
 
+  const requiresWeight =
+    isBulk === true &&
+    weighed !== true &&
+    status === "PENDING" &&
+    nextStep === "IN_PROGRESS";
+
+  const weightValue = Number(weightInput);
+  const isWeightValid =
+    weightInput !== "" && !isNaN(weightValue) && weightValue > 0;
+
+  const handleRecordWeight = async () => {
+    if (!isWeightValid || !onRecordWeight) return;
+    try {
+      await onRecordWeight(weightValue);
+      setWeightOpen(false);
+      setWeightInput("");
+    } catch {
+      // Parent mutation surfaces the error via toast; keep dialog open.
+    }
+  };
+
   const CurrentIcon = stepIcons[status] ?? Clock;
 
   return (
-    <Card size="sm">
-      <CardContent className="space-y-4">
+    <>
+      <Card size="sm">
+        <CardContent className="space-y-4">
         <div className="flex items-center gap-3">
           <span
             className={cn(
@@ -220,23 +269,88 @@ export function OrderProgressTracker({
               </span>
             )}
           </div>
-          {nextStep && onAdvance && (
-            <Button
-              size="sm"
-              className="ml-auto"
-              disabled={advancing}
-              onClick={() => onAdvance(nextStep)}
-            >
-              {advancing ? (
-                <Spinner className="size-3.5" />
+          {requiresWeight ? (
+            <div className="ml-auto flex flex-wrap items-center gap-2">
+              <span className="text-[11px] text-amber-700">
+                {weight != null
+                  ? `Recorded: ${weight} kg — re-weigh to start`
+                  : "Bulk order · weight required"}
+              </span>
+              {onRecordWeight ? (
+                <Button size="sm" onClick={() => setWeightOpen(true)}>
+                  <Scale className="size-3.5" />
+                  Record Weight
+                </Button>
               ) : (
-                <ArrowRight className="size-3.5" />
+                <Button size="sm" disabled>
+                  <Scale className="size-3.5" />
+                  Record Weight
+                </Button>
               )}
-              Mark as {stepLabels[nextStep]}
-            </Button>
+            </div>
+          ) : (
+            nextStep &&
+            onAdvance && (
+              <Button
+                size="sm"
+                className="ml-auto"
+                disabled={advancing}
+                onClick={() => onAdvance(nextStep)}
+              >
+                {advancing ? (
+                  <Spinner className="size-3.5" />
+                ) : (
+                  <ArrowRight className="size-3.5" />
+                )}
+                Mark as {stepLabels[nextStep]}
+              </Button>
+            )
           )}
         </div>
       </CardContent>
     </Card>
+    <AlertDialog
+      open={weightOpen}
+      onOpenChange={(open) => {
+        setWeightOpen(open);
+        if (!open) setWeightInput("");
+      }}
+    >
+      <AlertDialogContent size="sm">
+        <AlertDialogHeader>
+          <AlertDialogMedia>
+            <Scale className="text-primary" />
+          </AlertDialogMedia>
+          <AlertDialogTitle>Record Weight</AlertDialogTitle>
+          <AlertDialogDescription>
+            Enter the weighed weight for this bulk order. This is required
+            before moving to In Progress.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <Field>
+          <FieldLabel>Weight (kg)</FieldLabel>
+          <Input
+            type="number"
+            min="0"
+            step="0.1"
+            value={weightInput}
+            onChange={(e) => setWeightInput(e.target.value)}
+            placeholder="e.g. 2.5"
+          />
+        </Field>
+        <AlertDialogFooter>
+          <AlertDialogCancel disabled={recordingWeight} variant="outline">
+            Cancel
+          </AlertDialogCancel>
+          <AlertDialogAction
+            disabled={!isWeightValid || recordingWeight}
+            onClick={handleRecordWeight}
+          >
+            {recordingWeight ? "Saving..." : "Save & Continue"}
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+    </>
   );
 }

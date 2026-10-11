@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { Search } from "lucide-react";
 import { getOrderOptions } from "@/queries/@tanstack/react-query.gen";
@@ -10,7 +11,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { OrdersTable } from "@/container/orders/orders-table";
 import OrdersStatisticsCard from "@/container/orders/orders-stats-card";
 
-const statusTabs = [
+const allStatusTabs = [
   { value: "all", label: "All" },
   { value: "PENDING", label: "Pending" },
   { value: "IN_PROGRESS", label: "In Progress" },
@@ -21,14 +22,49 @@ const statusTabs = [
   { value: "CANCELLED", label: "Cancelled" },
 ] as const;
 
-export default function OrdersPage() {
+const activeStatusTabs = [
+  { value: "all", label: "All" },
+  { value: "PENDING", label: "Pending" },
+  { value: "IN_PROGRESS", label: "In Progress" },
+  { value: "READY_FOR_PICKUP", label: "Ready for Pickup" },
+  { value: "READY_FOR_DELIVERY", label: "Ready for Delivery" },
+  { value: "OUT_FOR_DELIVERY", label: "Out for Delivery" },
+] as const;
+
+const historyStatusTabs = [
+  { value: "all", label: "All" },
+  { value: "COMPLETED", label: "Completed" },
+  { value: "CANCELLED", label: "Cancelled" },
+] as const;
+
+function OrdersPageContent() {
+  const searchParams = useSearchParams();
+  const statusParam = searchParams.get("status");
+  const ongoing =
+    statusParam === "history"
+      ? false
+      : statusParam === "active"
+        ? true
+        : undefined;
+
   const { selectedStoreId } = useSelectedStore();
   const [statusTab, setStatusTab] = useState("all");
   const [search, setSearch] = useState("");
 
+  const statusTabs =
+    statusParam === "history"
+      ? historyStatusTabs
+      : statusParam === "active"
+        ? activeStatusTabs
+        : allStatusTabs;
+
+  useEffect(() => {
+    setStatusTab("all");
+  }, [statusParam]);
+
   const { data } = useQuery({
     ...getOrderOptions({
-      query: { storeId: selectedStoreId ?? undefined },
+      query: { storeId: selectedStoreId ?? undefined, ongoing },
     }),
     // enabled: !!selectedStoreId,
   });
@@ -96,7 +132,31 @@ export default function OrdersPage() {
           </div>
         </div>
       </div>
-      <OrdersTable orders={orders} />
+      <OrdersTable
+        key={statusParam ?? "all"}
+        orders={orders}
+        title={
+          statusParam === "history"
+            ? "Order History"
+            : statusParam === "active"
+              ? "Active Orders"
+              : "All Orders"
+        }
+      />
     </div>
+  );
+}
+
+export default function OrdersPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="p-8 text-sm text-muted-foreground">
+          Loading orders...
+        </div>
+      }
+    >
+      <OrdersPageContent />
+    </Suspense>
   );
 }

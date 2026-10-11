@@ -22,6 +22,7 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 import { OrderTableActions } from "@/container/orders/table-actions";
 import { Pagination } from "@/components/ui/pagination";
 import clsx from "clsx";
@@ -79,6 +80,7 @@ const typeStyles: Record<string, string> = {
 
 interface OrdersTableProps {
   orders: OrderItem[];
+  title?: string;
 }
 
 const columnClass: Record<string, string> = {
@@ -94,7 +96,7 @@ const columnClass: Record<string, string> = {
   actions: "w-12 pr-4",
 };
 
-export function OrdersTable({ orders }: OrdersTableProps) {
+export function OrdersTable({ orders, title = "All Orders" }: OrdersTableProps) {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -126,7 +128,12 @@ export function OrdersTable({ orders }: OrdersTableProps) {
       accessorKey: "id",
       header: "Order ID",
       cell: ({ row }) => (
-        <span className="font-medium">#{row.original.id}</span>
+        <Link
+          href={`/app/orders/${row.original.id}`}
+          className="font-medium text-primary hover:underline"
+        >
+          #{row.original.id}
+        </Link>
       ),
     },
     {
@@ -279,7 +286,7 @@ export function OrdersTable({ orders }: OrdersTableProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg">All Orders</CardTitle>
+        <CardTitle className="text-lg">{title}</CardTitle>
       </CardHeader>
       {selectedCount > 0 && (
         <div className="flex items-center justify-between px-6 py-3 border-b bg-muted/30">

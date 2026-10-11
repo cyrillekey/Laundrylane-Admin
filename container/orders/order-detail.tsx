@@ -31,6 +31,7 @@ import {
   getStoreByIdOptions,
   putOrderByIdStatusMutation,
   putOrderByIdCancelMutation,
+  putOrderByIdWeightMutation,
   postOrderByIdInvoiceMutation,
   postOrderByIdPackingSlipMutation,
 } from "@/queries/@tanstack/react-query.gen";
@@ -223,6 +224,23 @@ export function OrderDetail({ id }: OrderDetailProps) {
     },
   });
 
+  const { mutateAsync: recordWeight, isPending: recordingWeight } = useMutation(
+    {
+      ...putOrderByIdWeightMutation(),
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: getOrderByIdQueryKey({ path: { id } }),
+        });
+        toast.success("Weight recorded");
+      },
+      onError: (error) => {
+        toast.error("Error!", {
+          description: (error as Error)?.message || "Failed to record weight",
+        });
+      },
+    },
+  );
+
   const { mutateAsync: generateInvoice, isPending: generatingInvoice } =
     useMutation({
       ...postOrderByIdInvoiceMutation(),
@@ -280,6 +298,8 @@ export function OrderDetail({ id }: OrderDetailProps) {
 
   const currentStatus = order.orderStatus ?? "PENDING";
   const canCancel = currentStatus === "PENDING";
+  const isBulkOrder = order.productCatalog?.bulk ?? orderCatalog?.bulk ?? false;
+  const catalogPrice = order.productCatalog?.price ?? orderCatalog?.price;
   const scheduleRows = [
     order.pickupDate
       ? {
@@ -382,6 +402,16 @@ export function OrderDetail({ id }: OrderDetailProps) {
               updateStatus({
                 path: { id },
                 body: { status: nextStatus },
+              })
+            }
+            isBulk={order.productCatalog?.bulk ?? orderCatalog?.bulk}
+            weighed={order.weighed}
+            weight={order.weight}
+            recordingWeight={recordingWeight}
+            onRecordWeight={(weight) =>
+              recordWeight({ path: { id }, body: { weight } }).then((resp) => {
+                if (resp.success) toast.success("Weight recorded");
+                else toast.error("Failed to record weight");
               })
             }
           />
@@ -551,6 +581,24 @@ export function OrderDetail({ id }: OrderDetailProps) {
                   </div>
                 ))}
               </div>
+              {isBulkOrder && catalogPrice != null && (
+                <>
+                  <Separator />
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">
+                      Price (per kg)
+                      {catalogName ? ` · ${catalogName}` : ""}
+                    </span>
+                    <span>KES {catalogPrice.toLocaleString()}</span>
+                  </div>
+                  {order.weight != null && (
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Weight</span>
+                      <span>{order.weight} kg</span>
+                    </div>
+                  )}
+                </>
+              )}
               <Separator />
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Delivery Fee</span>
@@ -638,9 +686,7 @@ export function OrderDetail({ id }: OrderDetailProps) {
                               {tx.createdat
                                 ? new Date(tx.createdat).toLocaleDateString()
                                 : "—"}
-                              {tx.transactionId
-                                ? ` · ${tx.transactionId}`
-                                : ""}
+                              {tx.transactionId ? ` · ${tx.transactionId}` : ""}
                             </p>
                           </div>
                         </div>
@@ -669,8 +715,7 @@ export function OrderDetail({ id }: OrderDetailProps) {
                   <div className="flex justify-between font-medium">
                     <span>Balance</span>
                     <span>
-                      KES{" "}
-                      {((order.total ?? 0) - totalPaid).toLocaleString()}
+                      KES {((order.total ?? 0) - totalPaid).toLocaleString()}
                     </span>
                   </div>
                 </>
